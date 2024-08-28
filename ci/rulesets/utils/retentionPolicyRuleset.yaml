@@ -1,0 +1,233 @@
+modelVersion: 2.0
+docker-images:
+  - jfrog: releases-docker.jfrog.io/jfrog/jfrog-cli-v2
+
+properties:
+  - image-registry: armdocker.rnd.ericsson.se
+
+env:
+  - PWD
+  - DOCKER_NETWORK (default=--network host)
+  - HOME
+  - ARTIFACT_DAYS_OLD
+  - HELM_ARTIFACT_DAYS_OLD
+  - SELI_ARTIFACTORY_REPO_USER
+  - SELI_ARTIFACTORY_REPO_PASS
+
+rules:
+
+  search-ci-internal:
+    - task: fetch-image
+      docker-image: jfrog
+      docker-flags:
+        - "--volume ${env.PWD}:${env.PWD}"
+        - "--volume ${env.HOME}:${env.HOME}"
+        - ${env.DOCKER_NETWORK}
+        - "--env HOME=${env.HOME}"
+        - "--env SELI_ARTIFACTORY_REPO_USER=${env.SELI_ARTIFACTORY_REPO_USER}"
+        - "--env SELI_ARTIFACTORY_REPO_PASS=${env.SELI_ARTIFACTORY_REPO_PASS}"
+      cmd:
+      - |-
+        echo '''{
+          "files": [
+            {
+              "aql": {
+                "items.find": {
+                  "repo": "proj-eric-oss-ci-internal-docker-global",
+                  "type": "folder",
+                  "$and": [
+                    { "created": {
+                        "$before": "${env.ARTIFACT_DAYS_OLD}d"
+                      }
+                    }
+                  ],
+                  "$and":[
+                    {
+                    "path": {
+                      "$nmatch": "proj-eric-oss-ci-internal/eric-oss-enm-notification-simulator"
+                      }
+                    },
+                    {
+                    "path": {
+                      "$nmatch": "proj-eric-oss-ci-internal/eric-eo-usermgmt"
+                      }
+                    },
+                    {
+                    "path": {
+                      "$nmatch": "proj-eric-oss-ci-internal/eric-eo-usermgmt-ui"
+                      }
+                    },
+                    {
+                    "$and":
+                      [
+                        { "path": {
+                           "$match": "proj-eric-oss-ci-internal/*"
+                          }
+                        },
+                        { "name": {
+                           "$match": "*"
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                }
+              }
+            }
+          ]
+        }''' > spec.json
+      - cat spec.json
+      - jfrog rt s --url=https://arm.seli.gic.ericsson.se/artifactory --user=${env.SELI_ARTIFACTORY_REPO_USER} --password=${env.SELI_ARTIFACTORY_REPO_PASS} --spec spec.json
+
+  search-dev:
+    - task: fetch-image
+      docker-image: jfrog
+      docker-flags:
+        - "--volume ${env.PWD}:${env.PWD}"
+        - "--volume ${env.HOME}:${env.HOME}"
+        - ${env.DOCKER_NETWORK}
+        - "--env HOME=${env.HOME}"
+        - "--env SELI_ARTIFACTORY_REPO_USER=${env.SELI_ARTIFACTORY_REPO_USER}"
+        - "--env SELI_ARTIFACTORY_REPO_PASS=${env.SELI_ARTIFACTORY_REPO_PASS}"
+      cmd:
+      - |-
+        echo '''{
+          "files": [
+            {
+              "aql": {
+                "items.find": {
+                  "repo": "docker-v2-global-local",
+                  "path": {"$match":"proj-eric-oss-dev/*"},
+                  "type": "folder",
+                  "$and": [
+                    {
+                      "created": {
+                        "$before": "${env.ARTIFACT_DAYS_OLD}d"
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          ]
+        }''' > spec.json
+      - cat spec.json
+      - jfrog rt s --url=https://arm.seli.gic.ericsson.se/artifactory --user=${env.SELI_ARTIFACTORY_REPO_USER} --password=${env.SELI_ARTIFACTORY_REPO_PASS} --spec spec.json
+
+  search-ci-internal-helm:
+    - task: fetch-image
+      docker-image: jfrog
+      docker-flags:
+        - "--volume ${env.PWD}:${env.PWD}"
+        - "--volume ${env.HOME}:${env.HOME}"
+        - ${env.DOCKER_NETWORK}
+        - "--env HOME=${env.HOME}"
+        - "--env SELI_ARTIFACTORY_REPO_USER=${env.SELI_ARTIFACTORY_REPO_USER}"
+        - "--env SELI_ARTIFACTORY_REPO_PASS=${env.SELI_ARTIFACTORY_REPO_PASS}"
+      cmd:
+      - |-
+        echo '''{
+          "files":[
+            {
+              "aql":{
+                "items.find":{
+                  "repo":"proj-eric-oss-ci-internal-helm-local",
+                  "type":"file",
+                  "created":{
+                    "$before":"${env.HELM_ARTIFACT_DAYS_OLD}d"
+                  }
+                }
+              }
+            }
+          ]
+        }''' > spec.json
+      - cat spec.json
+      #- jfrog rt s --url=https://arm.seli.gic.ericsson.se/artifactory --user=${env.SELI_ARTIFACTORY_REPO_USER} --password=${env.SELI_ARTIFACTORY_REPO_PASS} --spec spec.json
+
+  delete:
+    - task: fetch-image
+      docker-image: jfrog
+      docker-flags:
+        - "--volume ${env.PWD}:${env.PWD}"
+        - "--volume ${env.HOME}:${env.HOME}"
+        - ${env.DOCKER_NETWORK}
+        - "--env HOME=${env.HOME}"
+        - "--env SELI_ARTIFACTORY_REPO_USER=${env.SELI_ARTIFACTORY_REPO_USER}"
+        - "--env SELI_ARTIFACTORY_REPO_PASS=${env.SELI_ARTIFACTORY_REPO_PASS}"
+      cmd: jfrog rt del --url=https://arm.seli.gic.ericsson.se/artifactory --user=${env.SELI_ARTIFACTORY_REPO_USER} --password=${env.SELI_ARTIFACTORY_REPO_PASS} --spec spec.json
+
+  search-ci-internal-build-artifacts:
+    - task: fetch-image
+      docker-image: jfrog
+      docker-flags:
+        - "--volume ${env.PWD}:${env.PWD}"
+        - "--volume ${env.HOME}:${env.HOME}"
+        - ${env.DOCKER_NETWORK}
+        - "--env HOME=${env.HOME}"
+        - "--env SELI_ARTIFACTORY_REPO_USER=${env.SELI_ARTIFACTORY_REPO_USER}"
+        - "--env SELI_ARTIFACTORY_REPO_PASS=${env.SELI_ARTIFACTORY_REPO_PASS}"
+      cmd:
+      - |-
+        echo '''{
+          "files": [
+            {
+              "aql": {
+                "items.find": {
+                  "repo": "proj-eric-oss-ci-internal-build-artifacts-generic-local",
+                  "path": {"$match":"*PreCodeReview*"},
+                  "type": "folder",
+                  "$and": [
+                    {
+                      "created": {
+                        "$before": "10d"
+                      }
+                    }
+                  ]
+                }
+              },
+              "sortBy": ["modified"],
+              "sortOrder": "desc",
+              "offset": 11
+            }
+          ]
+        }''' > spec.json
+      - cat spec.json
+      - jfrog rt s --url=https://arm.seli.gic.ericsson.se/artifactory --user=${env.SELI_ARTIFACTORY_REPO_USER} --password=${env.SELI_ARTIFACTORY_REPO_PASS} --spec spec.json
+
+  search-oss-drop-build-artifacts:
+    - task: fetch-image
+      docker-image: jfrog
+      docker-flags:
+        - "--volume ${env.PWD}:${env.PWD}"
+        - "--volume ${env.HOME}:${env.HOME}"
+        - ${env.DOCKER_NETWORK}
+        - "--env HOME=${env.HOME}"
+        - "--env SELI_ARTIFACTORY_REPO_USER=${env.SELI_ARTIFACTORY_REPO_USER}"
+        - "--env SELI_ARTIFACTORY_REPO_PASS=${env.SELI_ARTIFACTORY_REPO_PASS}"
+      cmd:
+      - |-
+        echo '''{
+          "files": [
+            {
+              "aql": {
+                "items.find": {
+                  "repo": "proj-eric-oss-drop-build-artifacts-generic-local",
+                  "path": {"$match":"*Publish*"},
+                  "type": "folder",
+                  "$and": [
+                    {
+                      "created": {
+                        "$before": "60d"
+                      }
+                    }
+                  ]
+                }
+              },
+              "sortBy": ["modified"],
+              "sortOrder": "desc",
+              "offset": 31
+            }
+          ]
+        }''' > spec.json
+      - cat spec.json
+      - jfrog rt s --url=https://arm.seli.gic.ericsson.se/artifactory --user=${env.SELI_ARTIFACTORY_REPO_USER} --password=${env.SELI_ARTIFACTORY_REPO_PASS} --spec spec.json

@@ -1,0 +1,685 @@
+jenkins:
+  agentProtocols:
+  - "JNLP4-connect"
+  - "Ping"
+  authorizationStrategy:
+    globalMatrix:
+      permissions:
+      - "Job/Build:authenticated"
+      - "Job/Cancel:authenticated"
+      - "Job/Discover:anonymous"
+      - "Job/ExtendedRead:authenticated"
+      - "Job/Read:authenticated"
+      - "Job/Workspace:authenticated"
+      - "Lockable Resources/View:authenticated"
+      - "Overall/Administer:EIS_GLOBAL_EIFFEL_OPS"
+      - "Overall/Administer:eiffelop5"
+      - "Overall/Administer:idm-3f2g4f4fc469"
+      - "Overall/Read:authenticated"
+      - "USER:Agent/Build:ejgemro"
+      - "USER:Agent/Build:ekiycon"
+      - "USER:Agent/Build:ezwhewi"
+      - "USER:Agent/Configure:ejgemro"
+      - "USER:Agent/Configure:ekiycon"
+      - "USER:Agent/Configure:ezwhewi"
+      - "USER:Agent/Connect:ejgemro"
+      - "USER:Agent/Connect:ekiycon"
+      - "USER:Agent/Connect:ezwhewi"
+      - "USER:Agent/Create:ejgemro"
+      - "USER:Agent/Create:ekiycon"
+      - "USER:Agent/Create:ezwhewi"
+      - "USER:Agent/Delete:ejgemro"
+      - "USER:Agent/Delete:ekiycon"
+      - "USER:Agent/Delete:ezwhewi"
+      - "USER:Agent/Disconnect:ejgemro"
+      - "USER:Agent/Disconnect:ekiycon"
+      - "USER:Agent/Disconnect:ezwhewi"
+      - "USER:Agent/ExtendedRead:ejgemro"
+      - "USER:Agent/ExtendedRead:ekiycon"
+      - "USER:Agent/ExtendedRead:ezwhewi"
+      - "USER:Build Failure Analyzer/ViewCauses:ejgemro"
+      - "USER:Build Failure Analyzer/ViewCauses:ekiycon"
+      - "USER:Build Failure Analyzer/ViewCauses:ezwhewi"
+      - "USER:Credentials/Create:ejgemro"
+      - "USER:Credentials/Create:ekiycon"
+      - "USER:Credentials/Create:ezwhewi"
+      - "USER:Credentials/Delete:ejgemro"
+      - "USER:Credentials/Delete:ekiycon"
+      - "USER:Credentials/Delete:ezwhewi"
+      - "USER:Credentials/ManageDomains:ejgemro"
+      - "USER:Credentials/ManageDomains:ekiycon"
+      - "USER:Credentials/ManageDomains:ezwhewi"
+      - "USER:Credentials/Update:ejgemro"
+      - "USER:Credentials/Update:ekiycon"
+      - "USER:Credentials/Update:ezwhewi"
+      - "USER:Credentials/View:ejgemro"
+      - "USER:Credentials/View:ekiycon"
+      - "USER:Credentials/View:ezwhewi"
+      - "USER:Gerrit/ManualTrigger:ejgemro"
+      - "USER:Gerrit/ManualTrigger:ekiycon"
+      - "USER:Gerrit/ManualTrigger:ezwhewi"
+      - "USER:Gerrit/Retrigger:ejgemro"
+      - "USER:Gerrit/Retrigger:ekiycon"
+      - "USER:Gerrit/Retrigger:ezwhewi"
+      - "USER:Job Config History/DeleteEntry:ejgemro"
+      - "USER:Job Config History/DeleteEntry:ekiycon"
+      - "USER:Job Config History/DeleteEntry:ezwhewi"
+      - "USER:Job/Build:ejgemro"
+      - "USER:Job/Build:ekiycon"
+      - "USER:Job/Build:ezwhewi"
+      - "USER:Job/Cancel:ejgemro"
+      - "USER:Job/Cancel:ekiycon"
+      - "USER:Job/Cancel:ezwhewi"
+      - "USER:Job/Configure:ejgemro"
+      - "USER:Job/Configure:ekiycon"
+      - "USER:Job/Configure:ezwhewi"
+      - "USER:Job/Create:ejgemro"
+      - "USER:Job/Create:ekiycon"
+      - "USER:Job/Create:ezwhewi"
+      - "USER:Job/Delete:ejgemro"
+      - "USER:Job/Delete:ekiycon"
+      - "USER:Job/Delete:ezwhewi"
+      - "USER:Job/Discover:ejgemro"
+      - "USER:Job/Discover:ekiycon"
+      - "USER:Job/Discover:ezwhewi"
+      - "USER:Job/ExtendedRead:ejgemro"
+      - "USER:Job/ExtendedRead:ekiycon"
+      - "USER:Job/ExtendedRead:ezwhewi"
+      - "USER:Job/Move:ejgemro"
+      - "USER:Job/Move:ekiycon"
+      - "USER:Job/Move:ezwhewi"
+      - "USER:Job/Read:ejgemro"
+      - "USER:Job/Read:ekiycon"
+      - "USER:Job/Read:ezwhewi"
+      - "USER:Job/Workspace:ejgemro"
+      - "USER:Job/Workspace:ekiycon"
+      - "USER:Job/Workspace:ezwhewi"
+      - "USER:Lockable Resources/Reserve:ejgemro"
+      - "USER:Lockable Resources/Reserve:ekiycon"
+      - "USER:Lockable Resources/Reserve:ezwhewi"
+      - "USER:Lockable Resources/Steal:ejgemro"
+      - "USER:Lockable Resources/Steal:ekiycon"
+      - "USER:Lockable Resources/Steal:ezwhewi"
+      - "USER:Lockable Resources/Unlock:ejgemro"
+      - "USER:Lockable Resources/Unlock:ekiycon"
+      - "USER:Lockable Resources/Unlock:ezwhewi"
+      - "USER:Lockable Resources/View:ejgemro"
+      - "USER:Lockable Resources/View:ekiycon"
+      - "USER:Lockable Resources/View:ezwhewi"
+      - "USER:Metrics/HealthCheck:ejgemro"
+      - "USER:Metrics/HealthCheck:ekiycon"
+      - "USER:Metrics/HealthCheck:ezwhewi"
+      - "USER:Metrics/ThreadDump:ejgemro"
+      - "USER:Metrics/ThreadDump:ekiycon"
+      - "USER:Metrics/ThreadDump:ezwhewi"
+      - "USER:Metrics/View:ejgemro"
+      - "USER:Metrics/View:ekiycon"
+      - "USER:Metrics/View:ezwhewi"
+      - "USER:Overall/Read:ejgemro"
+      - "USER:Overall/Read:ekiycon"
+      - "USER:Overall/Read:ezwhewi"
+      - "USER:Overall/SystemRead:ejgemro"
+      - "USER:Overall/SystemRead:ekiycon"
+      - "USER:Overall/SystemRead:ezwhewi"
+      - "USER:Run/Delete:ejgemro"
+      - "USER:Run/Delete:ekiycon"
+      - "USER:Run/Delete:ezwhewi"
+      - "USER:Run/Replay:ejgemro"
+      - "USER:Run/Replay:ekiycon"
+      - "USER:Run/Replay:ezwhewi"
+      - "USER:Run/Update:ejgemro"
+      - "USER:Run/Update:ekiycon"
+      - "USER:Run/Update:ezwhewi"
+      - "USER:SCM/Tag:ejgemro"
+      - "USER:SCM/Tag:ekiycon"
+      - "USER:SCM/Tag:ezwhewi"
+      - "USER:View/Configure:ejgemro"
+      - "USER:View/Configure:ekiycon"
+      - "USER:View/Configure:ezwhewi"
+      - "USER:View/Create:ejgemro"
+      - "USER:View/Create:ekiycon"
+      - "USER:View/Create:ezwhewi"
+      - "USER:View/Delete:ejgemro"
+      - "USER:View/Delete:ekiycon"
+      - "USER:View/Delete:ezwhewi"
+      - "USER:View/Read:ejgemro"
+      - "USER:View/Read:ekiycon"
+      - "USER:View/Read:ezwhewi"
+  crumbIssuer:
+    strict:
+      checkSessionMatch: false
+  disableRememberMe: false
+  globalNodeProperties:
+  - envVars:
+      env:
+      - key: "DEV_DATABASE_PASSWORD"
+        value: "k6"
+      - key: "DEV_DATABASE_PORT"
+        value: "30001"
+      - key: "GERRIT_CENTRAL"
+        value: "ssh://gerrit.ericsson.se:29418"
+      - key: "GERRIT_MIRROR"
+        value: "ssh://gerritmirror-ha.lmera.ericsson.se:29418"
+      - key: "GIT_HOME"
+        value: "/proj/ossmsci/tools/git/2.30.0/bin/git"
+      - key: "M2_HOME"
+        value: "/proj/ossmsci/tools/maven/3.5.3"
+      - key: "STAGING_DATABASE_PASSWORD"
+        value: "K6_pwd@eet!"
+      - key: "STAGING_DATABASE_PORT"
+        value: "30003"
+  labelAtoms:
+  - name: "GridEngine"
+  - name: "RHEL7_GE_Docker_1"
+  - name: "RHEL7_GE_Docker_2"
+  - name: "master"
+  markupFormatter:
+    rawHtml:
+      disableSyntaxHighlighting: false
+  mode: NORMAL
+  myViewsTabBar: "standard"
+  nodes:
+  - permanent:
+      labelString: "GridEngine"
+      launcher:
+        command:
+          command: "/proj/ossmsci/GEagents/e2cgejenkins-master.sh --fetch_slave_jar_using_ssl\
+            \ -q ossmsci.q -l h=seliius26934.seli.gic.ericsson.se"
+      name: "RHEL7_GE_Docker_1"
+      nodeDescription: "Docker Agent - seliius26934.seli.gic.ericsson.se"
+      nodeProperties:
+      - envVars:
+          env:
+          - key: "DOCKER_CERT_PATH"
+            value: "/home/ossadmin/.twic/certs/TSA_jenkins_cert/"
+          - key: "DOCKER_HOST"
+            value: "tcp://seliius26934.seli.gic.ericsson.se:2376"
+          - key: "DOCKER_TLS_VERIFY"
+            value: "1"
+          - key: "PATH"
+            value: "/proj/ossmsci/tools/git/2.30.0/bin:/app/vbuild/RHEL7-x86_64/helm/3.8.0/bin:/app/vbuild/RHEL7-x86_64/kubectl/1.21.0/bin:$PATH"
+      numExecutors: 3
+      remoteFS: "/proj/eiffel216_config_fem8s11/agents/RHEL7_GE_Docker_1"
+      retentionStrategy: "always"
+  - permanent:
+      labelString: "GridEngine"
+      launcher:
+        command:
+          command: "/proj/ossmsci/GEagents/e2cgejenkins-master.sh --fetch_slave_jar_using_ssl\
+            \ -q ossmsci.q -l h=seliius27025.seli.gic.ericsson.se"
+      name: "RHEL7_GE_Docker_2"
+      nodeDescription: "Docker Agent - seliius27025.seli.gic.ericsson.se"
+      nodeProperties:
+      - envVars:
+          env:
+          - key: "DOCKER_CERT_PATH"
+            value: "/home/ossadmin/.twic/certs/TSA_jenkins_cert/"
+          - key: "DOCKER_HOST"
+            value: "tcp://seliius27025.seli.gic.ericsson.se:2376"
+          - key: "DOCKER_TLS_VERIFY"
+            value: "1"
+          - key: "PATH"
+            value: "/proj/ossmsci/tools/git/2.30.0/bin:/app/vbuild/RHEL7-x86_64/helm/3.8.0/bin:/app/vbuild/RHEL7-x86_64/kubectl/1.21.0/bin:$PATH"
+      numExecutors: 3
+      remoteFS: "/proj/eiffel216_config_fem8s11/agents/RHEL7_GE_Docker_2"
+      retentionStrategy: "always"
+  numExecutors: 0
+  primaryView:
+    all:
+      name: "all"
+  projectNamingStrategy: "standard"
+  proxy:
+    name: "www-proxy.ericsson.se"
+    noProxyHost: "localhost, 127.0.0.1, *.ericsson.se"
+    port: 8080
+    secretPassword: "{AQAAABAAAAAQj2mLYbcWHR3uA1Casa1Cm+r0JK/4UKnR0WkrUICAcCA=}"
+  quietPeriod: 5
+  remotingSecurity:
+    enabled: true
+  scmCheckoutRetryCount: 0
+  slaveAgentPort: 0
+  systemMessage: "<h2 style=\"color:#296487; text-align: center;\">fem8s11 - Jenkins\
+    \ Server for EIAP, managed by The Hummingbirds</h2>\r\n<ul>\r\n<li>Hummingbirds\
+    \ <a href=\"https://eteamspace.internal.ericsson.com/x/dhRke\"\
+    \ target=\"_blank\">Confluence</a></li>\r\n<li>Need Support? Please refer to the\
+    \ <a href=\"https://eteamspace.internal.ericsson.com/x/6RZke\"\
+    >Common Pipeline Issues</a> and the <a href=\"https://eteamspace.internal.ericsson.com/x/fhRke\"\
+    >Support WoW</a></li>\r\n<li> Please find the page for Tools and Dashboards for\
+    \ Aeonic: <a href=\"https://eteamspace.internal.ericsson.com/x/aBRke\"\
+    >Tools and Dashboards for Aeonic</a></li>\r\n</ul>\r\n"
+  updateCenter:
+    sites:
+    - id: "default"
+      url: "https://updates.jenkins-ci.org/update-center.json"
+  views:
+  - list:
+      columns:
+      - "status"
+      - "weather"
+      - "jobName"
+      - "lastSuccess"
+      - "lastFailure"
+      - "lastDuration"
+      - "buildButton"
+      - "favoriteColumn"
+      jobNames:
+      - "database-backup"
+      - "database-restore"
+      name: "Database Management"
+  - list:
+      columns:
+      - "status"
+      - "weather"
+      - "jobName"
+      - "lastSuccess"
+      - "lastFailure"
+      - "lastDuration"
+      - "buildButton"
+      - "favoriteColumn"
+      jobNames:
+      - "k6-report-tool-admin-deploy"
+      - "k6-report-tool-database-deploy"
+      - "k6-report-tool-logging-deploy"
+      - "k6-report-tool-monitoring-deploy"
+      - "k6-report-tool-service-deploy"
+      - "k6-report-tool-ui-deploy"
+      name: "K6 Stack Deployment"
+  - list:
+      columns:
+      - "status"
+      - "weather"
+      - "jobName"
+      - "lastSuccess"
+      - "lastFailure"
+      - "lastDuration"
+      - "buildButton"
+      - "favoriteColumn"
+      jobNames:
+      - "k6-report-tool-testware-run"
+      name: "Testware"
+  - all:
+      name: "all"
+  viewsTabBar: "countJobs"
+globalCredentialsConfiguration:
+  configuration:
+    providerFilter: "none"
+    typeFilter: "none"
+security:
+  apiToken:
+    creationOfLegacyTokenEnabled: false
+    tokenGenerationOnCreationEnabled: false
+    usageStatisticsEnabled: true
+  envInject:
+    enableLoadingFromMaster: false
+    enablePermissions: false
+    hideInjectedVars: false
+  gitHooks:
+    allowedOnAgents: false
+    allowedOnController: false
+  gitHostKeyVerificationConfiguration:
+    sshHostKeyVerificationStrategy: "knownHostsFileVerificationStrategy"
+  globalJobDslSecurityConfiguration:
+    useScriptSecurity: false
+  sSHD:
+    port: 53801
+  scriptApproval:
+    approvedSignatures:
+    approvedScriptHashes:
+    - "SHA512:37b56c4a2e143f6d7940af8aee48012adf0d32727e3eacd9bc4d88b52e1e680dea8dd997f184651b61af3a86d57b518f2d9423f20f5c01d6db00b0725e10748b"
+    - "SHA512:a2d24e7d78ea4f9fb7e34d3beb7023e96b15426a80a08d072d7b52a1d58ebd767811b598e41e5200a254e98c56fa07e55e3444a5571b1e9525896b096d9c9612"
+    approvedSignatures:
+    - "field net.bull.javamelody.internal.model.JavaInformations os"
+    - "field net.bull.javamelody.internal.model.JavaInformations pid"
+    - "method com.sun.management.OperatingSystemMXBean getTotalPhysicalMemorySize"
+    - "method com.sun.management.OperatingSystemMXBean getTotalSwapSpaceSize"
+    - "method hudson.model.Item getFullName"
+    - "method hudson.model.ItemGroup getAllItems java.lang.Class"
+    - "method hudson.model.Job isBuildable"
+    - "method java.net.HttpURLConnection getResponseCode"
+    - "method java.net.HttpURLConnection setRequestMethod java.lang.String"
+    - "method java.net.URL openConnection"
+    - "method java.net.URLConnection getInputStream"
+    - "method jenkins.model.ParameterizedJobMixIn$ParameterizedJob isDisabled"
+    - "method net.bull.javamelody.internal.model.JavaInformations getActiveThreadCount"
+    - "method net.bull.javamelody.internal.model.JavaInformations getAvailableProcessors"
+    - "method net.bull.javamelody.internal.model.JavaInformations getContextPath"
+    - "method net.bull.javamelody.internal.model.JavaInformations getHost"
+    - "method net.bull.javamelody.internal.model.JavaInformations getJavaVersion"
+    - "method net.bull.javamelody.internal.model.JavaInformations getJvmVersion"
+    - "method net.bull.javamelody.internal.model.JavaInformations getMemoryInformations"
+    - "method net.bull.javamelody.internal.model.JavaInformations getServerInfo"
+    - "method net.bull.javamelody.internal.model.JavaInformations getSessionCount"
+    - "method net.bull.javamelody.internal.model.JavaInformations getStartDate"
+    - "method net.bull.javamelody.internal.model.JavaInformations getSystemCpuLoad"
+    - "method net.bull.javamelody.internal.model.JavaInformations getSystemLoadAverage"
+    - "method net.bull.javamelody.internal.model.JavaInformations getThreadCount"
+    - "method net.bull.javamelody.internal.model.JavaInformations getThreadInformationsList"
+    - "method net.bull.javamelody.internal.model.MemoryInformations getMaxMemory"
+    - "method net.bull.javamelody.internal.model.MemoryInformations getMaxPermGen"
+    - "method net.bull.javamelody.internal.model.MemoryInformations getUsedMemory"
+    - "method net.bull.javamelody.internal.model.MemoryInformations getUsedNonHeapMemory"
+    - "method net.bull.javamelody.internal.model.MemoryInformations getUsedPermGen"
+    - "method net.bull.javamelody.internal.model.MemoryInformations getUsedPhysicalMemorySize"
+    - "method net.bull.javamelody.internal.model.MemoryInformations getUsedSwapSpaceSize"
+    - "method net.bull.javamelody.internal.model.ThreadInformations isDeadlocked"
+    - "method org.jvnet.hudson.plugins.groovypostbuild.GroovyPostbuildRecorder$BadgeManager\
+      \ createSummary java.lang.String"
+    - "new java.util.ArrayList"
+    - "new net.bull.javamelody.internal.model.JavaInformations javax.servlet.ServletContext\
+      \ boolean"
+    - "new net.bull.javamelody.internal.model.MemoryInformations"
+    - "staticMethod java.lang.Double parseDouble java.lang.String"
+    - "staticMethod java.lang.management.ManagementFactory getOperatingSystemMXBean"
+    - "staticMethod jenkins.model.Jenkins getInstance"
+    - "staticMethod net.bull.javamelody.internal.common.Parameters getServletContext"
+    - "staticMethod org.codehaus.groovy.runtime.DefaultGroovyMethods getText java.io.InputStream"
+unclassified:
+  ansiColorBuildWrapper:
+    colorMaps:
+    - black: "#000000"
+      blackB: "#4C4C4C"
+      blue: "#1E90FF"
+      blueB: "#4682B4"
+      cyan: "#00CDCD"
+      cyanB: "#00FFFF"
+      green: "#00CD00"
+      greenB: "#00FF00"
+      magenta: "#CD00CD"
+      magentaB: "#FF00FF"
+      name: "xterm"
+      red: "#CD0000"
+      redB: "#FF0000"
+      white: "#E5E5E5"
+      whiteB: "#FFFFFF"
+      yellow: "#CDCD00"
+      yellowB: "#FFFF00"
+    - black: "#000000"
+      blackB: "#555555"
+      blue: "#0000AA"
+      blueB: "#5555FF"
+      cyan: "#00AAAA"
+      cyanB: "#55FFFF"
+      defaultBackground: 0
+      defaultForeground: 7
+      green: "#00AA00"
+      greenB: "#55FF55"
+      magenta: "#AA00AA"
+      magentaB: "#FF55FF"
+      name: "vga"
+      red: "#AA0000"
+      redB: "#FF5555"
+      white: "#AAAAAA"
+      whiteB: "#FFFFFF"
+      yellow: "#AA5500"
+      yellowB: "#FFFF55"
+    - black: "black"
+      blackB: "black"
+      blue: "blue"
+      blueB: "blue"
+      cyan: "cyan"
+      cyanB: "cyan"
+      green: "green"
+      greenB: "green"
+      magenta: "magenta"
+      magentaB: "magenta"
+      name: "css"
+      red: "red"
+      redB: "red"
+      white: "white"
+      whiteB: "white"
+      yellow: "yellow"
+      yellowB: "yellow"
+    - black: "#2E3436"
+      blackB: "#2E3436"
+      blue: "#3465A4"
+      blueB: "#3465A4"
+      cyan: "#06989A"
+      cyanB: "#06989A"
+      defaultBackground: 0
+      defaultForeground: 7
+      green: "#4E9A06"
+      greenB: "#4E9A06"
+      magenta: "#75507B"
+      magentaB: "#75507B"
+      name: "gnome-terminal"
+      red: "#CC0000"
+      redB: "#CC0000"
+      white: "#D3D7CF"
+      whiteB: "#D3D7CF"
+      yellow: "#C4A000"
+      yellowB: "#C4A000"
+  artifactoryBuilder:
+    jfrogPipelinesServer:
+      bypassProxy: false
+      connectionRetries: 3
+      credentialsConfig:
+        ignoreCredentialPluginDisabled: true
+        overridingCredentials: false
+        password: "{AQAAABAAAAAQ+ea8wEbTYwONfuLhDykHJO7gPLyBR2j8xZ8ccHPCkk8=}"
+        username: "****"
+      timeout: 300
+    useCredentialsPlugin: false
+  badgePlugin:
+    disableFormatHTML: false
+  bitbucketEndpointConfiguration:
+    endpoints:
+    - bitbucketCloudEndpoint:
+        enableCache: false
+        manageHooks: false
+        repositoriesCacheDuration: 0
+        teamCacheDuration: 0
+  buildDiscarders:
+    configuredBuildDiscarders:
+    - "jobBuildDiscarder"
+    - simpleBuildDiscarder:
+        discarder:
+          logRotator:
+            numToKeepStr: "15"
+  buildFailureAnalyzer:
+    doNotAnalyzeAbortedJob: false
+    gerritTriggerEnabled: true
+    globalEnabled: true
+    graphsEnabled: false
+    knowledgeBase: "localFile"
+    maxLogSize: 0
+    metricSquashingEnabled: false
+    noCausesEnabled: true
+    noCausesMessage: "No problems were identified. If you know why this problem occurred,\
+      \ please add a suitable Cause for it."
+    nrOfScanThreads: 3
+    slackFailureCategories: "ALL"
+    slackNotifEnabled: false
+    testResultParsingEnabled: false
+  casCGlobalConfig:
+    configurationPath: "/proj/eiffel216_config_fem8s11/eiffel_home/fem8s11_JCasC.yaml"
+  defaultFolderConfiguration:
+    healthMetrics:
+    - worstChildHealthMetric:
+        recursive: true
+  enrichedSummaryConfig:
+    enrichedSummaryEnabled: false
+    httpClientDelayBetweenRetriesInSeconds: 1
+    httpClientMaxRetries: 3
+    httpClientTimeoutInSeconds: 1
+  fingerprints:
+    fingerprintCleanupDisabled: false
+    storage: "file"
+  gerrit-trigger:
+    servers:
+    - config:
+        buildCurrentPatchesOnly:
+          abortManualPatchsets: false
+          abortNewPatchsets: false
+          abortSameTopic: false
+          enabled: false
+        categories:
+        - verdictDescription: "Code Review"
+          verdictValue: "Code-Review"
+        - verdictDescription: "Verified"
+          verdictValue: "Verified"
+        gerritFrontEndUrl: "https://gerrit.ericsson.se/"
+        gerritHostName: "gerrit.ericsson.se"
+        gerritHttpPassword: "****"
+        gerritHttpUserName: "ossadmin"
+        gerritUserName: "ossadmin"
+        replicationConfig:
+          enableReplication: true
+          replicas:
+          - host: "gerritmirror-ha.lmera.ericsson.se"
+            id: "a389971c-305c-4270-a737-78dfa5c951f3"
+            name: "Linköping HUB"
+            timeoutInSeconds: 300
+        restCodeReview: true
+        restVerified: true
+        useRestApi: true
+      name: "Gerrit_Central"
+      noConnectionOnStartup: false
+  gitHubConfiguration:
+    apiRateLimitChecker: ThrottleForNormalize
+  gitHubPluginConfig:
+    hookUrl: "https://fem8s11-eiffel216.eiffel.gic.ericsson.se:8443/jenkins/github-webhook/"
+  gitSCM:
+    addGitTagAction: false
+    allowSecondFetch: false
+    createAccountBasedOnEmail: false
+    disableGitToolChooser: false
+    hideCredentials: false
+    showEntireCommitSummaryInChanges: false
+    useExistingAccountWithSameEmail: false
+  globalConfigFiles:
+    configs:
+    - custom:
+        comment: "KaaS cluster (kroto017)"
+        content: |-
+          apiVersion: v1
+          clusters:
+          - cluster:
+              certificate-authority-data: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUZ5RENDQTdDZ0F3SUJBZ0lSQU9uSXdMZ1V0dnhCaDgyTTFnMVdMRWN3RFFZSktvWklodmNOQVFFTEJRQXcKYlRFTE1Ba0dBMVVFQmhNQ1UwVXhFakFRQmdOVkJBZ01DVk4wYjJOcmFHOXNiVEVTTUJBR0ExVUVCd3dKVTNSdgpZMnRvYjJ4dE1SRXdEd1lEVlFRS0RBaEZjbWxqYzNOdmJqRU5NQXNHQTFVRUN3d0VRMDVFUlRFVU1CSUdBMVVFCkF3d0xSVmRUSUZKdmIzUWdRMEV3SGhjTk1qQXdOVEUzTWpBek9UQTRXaGNOTkRVd05URXhNakF6T1RBNFdqQnQKTVFzd0NRWURWUVFHRXdKVFJURVNNQkFHQTFVRUNBd0pVM1J2WTJ0b2IyeHRNUkl3RUFZRFZRUUhEQWxUZEc5agphMmh2YkcweEVUQVBCZ05WQkFvTUNFVnlhV056YzI5dU1RMHdDd1lEVlFRTERBUkRUa1JGTVJRd0VnWURWUVFECkRBdEZWMU1nVW05dmRDQkRRVENDQWlJd0RRWUpLb1pJaHZjTkFRRUJCUUFEZ2dJUEFEQ0NBZ29DZ2dJQkFNQ2kKbDluczczYW9Cam9oRzhaSDlZeVhWNWQ4UUw5ZmlGRC96MThCcU9ZTGZtVFBlM01zMHJrcmdkUUJIMUdib1hNQwpJbzJoVFFERi9sMzJXWFlWcXpPU3BvUzhNdkR2MFNaRGFUNW1QeWdQZVozSU5ndmZwNldnZnV2VE9MUG1sWEY5CnRCaXdQSU9iMGh3RkxtOVQrTW5ISW5mbG0wZGJxYXhxT2ZsQ3ltbDBkSCtiQ1l3WmxKa1VXUXI1SThyUUxtN1MKSzBneXFYMHE1VTR5NTF6TnpZRlZmWWZFSGNTbDBnZEN3ekhOaDc0ekl4aktQRmxBbVNNVTRES1hURXBqdDQzTgpZR0tYUk9DWUtkZmlzVWRGQlhVTnhkNzVGMXNwWEVBblZUMlVVWk1ZelhidzRxR2NzUDhpUFVrUXBJUEU5aG16CllJMUpJOUVvaWJnajNOV0hxMGdzRTJIdUdOdDFoeVhpVmhGTytuYkw0L21iY250OUxuT2sra0txZXNlZVNSd08KLzVqTFJITTY4MVptdUwrTXFaSm4zR2FyY2xqNzRWMFVrbFc5ZUU0a3NTeVEzQ1hrN24vWWlBUXpTUWZkV0wwWgpWTHpiTkxEdC93QzVPRXBuUG5DbnhYUXJzVzlQRnlGeDNoWkV1a3FFMENzY0drK1NCL1R6YXNrb1pvTU0xV3JDCndITXEzNUxnN1BJWW9UNTZXaHFJeHFRSzBrNitBbkJORUc0d043ODdVOUlsbW1WdHlzdjFDbkVrMW5oU3A0MjgKSjBnWUZKZDltNUdGU3BIYk44NDE2OVRiZjlXNVBkMVV4andVc2JHMlVvOWkyQWZZYkxrYVZ4OVUvcHhtZmpkVwpYVnpPbjZCQ0liUlFjaVpSeVp2czE0ak1vaElOclBIYVRYOTM0VnJWQWdNQkFBR2pZekJoTUE4R0ExVWRFd0VCCi93UUZNQU1CQWY4d0RnWURWUjBQQVFIL0JBUURBZ0dHTUIwR0ExVWREZ1FXQkJSYmRqU1JLdlJxcW12NG8zM3kKVDk3ay9TQkkvREFmQmdOVkhTTUVHREFXZ0JSYmRqU1JLdlJxcW12NG8zM3lUOTdrL1NCSS9EQU5CZ2txaGtpRwo5dzBCQVFzRkFBT0NBZ0VBb2RHMzFjQUxQRzVOUkZkSVZMc2hOK2EyQzcyQVk4WnNVSEx6OERHOEpqb3ZVQ1VwCjlRL3NOSnB3eVY4WGtiTG91Wjh2WUdFRms3RUFzYWRIdkRDa0dqZ0lPVFI4NnlGdlJxbFkraVZ6Q2xYd0xpMlQKYWFodTQ4QnV0bVhqQlU4WjIxQkNySUF4aTg4Z01aUVQ3dkl0eHN4WG1iU1NmZHhFdDh1ek9ESUxEV0twU2lVagpEUzZmbmNCN1psNUlGWk9tbVhSaERieHEwbFl3RlZxOEQ5RXQ3QTM4UmhHUzQ3SVJXRTZDeFBNdldvSkREYjRKCkxKcmdVU0JEZWUrY0VwMUtQS1BwcUZpVjV1TE5hV2JJK1NaQkZnLzkwbTk5WlAxZWIxd0dhMmE2NjZCN2xnTVAKT2Z1S1llT1IySU9UclptQWJiTXMrOEthV2lHNHFlakFzaHROMDRQcDdEN2djdXJ5VTJlSGZKS0ZHeGhsMkNzbQpYQXFRdmMzM1NtN2xiVDN6VFlZUEphWXR6N1ZZMXNNL29vc1ozdk9JTGloVDZvYnJZeENRWElHeUpIMEFvSDg2CmJrSzNhSE9aWW5qS0dhaEZXb2xmcFdKeXpSaVZ1KytwQVpaVXU2VjJQM2RUakI3TVlOTG1LQmFlZnJRbVhNT1YKdEUxQnVFKy9yalNSNzhuTEc4a3dyVk1xZkxyRHRsK1JxcE9ET0oxdnpONHRxKzM2dTNHMnRJVEdoVTh1SlJPMApieS9QVGxMaFc5TUd4SWwzSTk3a2xZT2dMSXpVdWh4a3ZCZXgvUDVaMk1NaHJxS0N2TW9RZ1ZVclFjWHlYcGF6CjMyVVNKK1dYTzc5Ty83WVExM2lpTnlXQWZQQlBtWXpRR2k3OGVlR1dtWkc2L01ReHliTjJkL1AyMXFBPQotLS0tLUVORCBDRVJUSUZJQ0FURS0tLS0tCi0tLS0tQkVHSU4gQ0VSVElGSUNBVEUtLS0tLQpNSUlFeWpDQ0FyS2dBd0lCQWdJUkFPbkl3TGdVdHZ4Qmg4Mk0xZzFXTEVnd0RRWUpLb1pJaHZjTkFRRUxCUUF3CmJURUxNQWtHQTFVRUJoTUNVMFV4RWpBUUJnTlZCQWdNQ1ZOMGIyTnJhRzlzYlRFU01CQUdBMVVFQnd3SlUzUnYKWTJ0b2IyeHRNUkV3RHdZRFZRUUtEQWhGY21samMzTnZiakVOTUFzR0ExVUVDd3dFUTA1RVJURVVNQklHQTFVRQpBd3dMUlZkVElGSnZiM1FnUTBFd0hoY05NakF3TlRFNE1ETTFNakl6V2hjTk16QXdOVEUyTURNMU1qSXpXakJzCk1Rc3dDUVlEVlFRR0V3SlRSVEVTTUJBR0ExVUVDQXdKVTNSdlkydG9iMnh0TVJJd0VBWURWUVFIREFsVGRHOWoKYTJodmJHMHhFVEFQQmdOVkJBb01DRVZ5YVdOemMyOXVNUTB3Q3dZRFZRUUxEQVJEVGtSRk1STXdFUVlEVlFRRApEQXByZFdKbGNtNWxkR1Z6TUlJQklqQU5CZ2txaGtpRzl3MEJBUUVGQUFPQ0FROEFNSUlCQ2dLQ0FRRUF2NWdhClhaR2hvVSs5MXFNUmp6aXdGWTNFeUZXZEpzbE1Yb1ZWbHdKSEkza09EWFZVcTJUNEhSd3N4cnUzeEVtVkcvQkcKMWpWcGFPR0JlWUMzNEhjeERvNVh3RURIazMvV0QyYmtxTllwUEswU3BBMXk1cUEzS2FGOUxCM05rRUdQU0tCZgphSUVOUVptV3pNN2RuZUtPM1p0V3RGUEZkeWF4WEp2d0kwaHR2cy81eExCM2tMWHZOdkRrRjVRQ0NIdXAxUU5kCmlBb3dmMnlQWmsyN3pmN1JiYysxUDlvZjcwRG5RY2k0T1A1K2g5Qis0cEJNamJ3MVRDQ1N0SE9LUzBEOForL0UKbFR0bUN0ajVTRVhodFJnd2JXQVhaNStyb1lhTnBjRjRVbVJ1TmNSWFlVSzhGOUtnOGFYYi94all6cUQ1c3dRRgp2TFAwZ1hmRUJMdVgycC9GU1FJREFRQUJvMll3WkRBU0JnTlZIUk1CQWY4RUNEQUdBUUgvQWdFQU1BNEdBMVVkCkR3RUIvd1FFQXdJQmhqQWRCZ05WSFE0RUZnUVVBUFgycHV1SXpvT012THhlNWJud1djaUE4dFF3SHdZRFZSMGoKQkJnd0ZvQVVXM1kwa1NyMGFxcHIrS045OGsvZTVQMGdTUHd3RFFZSktvWklodmNOQVFFTEJRQURnZ0lCQUF0cgpHbW1zcldvMFRmNUtPOU9JcEo0dlNLdEZNTUR6VWEvOEVIZHg4WG1TbXZxS2YrajE2TXg0cUFwaUE2ZHR4ODlJCjdSMlkrd2pKWWlMOGV0c2tQVGlLdGNuV0JDNEJzNUpZNTFsblhjenFnbG91cE5hTnNRV0FTOEZySldwU0xMU0kKTkU0anhEY1ZyajBuaG1KeEVUZ3FkSmRPVTByK2FtMXFmeHNKQ0dNa0tMVTgxaE12UHRnWFUrK01oVjVwOXhaQgpLdklLVHlHbnlGWnpUZ3BEWXdxU3doSTRhRmNieG1qcGkwMUtiaHFXZWJNSjVzOFVZZFFZSm4weWxSd2NzMTB5Cjd2MEQvcEhmREVRSzFFVnNhd0haTlZVaW9kRWw1VUFuTzBudWcwWDlzeFJmeGNQRmtOSmMwUk1UMFVJRFlWMnAKMnluM2pCZkZlWVhDazdiZURzVmpyZEw5NkR2aHd3V3UxNmpTZWlNc2lWdUpHYzZWNHRkZEF0VUVxenJFOGZwaApHS2F2eXh2dVJsemFPMnJURkw2ZUdSWkhtaWwrQ04vQ0sraWNRQWF4WWZmWnl6YVUwbUVydEtpUnlDOW93RUFOClAzc0trSS93RGJibmxkeHE5Wnp6Q0plclNFcFdHUi9HVExqR0t4cFV2NGRSR1RtWXVOZjU1ZVU4Zzk5YXdrdnMKTHc3SlFZeng3bVpacnVxclNQS3QrVHZCSkp2M0hMbVlTY09FTlk3VUJvMTliWTl1bFVnSHpGaDFtUVRDaCtmNgpiSUY3RUF5eGtnb2ZVeXVpbWQwVTJHaTZjd2ZPbGdFUFkzWW5oTVdxUExFMlhmbG5Hbk9pN1h1VFFDWFl2bGF1CktUQ28vZVJhcmQ1ZGNlSzZkb3A4NklhRFNpWEZiSVZlTnRPcHI1bnkKLS0tLS1FTkQgQ0VSVElGSUNBVEUtLS0tLQo=
+              server: https://kroto017.k8s.gic.ericsson.se:6443
+            name: kroto017
+          contexts:
+          - context:
+              cluster: kroto017
+              user: cattle
+            name: cattle@kroto017
+          current-context: cattle@kroto017
+          kind: Config
+          preferences: {}
+          users:
+          - name: cattle
+            user:
+              token: eyJhbGciOiJSUzI1NiIsImtpZCI6IjZpZVhQWFVUNXhYaG1qdk5iM09BbWx1VHNaTF9ScGtacXBIaTdjaTI5dUEifQ.eyJpc3MiOiJrdWJlcm5ldGVzL3NlcnZpY2VhY2NvdW50Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9uYW1lc3BhY2UiOiJjYXR0bGUtc3lzdGVtIiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9zZWNyZXQubmFtZSI6ImNhdHRsZS10b2tlbi0yNnFiYiIsImt1YmVybmV0ZXMuaW8vc2VydmljZWFjY291bnQvc2VydmljZS1hY2NvdW50Lm5hbWUiOiJjYXR0bGUiLCJrdWJlcm5ldGVzLmlvL3NlcnZpY2VhY2NvdW50L3NlcnZpY2UtYWNjb3VudC51aWQiOiJiZWEwMjU0Ny03NTU5LTRhYmYtYmZkNi1hZWRiMDQwMGJmMDgiLCJzdWIiOiJzeXN0ZW06c2VydmljZWFjY291bnQ6Y2F0dGxlLXN5c3RlbTpjYXR0bGUifQ.JXSXuMi9E3VO2Gx7VjID7DkEG-1QLDRyNHa9Dr3cZ3ISBx9aK6N1wgIvGbjH4QwVbrAxupbkfab9o-1-0K75sJwkAiZ3ID7AO-q-2Tcu9ZsJtmQoKWzwyW1Og_BxABn1vW7wruGFU4iFiNwoKq8oeOh72QYFvC1Dl2wyK8zDJKvII61vsuUt6dKqT9oUNBKnNGLZjt33sIA2-YSQeMh6PcxC7fYKAQ27xunWbFSNZ7aM1-8xyBOT_w5bj-zIAee1JGBV_KqV-dreKZbo80V7zDZvVV7VyGK9VTfSMxePlFn0BawkUaWdYPdrHHWO6wG7h32_JEXwlv25lAhIeMF1Qg
+        id: "kroto017"
+        name: "config"
+        providerId: "org.jenkinsci.plugins.configfiles.custom.CustomConfig"
+    - custom:
+        comment: "KaaS cluster(kroto018)"
+        content: |-
+          apiVersion: v1
+          clusters:
+          - cluster:
+              certificate-authority-data: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUZ5RENDQTdDZ0F3SUJBZ0lSQU9uSXdMZ1V0dnhCaDgyTTFnMVdMRWN3RFFZSktvWklodmNOQVFFTEJRQXcKYlRFTE1Ba0dBMVVFQmhNQ1UwVXhFakFRQmdOVkJBZ01DVk4wYjJOcmFHOXNiVEVTTUJBR0ExVUVCd3dKVTNSdgpZMnRvYjJ4dE1SRXdEd1lEVlFRS0RBaEZjbWxqYzNOdmJqRU5NQXNHQTFVRUN3d0VRMDVFUlRFVU1CSUdBMVVFCkF3d0xSVmRUSUZKdmIzUWdRMEV3SGhjTk1qQXdOVEUzTWpBek9UQTRXaGNOTkRVd05URXhNakF6T1RBNFdqQnQKTVFzd0NRWURWUVFHRXdKVFJURVNNQkFHQTFVRUNBd0pVM1J2WTJ0b2IyeHRNUkl3RUFZRFZRUUhEQWxUZEc5agphMmh2YkcweEVUQVBCZ05WQkFvTUNFVnlhV056YzI5dU1RMHdDd1lEVlFRTERBUkRUa1JGTVJRd0VnWURWUVFECkRBdEZWMU1nVW05dmRDQkRRVENDQWlJd0RRWUpLb1pJaHZjTkFRRUJCUUFEZ2dJUEFEQ0NBZ29DZ2dJQkFNQ2kKbDluczczYW9Cam9oRzhaSDlZeVhWNWQ4UUw5ZmlGRC96MThCcU9ZTGZtVFBlM01zMHJrcmdkUUJIMUdib1hNQwpJbzJoVFFERi9sMzJXWFlWcXpPU3BvUzhNdkR2MFNaRGFUNW1QeWdQZVozSU5ndmZwNldnZnV2VE9MUG1sWEY5CnRCaXdQSU9iMGh3RkxtOVQrTW5ISW5mbG0wZGJxYXhxT2ZsQ3ltbDBkSCtiQ1l3WmxKa1VXUXI1SThyUUxtN1MKSzBneXFYMHE1VTR5NTF6TnpZRlZmWWZFSGNTbDBnZEN3ekhOaDc0ekl4aktQRmxBbVNNVTRES1hURXBqdDQzTgpZR0tYUk9DWUtkZmlzVWRGQlhVTnhkNzVGMXNwWEVBblZUMlVVWk1ZelhidzRxR2NzUDhpUFVrUXBJUEU5aG16CllJMUpJOUVvaWJnajNOV0hxMGdzRTJIdUdOdDFoeVhpVmhGTytuYkw0L21iY250OUxuT2sra0txZXNlZVNSd08KLzVqTFJITTY4MVptdUwrTXFaSm4zR2FyY2xqNzRWMFVrbFc5ZUU0a3NTeVEzQ1hrN24vWWlBUXpTUWZkV0wwWgpWTHpiTkxEdC93QzVPRXBuUG5DbnhYUXJzVzlQRnlGeDNoWkV1a3FFMENzY0drK1NCL1R6YXNrb1pvTU0xV3JDCndITXEzNUxnN1BJWW9UNTZXaHFJeHFRSzBrNitBbkJORUc0d043ODdVOUlsbW1WdHlzdjFDbkVrMW5oU3A0MjgKSjBnWUZKZDltNUdGU3BIYk44NDE2OVRiZjlXNVBkMVV4andVc2JHMlVvOWkyQWZZYkxrYVZ4OVUvcHhtZmpkVwpYVnpPbjZCQ0liUlFjaVpSeVp2czE0ak1vaElOclBIYVRYOTM0VnJWQWdNQkFBR2pZekJoTUE4R0ExVWRFd0VCCi93UUZNQU1CQWY4d0RnWURWUjBQQVFIL0JBUURBZ0dHTUIwR0ExVWREZ1FXQkJSYmRqU1JLdlJxcW12NG8zM3kKVDk3ay9TQkkvREFmQmdOVkhTTUVHREFXZ0JSYmRqU1JLdlJxcW12NG8zM3lUOTdrL1NCSS9EQU5CZ2txaGtpRwo5dzBCQVFzRkFBT0NBZ0VBb2RHMzFjQUxQRzVOUkZkSVZMc2hOK2EyQzcyQVk4WnNVSEx6OERHOEpqb3ZVQ1VwCjlRL3NOSnB3eVY4WGtiTG91Wjh2WUdFRms3RUFzYWRIdkRDa0dqZ0lPVFI4NnlGdlJxbFkraVZ6Q2xYd0xpMlQKYWFodTQ4QnV0bVhqQlU4WjIxQkNySUF4aTg4Z01aUVQ3dkl0eHN4WG1iU1NmZHhFdDh1ek9ESUxEV0twU2lVagpEUzZmbmNCN1psNUlGWk9tbVhSaERieHEwbFl3RlZxOEQ5RXQ3QTM4UmhHUzQ3SVJXRTZDeFBNdldvSkREYjRKCkxKcmdVU0JEZWUrY0VwMUtQS1BwcUZpVjV1TE5hV2JJK1NaQkZnLzkwbTk5WlAxZWIxd0dhMmE2NjZCN2xnTVAKT2Z1S1llT1IySU9UclptQWJiTXMrOEthV2lHNHFlakFzaHROMDRQcDdEN2djdXJ5VTJlSGZKS0ZHeGhsMkNzbQpYQXFRdmMzM1NtN2xiVDN6VFlZUEphWXR6N1ZZMXNNL29vc1ozdk9JTGloVDZvYnJZeENRWElHeUpIMEFvSDg2CmJrSzNhSE9aWW5qS0dhaEZXb2xmcFdKeXpSaVZ1KytwQVpaVXU2VjJQM2RUakI3TVlOTG1LQmFlZnJRbVhNT1YKdEUxQnVFKy9yalNSNzhuTEc4a3dyVk1xZkxyRHRsK1JxcE9ET0oxdnpONHRxKzM2dTNHMnRJVEdoVTh1SlJPMApieS9QVGxMaFc5TUd4SWwzSTk3a2xZT2dMSXpVdWh4a3ZCZXgvUDVaMk1NaHJxS0N2TW9RZ1ZVclFjWHlYcGF6CjMyVVNKK1dYTzc5Ty83WVExM2lpTnlXQWZQQlBtWXpRR2k3OGVlR1dtWkc2L01ReHliTjJkL1AyMXFBPQotLS0tLUVORCBDRVJUSUZJQ0FURS0tLS0tCi0tLS0tQkVHSU4gQ0VSVElGSUNBVEUtLS0tLQpNSUlFeWpDQ0FyS2dBd0lCQWdJUkFPbkl3TGdVdHZ4Qmg4Mk0xZzFXTEVnd0RRWUpLb1pJaHZjTkFRRUxCUUF3CmJURUxNQWtHQTFVRUJoTUNVMFV4RWpBUUJnTlZCQWdNQ1ZOMGIyTnJhRzlzYlRFU01CQUdBMVVFQnd3SlUzUnYKWTJ0b2IyeHRNUkV3RHdZRFZRUUtEQWhGY21samMzTnZiakVOTUFzR0ExVUVDd3dFUTA1RVJURVVNQklHQTFVRQpBd3dMUlZkVElGSnZiM1FnUTBFd0hoY05NakF3TlRFNE1ETTFNakl6V2hjTk16QXdOVEUyTURNMU1qSXpXakJzCk1Rc3dDUVlEVlFRR0V3SlRSVEVTTUJBR0ExVUVDQXdKVTNSdlkydG9iMnh0TVJJd0VBWURWUVFIREFsVGRHOWoKYTJodmJHMHhFVEFQQmdOVkJBb01DRVZ5YVdOemMyOXVNUTB3Q3dZRFZRUUxEQVJEVGtSRk1STXdFUVlEVlFRRApEQXByZFdKbGNtNWxkR1Z6TUlJQklqQU5CZ2txaGtpRzl3MEJBUUVGQUFPQ0FROEFNSUlCQ2dLQ0FRRUF2NWdhClhaR2hvVSs5MXFNUmp6aXdGWTNFeUZXZEpzbE1Yb1ZWbHdKSEkza09EWFZVcTJUNEhSd3N4cnUzeEVtVkcvQkcKMWpWcGFPR0JlWUMzNEhjeERvNVh3RURIazMvV0QyYmtxTllwUEswU3BBMXk1cUEzS2FGOUxCM05rRUdQU0tCZgphSUVOUVptV3pNN2RuZUtPM1p0V3RGUEZkeWF4WEp2d0kwaHR2cy81eExCM2tMWHZOdkRrRjVRQ0NIdXAxUU5kCmlBb3dmMnlQWmsyN3pmN1JiYysxUDlvZjcwRG5RY2k0T1A1K2g5Qis0cEJNamJ3MVRDQ1N0SE9LUzBEOForL0UKbFR0bUN0ajVTRVhodFJnd2JXQVhaNStyb1lhTnBjRjRVbVJ1TmNSWFlVSzhGOUtnOGFYYi94all6cUQ1c3dRRgp2TFAwZ1hmRUJMdVgycC9GU1FJREFRQUJvMll3WkRBU0JnTlZIUk1CQWY4RUNEQUdBUUgvQWdFQU1BNEdBMVVkCkR3RUIvd1FFQXdJQmhqQWRCZ05WSFE0RUZnUVVBUFgycHV1SXpvT012THhlNWJud1djaUE4dFF3SHdZRFZSMGoKQkJnd0ZvQVVXM1kwa1NyMGFxcHIrS045OGsvZTVQMGdTUHd3RFFZSktvWklodmNOQVFFTEJRQURnZ0lCQUF0cgpHbW1zcldvMFRmNUtPOU9JcEo0dlNLdEZNTUR6VWEvOEVIZHg4WG1TbXZxS2YrajE2TXg0cUFwaUE2ZHR4ODlJCjdSMlkrd2pKWWlMOGV0c2tQVGlLdGNuV0JDNEJzNUpZNTFsblhjenFnbG91cE5hTnNRV0FTOEZySldwU0xMU0kKTkU0anhEY1ZyajBuaG1KeEVUZ3FkSmRPVTByK2FtMXFmeHNKQ0dNa0tMVTgxaE12UHRnWFUrK01oVjVwOXhaQgpLdklLVHlHbnlGWnpUZ3BEWXdxU3doSTRhRmNieG1qcGkwMUtiaHFXZWJNSjVzOFVZZFFZSm4weWxSd2NzMTB5Cjd2MEQvcEhmREVRSzFFVnNhd0haTlZVaW9kRWw1VUFuTzBudWcwWDlzeFJmeGNQRmtOSmMwUk1UMFVJRFlWMnAKMnluM2pCZkZlWVhDazdiZURzVmpyZEw5NkR2aHd3V3UxNmpTZWlNc2lWdUpHYzZWNHRkZEF0VUVxenJFOGZwaApHS2F2eXh2dVJsemFPMnJURkw2ZUdSWkhtaWwrQ04vQ0sraWNRQWF4WWZmWnl6YVUwbUVydEtpUnlDOW93RUFOClAzc0trSS93RGJibmxkeHE5Wnp6Q0plclNFcFdHUi9HVExqR0t4cFV2NGRSR1RtWXVOZjU1ZVU4Zzk5YXdrdnMKTHc3SlFZeng3bVpacnVxclNQS3QrVHZCSkp2M0hMbVlTY09FTlk3VUJvMTliWTl1bFVnSHpGaDFtUVRDaCtmNgpiSUY3RUF5eGtnb2ZVeXVpbWQwVTJHaTZjd2ZPbGdFUFkzWW5oTVdxUExFMlhmbG5Hbk9pN1h1VFFDWFl2bGF1CktUQ28vZVJhcmQ1ZGNlSzZkb3A4NklhRFNpWEZiSVZlTnRPcHI1bnkKLS0tLS1FTkQgQ0VSVElGSUNBVEUtLS0tLQo=
+              server: https://kroto018.k8s.gic.ericsson.se:6443
+            name: kroto018
+          contexts:
+          - context:
+              cluster: kroto018
+              user: cattle
+            name: cattle@kroto018
+          current-context: cattle@kroto018
+          kind: Config
+          preferences: {}
+          users:
+          - name: cattle
+            user:
+              token: eyJhbGciOiJSUzI1NiIsImtpZCI6IjZpZVhQWFVUNXhYaG1qdk5iM09BbWx1VHNaTF9ScGtacXBIaTdjaTI5dUEifQ.eyJpc3MiOiJrdWJlcm5ldGVzL3NlcnZpY2VhY2NvdW50Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9uYW1lc3BhY2UiOiJjYXR0bGUtc3lzdGVtIiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9zZWNyZXQubmFtZSI6ImNhdHRsZS10b2tlbi13YjJnZCIsImt1YmVybmV0ZXMuaW8vc2VydmljZWFjY291bnQvc2VydmljZS1hY2NvdW50Lm5hbWUiOiJjYXR0bGUiLCJrdWJlcm5ldGVzLmlvL3NlcnZpY2VhY2NvdW50L3NlcnZpY2UtYWNjb3VudC51aWQiOiI1YzkwNWNmYy1hMjZlLTRmNjctYjdjMi1hYzVhZDMwYzlkY2UiLCJzdWIiOiJzeXN0ZW06c2VydmljZWFjY291bnQ6Y2F0dGxlLXN5c3RlbTpjYXR0bGUifQ.TMdA7-Z5KV5q-jf0oCkFqaGWvF4liE9mqO7v7Cp8Y87TCIPhgQhGktH1IfsQ1UsLJyiE_FaVIaNzkf9JVLwfYbrRdYvPmQ8i0bbjBjxJ4oLJqvBdIlKBDPSI26EMCxUeI8oORQIN8j0_B46DWph97v_LMjL9azBLq_IifubKnfX4zIvtUOE5RIkmpZ6qtVy9Ap3mwCEGiA-x6S1tkVHTqmU7L3qalfE2gaxHXJT-PYbr2f2RZgQlcnN2vNXV8nFjHphUBXl0jch93rXhLdTS6Y3oKt4Ng4RjFRd5N2We1u7yX3UdHl3Gx8nIBcm-7TSAG97bkHlLxDHm5SG1KrX-SQ
+        id: "kroto018"
+        name: "config"
+        providerId: "org.jenkinsci.plugins.configfiles.custom.CustomConfig"
+  groovy:
+    installations:
+    - home: "/proj/ciexadm200/tools/groovy/groovy-2.2.2"
+      name: "Groovy 2.2.2"
+  injectionConfig:
+    allowUntrusted: false
+    checkForBuildAgentErrors: false
+    enabled: false
+    enforceUrl: false
+    injectCcudExtension: false
+    injectMavenExtension: false
+  jobConfigHistory:
+    excludePattern: "queue\\.xml|nodeMonitors\\.xml|UpdateCenter\\.xml|global-build-stats|LockableResourcesManager\\\
+      .xml|MilestoneStep\\.xml|cloudbees-disk-usage-simple\\.xml"
+    saveModuleConfiguration: false
+    showBuildBadges: "always"
+    showChangeReasonCommentWindow: true
+    skipDuplicateHistory: true
+  junitTestResultStorage:
+    storage: "file"
+  location:
+    adminAddress: "fem8s11-eiffel216<jenkins@ericsson.com>"
+    url: "https://fem8s11-eiffel216.eiffel.gic.ericsson.se:8443/jenkins/"
+  logstashConfiguration:
+    enableGlobally: false
+    enabled: false
+    milliSecondTimestamps: true
+  mailer:
+    charset: "UTF-8"
+    smtpHost: "smtp-seli.lx.gic.ericsson.se"
+    smtpPort: "25"
+    useSsl: false
+    useTls: false
+  mavenModuleSet:
+    localRepository: "default"
+  pollSCM:
+    pollingThreadCount: 10
+  prometheusConfiguration:
+    appendParamLabel: false
+    appendStatusLabel: false
+    collectDiskUsage: true
+    collectingMetricsPeriodInSeconds: 120
+    countAbortedBuilds: true
+    countFailedBuilds: true
+    countNotBuiltBuilds: true
+    countSuccessfulBuilds: true
+    countUnstableBuilds: true
+    defaultNamespace: "default"
+    fetchTestResults: true
+    jobAttributeName: "jenkins_job"
+    path: "prometheus"
+    processingDisabledBuilds: false
+    useAuthenticatedEndpoint: false
+  sonarGlobalConfiguration:
+    buildWrapperEnabled: false
+  timestamper:
+    allPipelines: false
+    elapsedTimeFormat: "'<b>'HH:mm:ss.S'</b> '"
+    systemTimeFormat: "'<b>'HH:mm:ss'</b> '"
+tool:
+  git:
+    installations:
+    - home: "/proj/ossmsci/tools/git/2.30.0/bin/git"
+      name: "Default"
+  groovy:
+    installations:
+    - home: "/proj/ciexadm200/tools/groovy/groovy-2.2.2"
+      name: "Groovy 2.2.2"
+  jdk:
+    installations:
+    - home: "/app/vbuild/SLED11-x86_64/jdk/1.8.0_172"
+      name: "JDK 1.8.0_172"
+  maven:
+    installations:
+    - home: "/app/vbuild/tools/maven/3.5.3/"
+      name: "Maven 3.5.3"
+    - home: "/app/vbuild/tools/maven/3.6.3/"
+      name: "Maven 3.6.3"
+  mavenGlobalConfig:
+    globalSettingsProvider: "standard"
+    settingsProvider: "standard"
+  pipelineMaven:
+    triggerDownstreamUponResultAborted: false
+    triggerDownstreamUponResultFailure: false
+    triggerDownstreamUponResultNotBuilt: false
+    triggerDownstreamUponResultSuccess: true
+    triggerDownstreamUponResultUnstable: false

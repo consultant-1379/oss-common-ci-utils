@@ -1,0 +1,105 @@
+#
+# COPYRIGHT Ericsson 2024
+#
+#
+#
+# The copyright to the computer program(s) herein is the property of
+#
+# Ericsson Inc. The programs may be used and/or copied only with written
+#
+# permission from Ericsson Inc. or in accordance with the terms and
+#
+# conditions stipulated in the agreement/contract under which the
+#
+# program(s) have been supplied.
+#
+
+modelVersion: 2.0
+
+description: "python docker image ruleset"
+
+docker-images:
+  # Builder Images
+  - hadolint-scan: armdocker.rnd.ericsson.se/proj-adp-cicd-drop/hadolint-scan:latest
+  - image-dr-check: armdocker.rnd.ericsson.se/proj-adp-cicd-drop/adp-image-dr-check:latest
+
+properties:
+  # Image DR Check
+  - docker-image: ${env.DOCKER_IMAGE}
+  - image-dr-check-report-dir: build/image-dr-check
+
+  # Hadolint
+  - hadolint-config: scripts/docker/python-image/python_image_hadolint_config.yaml
+  - dockerfile: scripts/docker/python-image/python_image.dockerfile
+  - hadolint-report-dir: build/hadolint-reports
+  - docker-image-name: eric-oss-common-ci-python
+
+env:
+  - PWD
+  - DOCKER_IMAGE # Passed from Jenkinsfile
+
+var:
+  - hadolint-result-code
+  - image-dr-vm-args
+
+rules:
+  # Init
+  init:
+    - task: mkdir
+      description: create reports
+      cmd:
+        - rm -rf build || true
+        - mkdir build
+        - touch build/pylint_output.txt
+        - touch build/flake8_output.txt
+        - touch build/python_version.txt
+        - touch build/pip_requirements.txt
+        - chmod 777 build/pylint_output.txt
+        - chmod 777 build/flake8_output.txt
+        - chmod 777 build/python_version.txt
+        - chmod 777 build/pip_requirements.txt
+    - task: image-dr-vm-args
+      description: exclude non-applicable design rules
+      cmd: echo " -DimageDesignRule.config.DR-D470203-041-A=disable -DimageDesignRule.config.DR-D470203-050-A=disable" > .bob/var.image-dr-vm-args
+
+  # Image DR Check
+  image-dr-check:
+    - task: image-dr-check
+      description: image dr check
+      docker-image: image-dr-check
+      docker-in-docker: socket
+      cmd: "image-dr-check
+        --image ${docker-image}
+        --output ${image-dr-check-report-dir}
+        ${var.image-dr-vm-args}"
+
+  # Hadolint scan
+  hadolint-scan:
+    - task: hadolint-scan
+      description: dockerfile lint
+      docker-image: hadolint-scan
+      docker-flags:
+        - "--workdir /app/"
+        - "-v ${env.PWD}/${hadolint-config}:/data/hadolint_config.yaml"
+        - "-v ${env.PWD}/${dockerfile}:/data/dockerfile"
+        - "-v ${env.PWD}/${hadolint-report-dir}:/tmp/reports/"
+      cmd: "-p ${docker-image-name} -f /data/dockerfile -c /data/hadolint_config.yaml; echo $? > .bob/var.hadolint-result-code"
+    - task: hadolint-result-check
+      cmd: sh -c '
+        if [ ${var.hadolint-result-code} -ne 0 ];
+        then
+        echo "Failure in hadolint-scan";
+        exit ${var.hadolint-result-code};
+        fi ;'
+
+  # Publish
+  publish:
+    - task: publish
+      description: push docker image to artifactory
+      cmd: docker push ${docker-image}
+
+  # Cleanup
+  cleanup:
+    - task: cleanup
+      description: delete docker image from agent
+      cmd: docker rmi -f ${docker-image} || true

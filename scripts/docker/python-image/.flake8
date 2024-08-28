@@ -1,0 +1,6 @@
+[flake8]
+max-line-length = 100
+max-complexity = 10
+ignore =
+    # F811 redefinition of unused module
+    F811

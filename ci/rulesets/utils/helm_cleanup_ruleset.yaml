@@ -1,0 +1,92 @@
+#
+# COPYRIGHT Ericsson 2023
+#
+#
+#
+# The copyright to the computer program(s) herein is the property of
+#
+# Ericsson Inc. The programs may be used and/or copied only with written
+#
+# permission from Ericsson Inc. or in accordance with the terms and
+#
+# conditions stipulated in the agreement/contract under which the
+#
+# program(s) have been supplied.
+#
+
+modelVersion: 2.0
+
+description: "helm cleanup ruleset"
+
+docker-images:
+  - adp-helm-kubectl: armdocker.rnd.ericsson.se/proj-adp-cicd-drop/bob-py3kubehelmbuilder:latest
+
+properties:
+  - helm-repo-name: proj-eric-oss-drop-helm-local
+  - helm-chart-drop-repo: https://arm.seli.gic.ericsson.se/artifactory/proj-eric-oss-drop-helm-local
+
+env:
+  - PWD
+  - HOME
+  - KUBECONFIG
+  - SELI_ARTIFACTORY_REPO_USER
+  - SELI_ARTIFACTORY_REPO_PASS
+  - ENABLE_HELM_V3 (default=true)
+  - BUILD_DIRECTORY (default=build)
+  - K8S_NAMESPACE (default=namespace31)
+
+var:
+  - docker-config-basepath
+
+rules:
+  helm-init:
+    - task: helm-init
+      cmd:
+        - mkdir ${env.BUILD_DIRECTORY}
+        - dirname $HOME/.docker/config.json > .bob/var.docker-config-basepath
+    - task: helm-variables
+      docker-image: adp-helm-kubectl
+      docker-flags: &docker_flags_kube_config
+        - "--env HOME=${env.HOME}"
+        - "--env K8S_NAMESPACE=${env.K8S_NAMESPACE}"
+        - "--env KUBECONFIG=${env.KUBECONFIG}"
+        - "--env ENABLE_HELM_V3"
+        - "--volume ${env.PWD}:${env.PWD}"
+        - "--volume ${env.HOME}:${env.HOME}"
+        - "--volume ${env.KUBECONFIG}:${env.KUBECONFIG}"
+        - "--volume ${var.docker-config-basepath}:${var.docker-config-basepath}"
+      cmd:
+        - helm env
+
+  helm-prepare:
+    - rule: helm-init
+    - task: helm-repo-list
+      docker-image: adp-helm-kubectl
+      docker-flags: *docker_flags_kube_config
+      cmd: helm repo ls --output yaml > ${env.BUILD_DIRECTORY}/helm-repos-pre-cleanup.yaml
+    - task: helm-cache-list
+      cmd: cd /home/ossadmin/.cache/helm/repository && ls -lhrt > ${env.PWD}/${env.BUILD_DIRECTORY}/helm-cache-pre-cleanup.txt
+
+  helm-cleanup:
+    - task: helm-cleanup
+      cmd:
+        - cd /home/ossadmin/.config/helm && rm -rf repositories.yaml
+        - cd /home/ossadmin/.cache && rm -rf *
+
+  helm-update:
+    - task: helm-update
+      docker-image: adp-helm-kubectl
+      docker-flags: *docker_flags_kube_config
+      cmd:
+        - helm repo add ${helm-repo-name} ${helm-chart-drop-repo} --username ${env.SELI_ARTIFACTORY_REPO_USER} --password ${env.SELI_ARTIFACTORY_REPO_PASS}
+        - helm repo update
+
+  helm-post-actions:
+    - task: helm-repo-list
+      docker-image: adp-helm-kubectl
+      docker-flags: *docker_flags_kube_config
+      cmd: helm repo ls --output yaml > ${env.BUILD_DIRECTORY}/helm-repos-post-cleanup.yaml
+    - task: helm-cache-list
+      cmd: cd /home/ossadmin/.cache/helm/repository && ls -lhrt > ${env.PWD}/${env.BUILD_DIRECTORY}/helm-cache-post-cleanup.txt
+    - task: remove-kube-config
+      cmd: rm -rf ${env.KUBECONFIG}

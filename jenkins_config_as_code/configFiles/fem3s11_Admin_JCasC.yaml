@@ -1,0 +1,1709 @@
+jenkins:
+  agentProtocols:
+  - "JNLP4-connect"
+  - "Ping"
+  authorizationStrategy:
+    globalMatrix:
+      permissions:
+      - "Job/Build:authenticated"
+      - "Job/Cancel:authenticated"
+      - "Job/Discover:anonymous"
+      - "Job/Read:authenticated"
+      - "GROUP:Overall/Read:authenticated"
+      - "Overall/Administer:EIS_GLOBAL_EIFFEL_OPS"
+      - "Overall/Administer:eiffelop5"
+      - "Overall/Administer:idm-3f2g4f4fc469"
+      - "USER:Overall/Administer:eruagar"
+  crumbIssuer:
+    strict:
+      checkSessionMatch: false
+  disableRememberMe: false
+  disabledAdministrativeMonitors:
+  - "org.jenkinsci.plugins.matrixauth.AmbiguityMonitor"
+  - "OldData"
+  - "jenkins.security.QueueItemAuthenticatorMonitor"
+  - "jenkins.security.ResourceDomainRecommendation"
+  - "jenkins.security.s2m.MasterKillSwitchWarning"
+  - "jenkins.diagnostics.ControllerExecutorsAgents"
+  - "hudson.diagnosis.ReverseProxySetupMonitor"
+  globalNodeProperties:
+  - envVars:
+      env:
+      - key: "GERRIT_CENTRAL"
+        value: "ssh://gerrit.ericsson.se:29418"
+      - key: "GERRIT_MIRROR"
+        value: "ssh://gerritmirror.seli.gic.ericsson.se:29418"
+      - key: "GIT_HOME"
+        value: "/proj/ossmsci/tools/git/2.30.0/bin/git"
+      - key: "GOPATH"
+        value: "/proj/mvn"
+      - key: "K8S_TEST"
+        value: "true"
+      - key: "M2_HOME"
+        value: "/proj/ossmsci/tools/maven/3.5.3"
+      - key: "METRICS_KEY"
+        value: "zXZ5qUa7EeCeZKgEDJAQYAstBqCxUqQM-0eB3Go_hOieI7K_Lc4Nzm2LxCPJR1mJ"
+      - key: "METRICS_KEY_URL_FEM1"
+        value: "https://fem1s11-eiffel216.eiffel.gic.ericsson.se:8443/jenkins/metrics/zXZ5qUa7EeCeZKgEDJAQYAstBqCxUqQM-0eB3Go_hOieI7K_Lc4Nzm2LxCPJR1mJ/metrics"
+      - key: "SQ_ENABLED"
+        value: "true"
+      - key: "SQ_SERVER"
+        value: "sonarqube enterprise 79"
+      - key: "GERRIT_CENTRAL_UAT"
+        value: "ssh://staging-gerrit.sero.gic.ericsson.se:29418"
+      - key: "GERRIT_MIRROR_UAT"
+        value: "ssh://staging-gerritmirror.sero.gic.ericsson.se:29418"
+  labelAtoms:
+  - name: "GridEngine"
+  - name: "RHEL7_GE_Docker_1"
+  - name: "RHEL7_GE_Docker_2"
+  - name: "master"
+  markupFormatter:
+    rawHtml:
+      disableSyntaxHighlighting: false
+  mode: NORMAL
+  myViewsTabBar: "standard"
+  nodes:
+  - permanent:
+      labelString: "GridEngine"
+      launcher:
+        command:
+          command: "/proj/ossmsci/GEagents/e2cgejenkins-master.sh --fetch_slave_jar_using_ssl\
+            \ -q ossmsci.q -l h=seliius25746.seli.gic.ericsson.se"
+      name: "RHEL7_GE_Docker_1"
+      nodeDescription: "Docker Agent - seliius25746.seli.gic.ericsson.se"
+      nodeProperties:
+      - envVars:
+          env:
+          - key: "DOCKER_CERT_PATH"
+            value: "/home/ossadmin/.twic/certs/TSA_jenkins_cert/"
+          - key: "DOCKER_HOST"
+            value: "tcp://seliius25746.seli.gic.ericsson.se:2376"
+          - key: "DOCKER_TLS_VERIFY"
+            value: "1"
+          - key: "PATH"
+            value: "/proj/ossmsci/tools/git/2.30.0/bin:$PATH"
+      numExecutors: 6
+      remoteFS: "/proj/eiffel216_config_fem3s11/agents/RHEL7_GE_Docker_1"
+      retentionStrategy: "always"
+  - permanent:
+      labelString: "GridEngine"
+      launcher:
+        command:
+          command: "/proj/ossmsci/GEagents/e2cgejenkins-master.sh --fetch_slave_jar_using_ssl\
+            \ -q ossmsci.q -l h=seliius25612.seli.gic.ericsson.se"
+      name: "RHEL7_GE_Docker_2"
+      nodeDescription: "Docker Agent - seliius25612.seli.gic.ericsson.se"
+      nodeProperties:
+      - envVars:
+          env:
+          - key: "DOCKER_CERT_PATH"
+            value: "/home/ossadmin/.twic/certs/TSA_jenkins_cert/"
+          - key: "DOCKER_HOST"
+            value: "tcp://seliius25612.seli.gic.ericsson.se:2376"
+          - key: "DOCKER_TLS_VERIFY"
+            value: "1"
+          - key: "PATH"
+            value: "/proj/ossmsci/tools/git/2.30.0/bin:$PATH"
+      numExecutors: 6
+      remoteFS: "/proj/eiffel216_config_fem3s11/agents/RHEL7_GE_Docker_2"
+      retentionStrategy: "always"
+  numExecutors: 1
+  primaryView:
+    all:
+      name: "all"
+  projectNamingStrategy: "standard"
+  proxy:
+    name: "www-proxy.ericsson.se"
+    noProxyHost: "localhost, 127.0.0.1, *.ericsson.se"
+    port: 8080
+    secretPassword: "{AQAAABAAAAAQrGY6inuMbJ+nvJ9DBNnm8K48VvT69x9zCEKCbRo4Q00=}"
+  quietPeriod: 5
+  remotingSecurity:
+    enabled: false
+  scmCheckoutRetryCount: 0
+  slaveAgentPort: 0
+  systemMessage: "\r\n\r\n <h2 style=\"color:#296487; text-align: center;\">fem3s11\
+    \ - Admin Jenkins Server for EIAP, managed by The Hummingbirds</h2>\r\n <ul>\r\
+    \n <li><a href=\"https://eteamspace.internal.ericsson.com/x/iRRke\"\
+    >Hummingbirds Admin Guide</a></li>\r\n <li><a href=\"https://eteamspace.internal.ericsson.com/x/2hdke\"\
+    >Hummingbirds Definition of Done</a></li>\r\n\r\n </ul>\r\n\r\n  "
+  updateCenter:
+    sites:
+    - id: "default"
+      url: "https://updates.jenkins-ci.org/update-center.json"
+  views:
+  - list:
+      columns:
+      - "status"
+      - "weather"
+      - "jobName"
+      - "lastSuccess"
+      - "lastFailure"
+      - "lastDuration"
+      - "buildButton"
+      description: "<div style=\"padding:1em;text-align:center;border: 1mm solid rgba(255,\
+        \ 140, 10);\">\r\n<b>View 'Admin Jobs' - official Admin Jenkins Jobs </b><br>\r\
+        \n<p>Admin job guidlines and list of all Admin Jenkins jobs at\r\n<a href='https://eteamspace.internal.ericsson.com/x/dh5ke'>Hummingbirds\
+        \ Admin guide / Admin Jobs</a></p><br>\r\n</div> "
+      includeRegex: "^.*Admin.*$"
+      name: "Admin Jobs"
+  - list:
+      columns:
+      - "status"
+      - "weather"
+      - "jobName"
+      - "lastSuccess"
+      - "lastFailure"
+      - "lastDuration"
+      - "buildButton"
+      - "liveScreenshotColumn"
+      jobNames:
+      - "BSS_sync_ci_files"
+      name: "BSS Pocs"
+  - list:
+      columns:
+      - "status"
+      - "weather"
+      - "jobName"
+      - "lastSuccess"
+      - "lastFailure"
+      - "lastDuration"
+      - "buildButton"
+      includeRegex: "^(?=.*JCasC.*).*$"
+      jobNames:
+      - "Admin_JCasC"
+      - "Admin_JCasC_configFileUpdate_ex"
+      - "Admin_JCasC_ex"
+      - "Jenkins_Job_Backup"
+      name: "JCasC"
+  - list:
+      columns:
+      - "status"
+      - "weather"
+      - "jobName"
+      - "lastSuccess"
+      - "lastFailure"
+      - "lastDuration"
+      - "buildButton"
+      includeRegex: "^(?=.*test|.*Test|Test|_tmp|.*tmp).*$"
+      jobNames:
+      - "Admin_Monitoring_CommonOssArtifactoryRepos_VerifyAccess"
+      - "CIP-38165_PCR"
+      - "FEM_monitoring"
+      - "GridEngine_Hostnames"
+      - "KaasNamespacePoolingUsingLockableResourcesTest"
+      - "Nexus-test job"
+      - "TomsTestJob"
+      - "create_new_project_test"
+      - "eric-oss-hello-world-go-app_PreCodeReview_Test"
+      - "eric-oss-hello-world-go-app_Publish_Test"
+      - "mimer-test-text-encoder"
+      - "sdk_PCR_test"
+      - "sdk_release_test"
+      name: "Test jobs"
+  - all:
+      name: "all"
+  - dashboard:
+      columns:
+      - "status"
+      - "weather"
+      - "jobName"
+      - "lastSuccess"
+      - "lastFailure"
+      - "lastDuration"
+      - "buildButton"
+      - "liveScreenshotColumn"
+      hideJenkinsPanels: true
+      includeStdJobList: true
+      jobNames:
+      - "dashboard_check_display"
+      name: "test_dashboard_check"
+      useCssStyle: true
+  viewsTabBar: "countJobs"
+support:
+  automatedBundleConfiguration:
+    componentIds:
+    - "AgentsConfigFile"
+    - "ConfigFileComponent"
+    - "OtherConfigFilesComponent"
+    - "AboutBrowser"
+    - "AboutJenkins"
+    - "AboutUser"
+    - "AdministrativeMonitors"
+    - "AgentProtocols"
+    - "BuildQueue"
+    - "CustomLogs"
+    - "DumpExportTable"
+    - "EnvironmentVariables"
+    - "FileDescriptorLimit"
+    - "GCLogs"
+    - "HeapUsageHistogram"
+    - "ItemsContent"
+    - "AgentsJVMProcessSystemMetricsContents"
+    - "MasterJVMProcessSystemMetricsContents"
+    - "JenkinsLogs"
+    - "LoadStats"
+    - "LoggerManager"
+    - "Metrics"
+    - "NetworkInterfaces"
+    - "NodeMonitors"
+    - "OtherLogs"
+    - "ReverseProxy"
+    - "RootCAs"
+    - "RunningBuilds"
+    - "SlaveCommandStatistics"
+    - "SlaveLaunchLogs"
+    - "SlaveLogs"
+    - "AgentsSystemConfiguration"
+    - "MasterSystemConfiguration"
+    - "SystemProperties"
+    - "TaskLogs"
+    - "ThreadDumps"
+    - "UpdateCenter"
+    - "UserCount"
+    - "SlowRequestComponent"
+    - "HighLoadComponent"
+    - "DeadlockRequestComponent"
+    - "BuildMemoryComponent"
+    - "EventListenersComponent"
+    - "PipelineTimings"
+    - "PipelineThreadDump"
+    enabled: true
+    period: 1
+globalCredentialsConfiguration:
+  configuration:
+    providerFilter: "none"
+    typeFilter: "none"
+security:
+  anonymizeSupportBundle:
+    enabled: false
+  apiToken:
+    creationOfLegacyTokenEnabled: false
+    tokenGenerationOnCreationEnabled: false
+    usageStatisticsEnabled: true
+  copyartifact:
+    mode: PRODUCTION
+  envInject:
+    enableLoadingFromMaster: false
+    enablePermissions: false
+    hideInjectedVars: false
+  globalJobDslSecurityConfiguration:
+    useScriptSecurity: false
+  sSHD:
+    port: 53801
+  scriptApproval:
+    approvedSignatures:
+    - "field net.bull.javamelody.internal.model.JavaInformations os"
+    - "field net.bull.javamelody.internal.model.JavaInformations pid"
+    - "method com.sun.management.OperatingSystemMXBean getTotalPhysicalMemorySize"
+    - "method com.sun.management.OperatingSystemMXBean getTotalSwapSpaceSize"
+    - "method groovy.lang.GroovyObject invokeMethod java.lang.String java.lang.Object"
+    - "method groovy.util.XmlParser parse java.lang.String"
+    - "method hudson.model.Item getFullName"
+    - "method hudson.model.Item getName"
+    - "method hudson.model.ItemGroup getAllItems java.lang.Class"
+    - "method hudson.model.ItemGroup getItems"
+    - "method hudson.model.Job getProperty java.lang.Class"
+    - "method hudson.model.Job isBuildable"
+    - "method hudson.model.ParameterDefinition getName"
+    - "method hudson.model.ParametersDefinitionProperty getParameterDefinitions"
+    - "method hudson.model.StringParameterDefinition getDefaultValue"
+    - "method hudson.model.ViewGroup getView java.lang.String"
+    - "method io.jenkins.blueocean.rest.impl.pipeline.FlowNodeWrapper getDisplayName"
+    - "method io.jenkins.blueocean.rest.impl.pipeline.FlowNodeWrapper getStatus"
+    - "method io.jenkins.blueocean.rest.impl.pipeline.FlowNodeWrapper getType"
+    - "method io.jenkins.blueocean.rest.impl.pipeline.NodeGraphBuilder getPipelineNodes"
+    - "method io.jenkins.blueocean.rest.impl.pipeline.NodeRunStatus getResult"
+    - "method java.io.File createNewFile"
+    - "method java.io.File exists"
+    - "method java.lang.management.MemoryPoolMXBean getName"
+    - "method java.lang.management.MemoryPoolMXBean getUsage"
+    - "method java.lang.management.MemoryUsage getCommitted"
+    - "method java.lang.management.MemoryUsage getInit"
+    - "method java.lang.management.MemoryUsage getMax"
+    - "method java.lang.management.MemoryUsage getUsed"
+    - "method java.net.HttpURLConnection getResponseCode"
+    - "method java.net.HttpURLConnection setRequestMethod java.lang.String"
+    - "method java.net.URL openConnection"
+    - "method java.net.URLConnection getInputStream"
+    - "method jenkins.model.Jenkins getInstance"
+    - "method jenkins.model.ParameterizedJobMixIn$ParameterizedJob isDisabled"
+    - "method net.bull.javamelody.internal.model.JavaInformations getActiveThreadCount"
+    - "method net.bull.javamelody.internal.model.JavaInformations getAvailableProcessors"
+    - "method net.bull.javamelody.internal.model.JavaInformations getContextPath"
+    - "method net.bull.javamelody.internal.model.JavaInformations getHost"
+    - "method net.bull.javamelody.internal.model.JavaInformations getJavaVersion"
+    - "method net.bull.javamelody.internal.model.JavaInformations getJvmVersion"
+    - "method net.bull.javamelody.internal.model.JavaInformations getMemoryInformations"
+    - "method net.bull.javamelody.internal.model.JavaInformations getServerInfo"
+    - "method net.bull.javamelody.internal.model.JavaInformations getSessionCount"
+    - "method net.bull.javamelody.internal.model.JavaInformations getStartDate"
+    - "method net.bull.javamelody.internal.model.JavaInformations getSystemCpuLoad"
+    - "method net.bull.javamelody.internal.model.JavaInformations getSystemLoadAverage"
+    - "method net.bull.javamelody.internal.model.JavaInformations getThreadCount"
+    - "method net.bull.javamelody.internal.model.JavaInformations getThreadInformationsList"
+    - "method net.bull.javamelody.internal.model.MemoryInformations getMaxMemory"
+    - "method net.bull.javamelody.internal.model.MemoryInformations getMaxPermGen"
+    - "method net.bull.javamelody.internal.model.MemoryInformations getUsedMemory"
+    - "method net.bull.javamelody.internal.model.MemoryInformations getUsedNonHeapMemory"
+    - "method net.bull.javamelody.internal.model.MemoryInformations getUsedPermGen"
+    - "method net.bull.javamelody.internal.model.MemoryInformations getUsedPhysicalMemorySize"
+    - "method net.bull.javamelody.internal.model.MemoryInformations getUsedSwapSpaceSize"
+    - "method net.bull.javamelody.internal.model.ThreadInformations isDeadlocked"
+    - "method org.jenkinsci.plugins.workflow.support.actions.EnvironmentAction getEnvironment"
+    - "method org.jenkinsci.plugins.workflow.support.steps.build.RunWrapper getRawBuild"
+    - "new groovy.util.XmlParser"
+    - "new groovy.xml.MarkupBuilder java.io.Writer"
+    - "new io.jenkins.blueocean.rest.impl.pipeline.PipelineNodeGraphVisitor org.jenkinsci.plugins.workflow.job.WorkflowRun"
+    - "new java.io.File java.lang.String"
+    - "new java.io.FileWriter java.lang.String"
+    - "new java.util.ArrayList"
+    - "new net.bull.javamelody.internal.model.JavaInformations javax.servlet.ServletContext\
+      \ boolean"
+    - "new net.bull.javamelody.internal.model.MemoryInformations"
+    - "new org.yaml.snakeyaml.Yaml"
+    - "staticField io.jenkins.blueocean.rest.impl.pipeline.FlowNodeWrapper$NodeType\
+      \ PARALLEL"
+    - "staticField io.jenkins.blueocean.rest.impl.pipeline.FlowNodeWrapper$NodeType\
+      \ STAGE"
+    - "staticMethod hudson.model.Hudson getInstance"
+    - "staticMethod hudson.model.User current"
+    - "staticMethod java.lang.Double parseDouble java.lang.String"
+    - "staticMethod java.lang.System getenv"
+    - "staticMethod java.lang.management.ManagementFactory getMemoryPoolMXBeans"
+    - "staticMethod java.lang.management.ManagementFactory getOperatingSystemMXBean"
+    - "staticMethod jenkins.model.Jenkins getInstance"
+    - "staticMethod net.bull.javamelody.internal.common.Parameters getServletContext"
+    - "staticMethod org.codehaus.groovy.runtime.DefaultGroovyMethods append java.io.File\
+      \ java.lang.Object"
+    - "staticMethod org.codehaus.groovy.runtime.DefaultGroovyMethods eachLine java.io.File\
+      \ groovy.lang.Closure"
+    - "staticMethod org.codehaus.groovy.runtime.DefaultGroovyMethods getAt java.lang.Object\
+      \ java.lang.String"
+    - "staticMethod org.codehaus.groovy.runtime.DefaultGroovyMethods getText java.io.File"
+    - "staticMethod org.codehaus.groovy.runtime.DefaultGroovyMethods getText java.io.InputStream"
+    - "staticMethod org.codehaus.groovy.runtime.DefaultGroovyMethods leftShift java.io.File\
+      \ java.lang.Object"
+    - "staticMethod org.codehaus.groovy.runtime.DefaultGroovyMethods putAt java.lang.Object\
+      \ java.lang.String java.lang.Object"
+    - "staticMethod org.codehaus.groovy.runtime.DefaultGroovyMethods withWriter java.io.File\
+      \ java.lang.String groovy.lang.Closure"
+    - "staticMethod org.codehaus.groovy.runtime.DefaultGroovyMethods write java.io.File\
+      \ java.lang.String"
+unclassified:
+  ansiColorBuildWrapper:
+    colorMaps:
+    - black: "#000000"
+      blackB: "#4C4C4C"
+      blue: "#1E90FF"
+      blueB: "#4682B4"
+      cyan: "#00CDCD"
+      cyanB: "#00FFFF"
+      green: "#00CD00"
+      greenB: "#00FF00"
+      magenta: "#CD00CD"
+      magentaB: "#FF00FF"
+      name: "xterm"
+      red: "#CD0000"
+      redB: "#FF0000"
+      white: "#E5E5E5"
+      whiteB: "#FFFFFF"
+      yellow: "#CDCD00"
+      yellowB: "#FFFF00"
+    - black: "#000000"
+      blackB: "#555555"
+      blue: "#0000AA"
+      blueB: "#5555FF"
+      cyan: "#00AAAA"
+      cyanB: "#55FFFF"
+      defaultBackground: 0
+      defaultForeground: 7
+      green: "#00AA00"
+      greenB: "#55FF55"
+      magenta: "#AA00AA"
+      magentaB: "#FF55FF"
+      name: "vga"
+      red: "#AA0000"
+      redB: "#FF5555"
+      white: "#AAAAAA"
+      whiteB: "#FFFFFF"
+      yellow: "#AA5500"
+      yellowB: "#FFFF55"
+    - black: "black"
+      blackB: "black"
+      blue: "blue"
+      blueB: "blue"
+      cyan: "cyan"
+      cyanB: "cyan"
+      green: "green"
+      greenB: "green"
+      magenta: "magenta"
+      magentaB: "magenta"
+      name: "css"
+      red: "red"
+      redB: "red"
+      white: "white"
+      whiteB: "white"
+      yellow: "yellow"
+      yellowB: "yellow"
+    - black: "#2E3436"
+      blackB: "#2E3436"
+      blue: "#3465A4"
+      blueB: "#3465A4"
+      cyan: "#06989A"
+      cyanB: "#06989A"
+      defaultBackground: 0
+      defaultForeground: 7
+      green: "#4E9A06"
+      greenB: "#4E9A06"
+      magenta: "#75507B"
+      magentaB: "#75507B"
+      name: "gnome-terminal"
+      red: "#CC0000"
+      redB: "#CC0000"
+      white: "#D3D7CF"
+      whiteB: "#D3D7CF"
+      yellow: "#C4A000"
+      yellowB: "#C4A000"
+  badgePlugin:
+    disableFormatHTML: false
+  bitbucketEndpointConfiguration:
+    endpoints:
+    - bitbucketCloudEndpoint:
+        enableCache: false
+        manageHooks: false
+        repositoriesCacheDuration: 0
+        teamCacheDuration: 0
+  buildDiscarders:
+    configuredBuildDiscarders:
+    - "jobBuildDiscarder"
+  buildFailureAnalyzer:
+    doNotAnalyzeAbortedJob: false
+    gerritTriggerEnabled: true
+    globalEnabled: true
+    graphsEnabled: false
+    knowledgeBase:
+      mongoDB:
+        dbName: "pduoss-idun-ci"
+        enableStatistics: true
+        host: "pduoss-idun-ci-mongo-1598-p.seli.gic.ericsson.se"
+        password: "{AQAAABAAAAAQWzvro+UBBgJrwbB/u1H+ih+q75W522oKiOnUlQs1MS0=}"
+        port: 27017
+        successfulLogging: true
+        userName: "ossmsci"
+    maxLogSize: 0
+    metricSquashingEnabled: false
+    noCausesEnabled: true
+    noCausesMessage: "No problems were identified. If you know why this problem occurred,\
+      \ please contact member of The Hummingbirds to add a suitable Cause for it."
+    nrOfScanThreads: 3
+    slackFailureCategories: "ALL"
+    slackNotifEnabled: false
+    testResultParsingEnabled: false
+  buildStepOperation:
+    enabled: false
+  casCGlobalConfig:
+    configurationPath: "/proj/eiffel216_config_fem3s11/eiffel_home/fem3s11_configFile.yaml"
+  claimConfig:
+    blockAutoRefreshWhileClaiming: false
+    propagateToFollowingBuildsByDefault: false
+    sendEmails: false
+    sendEmailsForStickyFailures: false
+    sortUsersByFullName: false
+    stickyByDefault: true
+  defaultFolderConfiguration:
+    healthMetrics:
+    - worstChildHealthMetric:
+        recursive: true
+  email-ext:
+    adminRequiredForTemplateTesting: false
+    allowUnregisteredEnabled: false
+    charset: "UTF-8"
+    debugMode: false
+    defaultBody: |-
+      $PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS:
+
+      Check console output at $BUILD_URL to view the results.
+    defaultContentType: "text/plain"
+    defaultSubject: "$PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS!"
+    defaultTriggerIds:
+    - "hudson.plugins.emailext.plugins.trigger.FailureTrigger"
+    mailAccount:
+      smtpPassword: "{AQAAABAAAAAQQDyQcwfanRCIQdSixR/nzH2YxgtrBz+YQnYgy3cPPl8=}"
+    maxAttachmentSize: -1
+    maxAttachmentSizeMb: -1
+    precedenceBulk: false
+    watchingEnabled: false
+  fingerprints:
+    fingerprintCleanupDisabled: false
+    storage: "file"
+  gerrit-trigger:
+    servers:
+    - config:
+        buildCurrentPatchesOnly:
+          abortManualPatchsets: false
+          abortNewPatchsets: false
+          abortSameTopic: false
+          enabled: false
+        categories:
+        - verdictDescription: "Code Review"
+          verdictValue: "Code-Review"
+        - verdictDescription: "Verified"
+          verdictValue: "Verified"
+        gerritFrontEndUrl: "https://gerrit.ericsson.se/"
+        gerritHostName: "gerrit.ericsson.se"
+        gerritHttpPassword: "****"
+        gerritHttpUserName: "ossadmin"
+        gerritUserName: "ossadmin"
+        replicationConfig:
+          enableReplication: true
+          replicas:
+          - host: "gerritmirror-ha.lmera.ericsson.se"
+            id: "6df98480-01f0-4610-a126-d9634e6acca4"
+            name: "Linköping HUB"
+            timeoutInSeconds: 300
+        restCodeReview: true
+        restVerified: true
+        useRestApi: true
+      name: "Gerrit_Central"
+      noConnectionOnStartup: false
+    - config:
+        buildCurrentPatchesOnly:
+          abortManualPatchsets: false
+          abortNewPatchsets: false
+          abortSameTopic: false
+          enabled: false
+        categories:
+        - verdictDescription: "Code Review"
+          verdictValue: "Code-Review"
+        - verdictDescription: "Verified"
+          verdictValue: "Verified"
+        gerritFrontEndUrl: "https://staging-gerrit.sero.gic.ericsson.se/"
+        gerritHostName: "staging-gerrit.sero.gic.ericsson.se"
+        gerritHttpPassword: "****"
+        gerritHttpUserName: "ossadmin"
+        gerritUserName: "ossadmin"
+        replicationConfig:
+          enableReplication: true
+          replicas:
+          - host: "staging-gerritmirror.sero.gic.ericsson.se"
+            id: "e7262770-6eb5-4a96-9391-13865d1aa9f8"
+            name: "Linköping HUB"
+            timeoutInSeconds: 300
+        restCodeReview: true
+        restVerified: true
+        useRestApi: true
+      name: "Gerrit_UAT"
+      noConnectionOnStartup: false
+  gitHubConfiguration:
+    apiRateLimitChecker: ThrottleForNormalize
+  gitHubPluginConfig:
+    hookUrl: "https://fem3s11-eiffel216.eiffel.gic.ericsson.se:8443/jenkins/github-webhook/"
+  gitSCM:
+    addGitTagAction: false
+    allowSecondFetch: false
+    createAccountBasedOnEmail: false
+    disableGitToolChooser: false
+    hideCredentials: false
+    showEntireCommitSummaryInChanges: false
+    useExistingAccountWithSameEmail: false
+  globalConfigFiles:
+    configs:
+    - custom:
+        comment: "config"
+        content: |-
+          # This is a template. Replace {{TOKEN}} with your actual serviceaccount token via:
+          #   kubectl get secret $(kubectl get serviceaccount SA -n NS -o jsonpath='{.secrets[0].name}') -n NS -o jsonpath='{.data.token}' | base64 --decode
+          #
+          apiVersion: v1
+          clusters:
+          - cluster:
+              certificate-authority-data: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUZ5RENDQTdDZ0F3SUJBZ0lSQU9uSXdMZ1V0dnhCaDgyTTFnMVdMRWN3RFFZSktvWklodmNOQVFFTEJRQXcKYlRFTE1Ba0dBMVVFQmhNQ1UwVXhFakFRQmdOVkJBZ01DVk4wYjJOcmFHOXNiVEVTTUJBR0ExVUVCd3dKVTNSdgpZMnRvYjJ4dE1SRXdEd1lEVlFRS0RBaEZjbWxqYzNOdmJqRU5NQXNHQTFVRUN3d0VRMDVFUlRFVU1CSUdBMVVFCkF3d0xSVmRUSUZKdmIzUWdRMEV3SGhjTk1qQXdOVEUzTWpBek9UQTRXaGNOTkRVd05URXhNakF6T1RBNFdqQnQKTVFzd0NRWURWUVFHRXdKVFJURVNNQkFHQTFVRUNBd0pVM1J2WTJ0b2IyeHRNUkl3RUFZRFZRUUhEQWxUZEc5agphMmh2YkcweEVUQVBCZ05WQkFvTUNFVnlhV056YzI5dU1RMHdDd1lEVlFRTERBUkRUa1JGTVJRd0VnWURWUVFECkRBdEZWMU1nVW05dmRDQkRRVENDQWlJd0RRWUpLb1pJaHZjTkFRRUJCUUFEZ2dJUEFEQ0NBZ29DZ2dJQkFNQ2kKbDluczczYW9Cam9oRzhaSDlZeVhWNWQ4UUw5ZmlGRC96MThCcU9ZTGZtVFBlM01zMHJrcmdkUUJIMUdib1hNQwpJbzJoVFFERi9sMzJXWFlWcXpPU3BvUzhNdkR2MFNaRGFUNW1QeWdQZVozSU5ndmZwNldnZnV2VE9MUG1sWEY5CnRCaXdQSU9iMGh3RkxtOVQrTW5ISW5mbG0wZGJxYXhxT2ZsQ3ltbDBkSCtiQ1l3WmxKa1VXUXI1SThyUUxtN1MKSzBneXFYMHE1VTR5NTF6TnpZRlZmWWZFSGNTbDBnZEN3ekhOaDc0ekl4aktQRmxBbVNNVTRES1hURXBqdDQzTgpZR0tYUk9DWUtkZmlzVWRGQlhVTnhkNzVGMXNwWEVBblZUMlVVWk1ZelhidzRxR2NzUDhpUFVrUXBJUEU5aG16CllJMUpJOUVvaWJnajNOV0hxMGdzRTJIdUdOdDFoeVhpVmhGTytuYkw0L21iY250OUxuT2sra0txZXNlZVNSd08KLzVqTFJITTY4MVptdUwrTXFaSm4zR2FyY2xqNzRWMFVrbFc5ZUU0a3NTeVEzQ1hrN24vWWlBUXpTUWZkV0wwWgpWTHpiTkxEdC93QzVPRXBuUG5DbnhYUXJzVzlQRnlGeDNoWkV1a3FFMENzY0drK1NCL1R6YXNrb1pvTU0xV3JDCndITXEzNUxnN1BJWW9UNTZXaHFJeHFRSzBrNitBbkJORUc0d043ODdVOUlsbW1WdHlzdjFDbkVrMW5oU3A0MjgKSjBnWUZKZDltNUdGU3BIYk44NDE2OVRiZjlXNVBkMVV4andVc2JHMlVvOWkyQWZZYkxrYVZ4OVUvcHhtZmpkVwpYVnpPbjZCQ0liUlFjaVpSeVp2czE0ak1vaElOclBIYVRYOTM0VnJWQWdNQkFBR2pZekJoTUE4R0ExVWRFd0VCCi93UUZNQU1CQWY4d0RnWURWUjBQQVFIL0JBUURBZ0dHTUIwR0ExVWREZ1FXQkJSYmRqU1JLdlJxcW12NG8zM3kKVDk3ay9TQkkvREFmQmdOVkhTTUVHREFXZ0JSYmRqU1JLdlJxcW12NG8zM3lUOTdrL1NCSS9EQU5CZ2txaGtpRwo5dzBCQVFzRkFBT0NBZ0VBb2RHMzFjQUxQRzVOUkZkSVZMc2hOK2EyQzcyQVk4WnNVSEx6OERHOEpqb3ZVQ1VwCjlRL3NOSnB3eVY4WGtiTG91Wjh2WUdFRms3RUFzYWRIdkRDa0dqZ0lPVFI4NnlGdlJxbFkraVZ6Q2xYd0xpMlQKYWFodTQ4QnV0bVhqQlU4WjIxQkNySUF4aTg4Z01aUVQ3dkl0eHN4WG1iU1NmZHhFdDh1ek9ESUxEV0twU2lVagpEUzZmbmNCN1psNUlGWk9tbVhSaERieHEwbFl3RlZxOEQ5RXQ3QTM4UmhHUzQ3SVJXRTZDeFBNdldvSkREYjRKCkxKcmdVU0JEZWUrY0VwMUtQS1BwcUZpVjV1TE5hV2JJK1NaQkZnLzkwbTk5WlAxZWIxd0dhMmE2NjZCN2xnTVAKT2Z1S1llT1IySU9UclptQWJiTXMrOEthV2lHNHFlakFzaHROMDRQcDdEN2djdXJ5VTJlSGZKS0ZHeGhsMkNzbQpYQXFRdmMzM1NtN2xiVDN6VFlZUEphWXR6N1ZZMXNNL29vc1ozdk9JTGloVDZvYnJZeENRWElHeUpIMEFvSDg2CmJrSzNhSE9aWW5qS0dhaEZXb2xmcFdKeXpSaVZ1KytwQVpaVXU2VjJQM2RUakI3TVlOTG1LQmFlZnJRbVhNT1YKdEUxQnVFKy9yalNSNzhuTEc4a3dyVk1xZkxyRHRsK1JxcE9ET0oxdnpONHRxKzM2dTNHMnRJVEdoVTh1SlJPMApieS9QVGxMaFc5TUd4SWwzSTk3a2xZT2dMSXpVdWh4a3ZCZXgvUDVaMk1NaHJxS0N2TW9RZ1ZVclFjWHlYcGF6CjMyVVNKK1dYTzc5Ty83WVExM2lpTnlXQWZQQlBtWXpRR2k3OGVlR1dtWkc2L01ReHliTjJkL1AyMXFBPQotLS0tLUVORCBDRVJUSUZJQ0FURS0tLS0tCi0tLS0tQkVHSU4gQ0VSVElGSUNBVEUtLS0tLQpNSUlFeWpDQ0FyS2dBd0lCQWdJUkFPbkl3TGdVdHZ4Qmg4Mk0xZzFXTEVnd0RRWUpLb1pJaHZjTkFRRUxCUUF3CmJURUxNQWtHQTFVRUJoTUNVMFV4RWpBUUJnTlZCQWdNQ1ZOMGIyTnJhRzlzYlRFU01CQUdBMVVFQnd3SlUzUnYKWTJ0b2IyeHRNUkV3RHdZRFZRUUtEQWhGY21samMzTnZiakVOTUFzR0ExVUVDd3dFUTA1RVJURVVNQklHQTFVRQpBd3dMUlZkVElGSnZiM1FnUTBFd0hoY05NakF3TlRFNE1ETTFNakl6V2hjTk16QXdOVEUyTURNMU1qSXpXakJzCk1Rc3dDUVlEVlFRR0V3SlRSVEVTTUJBR0ExVUVDQXdKVTNSdlkydG9iMnh0TVJJd0VBWURWUVFIREFsVGRHOWoKYTJodmJHMHhFVEFQQmdOVkJBb01DRVZ5YVdOemMyOXVNUTB3Q3dZRFZRUUxEQVJEVGtSRk1STXdFUVlEVlFRRApEQXByZFdKbGNtNWxkR1Z6TUlJQklqQU5CZ2txaGtpRzl3MEJBUUVGQUFPQ0FROEFNSUlCQ2dLQ0FRRUF2NWdhClhaR2hvVSs5MXFNUmp6aXdGWTNFeUZXZEpzbE1Yb1ZWbHdKSEkza09EWFZVcTJUNEhSd3N4cnUzeEVtVkcvQkcKMWpWcGFPR0JlWUMzNEhjeERvNVh3RURIazMvV0QyYmtxTllwUEswU3BBMXk1cUEzS2FGOUxCM05rRUdQU0tCZgphSUVOUVptV3pNN2RuZUtPM1p0V3RGUEZkeWF4WEp2d0kwaHR2cy81eExCM2tMWHZOdkRrRjVRQ0NIdXAxUU5kCmlBb3dmMnlQWmsyN3pmN1JiYysxUDlvZjcwRG5RY2k0T1A1K2g5Qis0cEJNamJ3MVRDQ1N0SE9LUzBEOForL0UKbFR0bUN0ajVTRVhodFJnd2JXQVhaNStyb1lhTnBjRjRVbVJ1TmNSWFlVSzhGOUtnOGFYYi94all6cUQ1c3dRRgp2TFAwZ1hmRUJMdVgycC9GU1FJREFRQUJvMll3WkRBU0JnTlZIUk1CQWY4RUNEQUdBUUgvQWdFQU1BNEdBMVVkCkR3RUIvd1FFQXdJQmhqQWRCZ05WSFE0RUZnUVVBUFgycHV1SXpvT012THhlNWJud1djaUE4dFF3SHdZRFZSMGoKQkJnd0ZvQVVXM1kwa1NyMGFxcHIrS045OGsvZTVQMGdTUHd3RFFZSktvWklodmNOQVFFTEJRQURnZ0lCQUF0cgpHbW1zcldvMFRmNUtPOU9JcEo0dlNLdEZNTUR6VWEvOEVIZHg4WG1TbXZxS2YrajE2TXg0cUFwaUE2ZHR4ODlJCjdSMlkrd2pKWWlMOGV0c2tQVGlLdGNuV0JDNEJzNUpZNTFsblhjenFnbG91cE5hTnNRV0FTOEZySldwU0xMU0kKTkU0anhEY1ZyajBuaG1KeEVUZ3FkSmRPVTByK2FtMXFmeHNKQ0dNa0tMVTgxaE12UHRnWFUrK01oVjVwOXhaQgpLdklLVHlHbnlGWnpUZ3BEWXdxU3doSTRhRmNieG1qcGkwMUtiaHFXZWJNSjVzOFVZZFFZSm4weWxSd2NzMTB5Cjd2MEQvcEhmREVRSzFFVnNhd0haTlZVaW9kRWw1VUFuTzBudWcwWDlzeFJmeGNQRmtOSmMwUk1UMFVJRFlWMnAKMnluM2pCZkZlWVhDazdiZURzVmpyZEw5NkR2aHd3V3UxNmpTZWlNc2lWdUpHYzZWNHRkZEF0VUVxenJFOGZwaApHS2F2eXh2dVJsemFPMnJURkw2ZUdSWkhtaWwrQ04vQ0sraWNRQWF4WWZmWnl6YVUwbUVydEtpUnlDOW93RUFOClAzc0trSS93RGJibmxkeHE5Wnp6Q0plclNFcFdHUi9HVExqR0t4cFV2NGRSR1RtWXVOZjU1ZVU4Zzk5YXdrdnMKTHc3SlFZeng3bVpacnVxclNQS3QrVHZCSkp2M0hMbVlTY09FTlk3VUJvMTliWTl1bFVnSHpGaDFtUVRDaCtmNgpiSUY3RUF5eGtnb2ZVeXVpbWQwVTJHaTZjd2ZPbGdFUFkzWW5oTVdxUExFMlhmbG5Hbk9pN1h1VFFDWFl2bGF1CktUQ28vZVJhcmQ1ZGNlSzZkb3A4NklhRFNpWEZiSVZlTnRPcHI1bnkKLS0tLS1FTkQgQ0VSVElGSUNBVEUtLS0tLQo=
+              server: https://10.63.144.43:6443
+            name: hahn186
+          contexts:
+          - context:
+              cluster: hahn186
+              user: default
+            name: default@hahn186
+          current-context: default@hahn186
+          kind: Config
+          preferences: {}
+          users:
+          - name: default
+            user:
+              token: eyJhbGciOiJSUzI1NiIsImtpZCI6IjZpZVhQWFVUNXhYaG1qdk5iM09BbWx1VHNaTF9ScGtacXBIaTdjaTI5dUEifQ.eyJpc3MiOiJrdWJlcm5ldGVzL3NlcnZpY2VhY2NvdW50Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9uYW1lc3BhY2UiOiJkZWZhdWx0Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9zZWNyZXQubmFtZSI6ImNpLXNlcnZpY2UtYWNjb3VudC10b2tlbi1scnZuNiIsImt1YmVybmV0ZXMuaW8vc2VydmljZWFjY291bnQvc2VydmljZS1hY2NvdW50Lm5hbWUiOiJjaS1zZXJ2aWNlLWFjY291bnQiLCJrdWJlcm5ldGVzLmlvL3NlcnZpY2VhY2NvdW50L3NlcnZpY2UtYWNjb3VudC51aWQiOiJmYTZhMmFlNS00YzQxLTRiMmUtOTJiMi1iZTk3YjI4M2RiNzEiLCJzdWIiOiJzeXN0ZW06c2VydmljZWFjY291bnQ6ZGVmYXVsdDpjaS1zZXJ2aWNlLWFjY291bnQifQ.hQZCwjyn9OPHHNePE0TJy6vyy6UTnGEGZo7ZzYIRyO_q-st7sBof99pQWR3bSDS_Ou8YuYaaJcL6tQa1CPiuY9vm6MjJskqi1j03m-kEiQdBFJ7_2jvUnCY5BMg6kC1V-uUmEblaOjoGQ61oIEtfoGEvyhBZuchAFrJfQ1vJAZQuGYPzAlI1IeDy5kyb9xG0evwclWd616ugtAQ0D3nkxGjrG-juXgLKAAbwg7UiSRkSNqIUQKtl7ykzfYnHI91XpqVaJpwZ0S-A4g1t1AA2MNgTvTI7Vz4AxAPbnCQ1mrtK9sQb3o08_vNcP2hLhDKWO1gFPtzCYxeaBNpc506m1Q
+        id: "Testkubeconfig"
+        name: "MyCustom"
+        providerId: "org.jenkinsci.plugins.configfiles.custom.CustomConfig"
+    - custom:
+        comment: "KaaS cluster (hahn083)"
+        content: |
+          apiVersion: v1
+          clusters:
+          - cluster:
+              server: https://gevalia.rnd.gic.ericsson.se/k8s/clusters/c-v6ns9
+            name: hahn083
+          contexts:
+          - context:
+              cluster: hahn083
+              namespace: cdd-app
+              user: hahn083
+            name: hahn083
+          current-context: hahn083
+          kind: Config
+          preferences: {}
+          users:
+          - name: hahn083
+            user:
+              token: kubeconfig-u-vmmckdbwo7:zwxjdt6nfvw6r6rvh6qvxj8plcfz8phql7rkltkvggg6q778p5jbwg
+        id: "hahn083"
+        name: "config"
+        providerId: "org.jenkinsci.plugins.configfiles.custom.CustomConfig"
+    - custom:
+        comment: "KaaS cluster (hahn186)"
+        content: |
+          apiVersion: v1
+          clusters:
+          - cluster:
+              certificate-authority-data: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUZ5RENDQTdDZ0F3SUJBZ0lSQU9uSXdMZ1V0dnhCaDgyTTFnMVdMRWN3RFFZSktvWklodmNOQVFFTEJRQXcKYlRFTE1Ba0dBMVVFQmhNQ1UwVXhFakFRQmdOVkJBZ01DVk4wYjJOcmFHOXNiVEVTTUJBR0ExVUVCd3dKVTNSdgpZMnRvYjJ4dE1SRXdEd1lEVlFRS0RBaEZjbWxqYzNOdmJqRU5NQXNHQTFVRUN3d0VRMDVFUlRFVU1CSUdBMVVFCkF3d0xSVmRUSUZKdmIzUWdRMEV3SGhjTk1qQXdOVEUzTWpBek9UQTRXaGNOTkRVd05URXhNakF6T1RBNFdqQnQKTVFzd0NRWURWUVFHRXdKVFJURVNNQkFHQTFVRUNBd0pVM1J2WTJ0b2IyeHRNUkl3RUFZRFZRUUhEQWxUZEc5agphMmh2YkcweEVUQVBCZ05WQkFvTUNFVnlhV056YzI5dU1RMHdDd1lEVlFRTERBUkRUa1JGTVJRd0VnWURWUVFECkRBdEZWMU1nVW05dmRDQkRRVENDQWlJd0RRWUpLb1pJaHZjTkFRRUJCUUFEZ2dJUEFEQ0NBZ29DZ2dJQkFNQ2kKbDluczczYW9Cam9oRzhaSDlZeVhWNWQ4UUw5ZmlGRC96MThCcU9ZTGZtVFBlM01zMHJrcmdkUUJIMUdib1hNQwpJbzJoVFFERi9sMzJXWFlWcXpPU3BvUzhNdkR2MFNaRGFUNW1QeWdQZVozSU5ndmZwNldnZnV2VE9MUG1sWEY5CnRCaXdQSU9iMGh3RkxtOVQrTW5ISW5mbG0wZGJxYXhxT2ZsQ3ltbDBkSCtiQ1l3WmxKa1VXUXI1SThyUUxtN1MKSzBneXFYMHE1VTR5NTF6TnpZRlZmWWZFSGNTbDBnZEN3ekhOaDc0ekl4aktQRmxBbVNNVTRES1hURXBqdDQzTgpZR0tYUk9DWUtkZmlzVWRGQlhVTnhkNzVGMXNwWEVBblZUMlVVWk1ZelhidzRxR2NzUDhpUFVrUXBJUEU5aG16CllJMUpJOUVvaWJnajNOV0hxMGdzRTJIdUdOdDFoeVhpVmhGTytuYkw0L21iY250OUxuT2sra0txZXNlZVNSd08KLzVqTFJITTY4MVptdUwrTXFaSm4zR2FyY2xqNzRWMFVrbFc5ZUU0a3NTeVEzQ1hrN24vWWlBUXpTUWZkV0wwWgpWTHpiTkxEdC93QzVPRXBuUG5DbnhYUXJzVzlQRnlGeDNoWkV1a3FFMENzY0drK1NCL1R6YXNrb1pvTU0xV3JDCndITXEzNUxnN1BJWW9UNTZXaHFJeHFRSzBrNitBbkJORUc0d043ODdVOUlsbW1WdHlzdjFDbkVrMW5oU3A0MjgKSjBnWUZKZDltNUdGU3BIYk44NDE2OVRiZjlXNVBkMVV4andVc2JHMlVvOWkyQWZZYkxrYVZ4OVUvcHhtZmpkVwpYVnpPbjZCQ0liUlFjaVpSeVp2czE0ak1vaElOclBIYVRYOTM0VnJWQWdNQkFBR2pZekJoTUE4R0ExVWRFd0VCCi93UUZNQU1CQWY4d0RnWURWUjBQQVFIL0JBUURBZ0dHTUIwR0ExVWREZ1FXQkJSYmRqU1JLdlJxcW12NG8zM3kKVDk3ay9TQkkvREFmQmdOVkhTTUVHREFXZ0JSYmRqU1JLdlJxcW12NG8zM3lUOTdrL1NCSS9EQU5CZ2txaGtpRwo5dzBCQVFzRkFBT0NBZ0VBb2RHMzFjQUxQRzVOUkZkSVZMc2hOK2EyQzcyQVk4WnNVSEx6OERHOEpqb3ZVQ1VwCjlRL3NOSnB3eVY4WGtiTG91Wjh2WUdFRms3RUFzYWRIdkRDa0dqZ0lPVFI4NnlGdlJxbFkraVZ6Q2xYd0xpMlQKYWFodTQ4QnV0bVhqQlU4WjIxQkNySUF4aTg4Z01aUVQ3dkl0eHN4WG1iU1NmZHhFdDh1ek9ESUxEV0twU2lVagpEUzZmbmNCN1psNUlGWk9tbVhSaERieHEwbFl3RlZxOEQ5RXQ3QTM4UmhHUzQ3SVJXRTZDeFBNdldvSkREYjRKCkxKcmdVU0JEZWUrY0VwMUtQS1BwcUZpVjV1TE5hV2JJK1NaQkZnLzkwbTk5WlAxZWIxd0dhMmE2NjZCN2xnTVAKT2Z1S1llT1IySU9UclptQWJiTXMrOEthV2lHNHFlakFzaHROMDRQcDdEN2djdXJ5VTJlSGZKS0ZHeGhsMkNzbQpYQXFRdmMzM1NtN2xiVDN6VFlZUEphWXR6N1ZZMXNNL29vc1ozdk9JTGloVDZvYnJZeENRWElHeUpIMEFvSDg2CmJrSzNhSE9aWW5qS0dhaEZXb2xmcFdKeXpSaVZ1KytwQVpaVXU2VjJQM2RUakI3TVlOTG1LQmFlZnJRbVhNT1YKdEUxQnVFKy9yalNSNzhuTEc4a3dyVk1xZkxyRHRsK1JxcE9ET0oxdnpONHRxKzM2dTNHMnRJVEdoVTh1SlJPMApieS9QVGxMaFc5TUd4SWwzSTk3a2xZT2dMSXpVdWh4a3ZCZXgvUDVaMk1NaHJxS0N2TW9RZ1ZVclFjWHlYcGF6CjMyVVNKK1dYTzc5Ty83WVExM2lpTnlXQWZQQlBtWXpRR2k3OGVlR1dtWkc2L01ReHliTjJkL1AyMXFBPQotLS0tLUVORCBDRVJUSUZJQ0FURS0tLS0tCi0tLS0tQkVHSU4gQ0VSVElGSUNBVEUtLS0tLQpNSUlFeWpDQ0FyS2dBd0lCQWdJUkFPbkl3TGdVdHZ4Qmg4Mk0xZzFXTEVnd0RRWUpLb1pJaHZjTkFRRUxCUUF3CmJURUxNQWtHQTFVRUJoTUNVMFV4RWpBUUJnTlZCQWdNQ1ZOMGIyTnJhRzlzYlRFU01CQUdBMVVFQnd3SlUzUnYKWTJ0b2IyeHRNUkV3RHdZRFZRUUtEQWhGY21samMzTnZiakVOTUFzR0ExVUVDd3dFUTA1RVJURVVNQklHQTFVRQpBd3dMUlZkVElGSnZiM1FnUTBFd0hoY05NakF3TlRFNE1ETTFNakl6V2hjTk16QXdOVEUyTURNMU1qSXpXakJzCk1Rc3dDUVlEVlFRR0V3SlRSVEVTTUJBR0ExVUVDQXdKVTNSdlkydG9iMnh0TVJJd0VBWURWUVFIREFsVGRHOWoKYTJodmJHMHhFVEFQQmdOVkJBb01DRVZ5YVdOemMyOXVNUTB3Q3dZRFZRUUxEQVJEVGtSRk1STXdFUVlEVlFRRApEQXByZFdKbGNtNWxkR1Z6TUlJQklqQU5CZ2txaGtpRzl3MEJBUUVGQUFPQ0FROEFNSUlCQ2dLQ0FRRUF2NWdhClhaR2hvVSs5MXFNUmp6aXdGWTNFeUZXZEpzbE1Yb1ZWbHdKSEkza09EWFZVcTJUNEhSd3N4cnUzeEVtVkcvQkcKMWpWcGFPR0JlWUMzNEhjeERvNVh3RURIazMvV0QyYmtxTllwUEswU3BBMXk1cUEzS2FGOUxCM05rRUdQU0tCZgphSUVOUVptV3pNN2RuZUtPM1p0V3RGUEZkeWF4WEp2d0kwaHR2cy81eExCM2tMWHZOdkRrRjVRQ0NIdXAxUU5kCmlBb3dmMnlQWmsyN3pmN1JiYysxUDlvZjcwRG5RY2k0T1A1K2g5Qis0cEJNamJ3MVRDQ1N0SE9LUzBEOForL0UKbFR0bUN0ajVTRVhodFJnd2JXQVhaNStyb1lhTnBjRjRVbVJ1TmNSWFlVSzhGOUtnOGFYYi94all6cUQ1c3dRRgp2TFAwZ1hmRUJMdVgycC9GU1FJREFRQUJvMll3WkRBU0JnTlZIUk1CQWY4RUNEQUdBUUgvQWdFQU1BNEdBMVVkCkR3RUIvd1FFQXdJQmhqQWRCZ05WSFE0RUZnUVVBUFgycHV1SXpvT012THhlNWJud1djaUE4dFF3SHdZRFZSMGoKQkJnd0ZvQVVXM1kwa1NyMGFxcHIrS045OGsvZTVQMGdTUHd3RFFZSktvWklodmNOQVFFTEJRQURnZ0lCQUF0cgpHbW1zcldvMFRmNUtPOU9JcEo0dlNLdEZNTUR6VWEvOEVIZHg4WG1TbXZxS2YrajE2TXg0cUFwaUE2ZHR4ODlJCjdSMlkrd2pKWWlMOGV0c2tQVGlLdGNuV0JDNEJzNUpZNTFsblhjenFnbG91cE5hTnNRV0FTOEZySldwU0xMU0kKTkU0anhEY1ZyajBuaG1KeEVUZ3FkSmRPVTByK2FtMXFmeHNKQ0dNa0tMVTgxaE12UHRnWFUrK01oVjVwOXhaQgpLdklLVHlHbnlGWnpUZ3BEWXdxU3doSTRhRmNieG1qcGkwMUtiaHFXZWJNSjVzOFVZZFFZSm4weWxSd2NzMTB5Cjd2MEQvcEhmREVRSzFFVnNhd0haTlZVaW9kRWw1VUFuTzBudWcwWDlzeFJmeGNQRmtOSmMwUk1UMFVJRFlWMnAKMnluM2pCZkZlWVhDazdiZURzVmpyZEw5NkR2aHd3V3UxNmpTZWlNc2lWdUpHYzZWNHRkZEF0VUVxenJFOGZwaApHS2F2eXh2dVJsemFPMnJURkw2ZUdSWkhtaWwrQ04vQ0sraWNRQWF4WWZmWnl6YVUwbUVydEtpUnlDOW93RUFOClAzc0trSS93RGJibmxkeHE5Wnp6Q0plclNFcFdHUi9HVExqR0t4cFV2NGRSR1RtWXVOZjU1ZVU4Zzk5YXdrdnMKTHc3SlFZeng3bVpacnVxclNQS3QrVHZCSkp2M0hMbVlTY09FTlk3VUJvMTliWTl1bFVnSHpGaDFtUVRDaCtmNgpiSUY3RUF5eGtnb2ZVeXVpbWQwVTJHaTZjd2ZPbGdFUFkzWW5oTVdxUExFMlhmbG5Hbk9pN1h1VFFDWFl2bGF1CktUQ28vZVJhcmQ1ZGNlSzZkb3A4NklhRFNpWEZiSVZlTnRPcHI1bnkKLS0tLS1FTkQgQ0VSVElGSUNBVEUtLS0tLQo=
+              server: https://10.63.144.43:6443
+            name: hahn186
+          contexts:
+          - context:
+              cluster: hahn186
+              user: cattle
+            name: cattle@hahn186
+          current-context: cattle@hahn186
+          kind: Config
+          preferences: {}
+          users:
+          - name: cattle
+            user:
+              token: eyJhbGciOiJSUzI1NiIsImtpZCI6IjZpZVhQWFVUNXhYaG1qdk5iM09BbWx1VHNaTF9ScGtacXBIaTdjaTI5dUEifQ.eyJpc3MiOiJrdWJlcm5ldGVzL3NlcnZpY2VhY2NvdW50Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9uYW1lc3BhY2UiOiJjYXR0bGUtc3lzdGVtIiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9zZWNyZXQubmFtZSI6ImNhdHRsZS10b2tlbi1qNnQ2dyIsImt1YmVybmV0ZXMuaW8vc2VydmljZWFjY291bnQvc2VydmljZS1hY2NvdW50Lm5hbWUiOiJjYXR0bGUiLCJrdWJlcm5ldGVzLmlvL3NlcnZpY2VhY2NvdW50L3NlcnZpY2UtYWNjb3VudC51aWQiOiI5OTRjMTAyYS1kYTNkLTQxNWYtYTExMi0yZmY2MWFhOTY5MTEiLCJzdWIiOiJzeXN0ZW06c2VydmljZWFjY291bnQ6Y2F0dGxlLXN5c3RlbTpjYXR0bGUifQ.RFjHf7lSzlEMC8c9qtRm3hFm3QI8IDuxMBGXsTQtaV7HteZQzzPYjnxppqJHnfS1jM5XgCVk9f7IwJA6YTQWAx0i37lr4ctx-5ruTrMtHRJ8y7Q2-n-uGbAuNJAZLYxHf6HJqlnbX7fD3pxLf0HsWxou7Kn7mxe5hLMvYURne4WhksdY3axhBNd-PAAvAjdUq7D19ZR1htEhwquVIvzxfg3q_9RCHEbBXBAaxVHN2QDukBS-ECwcRU9LgTKA_ynnrsoUh8KcR4iW-hiOjik5BueyUDB2qNfcJFTZSUo5bZWlo3QCp97iAKB3PnMJF-mW_gOJXO91HZd54ytgZRf9Hg
+        id: "hahn186"
+        name: "config"
+        providerId: "org.jenkinsci.plugins.configfiles.custom.CustomConfig"
+    - mavenSettings:
+        comment: "User settings"
+        content: "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\
+          \ ~ COPYRIGHT Ericsson 2020\n ~\n ~\n ~\n ~ The copyright to the computer\
+          \ program(s) herein is the property of\n ~\n ~ Ericsson Inc. The programs\
+          \ may be used and/or copied only with written\n ~\n ~ permission from Ericsson\
+          \ Inc. or in accordance with the terms and\n ~\n ~ conditions stipulated\
+          \ in the agreement/contract under which the\n ~\n ~ program(s) have been\
+          \ supplied.\n ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->\n\
+          <settings xsi:schemaLocation=\"http://maven.apache.org/SETTINGS/1.1.0 http://maven.apache.org/xsd/settings-1.1.0.xsd\"\
+          \ xmlns=\"http://maven.apache.org/SETTINGS/1.1.0\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\
+          >\n    <pluginGroups>\n        <pluginGroup>org.sonarsource.scanner.maven</pluginGroup>\n\
+          \    </pluginGroups>\n    <mirrors>\n        <mirror>\n            <id>nexus</id>\n\
+          \            <mirrorOf>external:*,central,!archetype</mirrorOf>\n      \
+          \      <url>https://arm1s11-eiffel052.eiffel.gic.ericsson.se:8443/nexus/content/groups/eo-repositories</url>\n\
+          \        </mirror>\n    </mirrors>\n     <profiles>\n        <profile>\n\
+          \        <id>artifactory</id>\n         <repositories>\n           <repository>\n\
+          \             <id>snapshot</id>\n             <name>proj-eric-oss-dev-local</name>\n\
+          \             <url>https://arm.seli.gic.ericsson.se/artifactory/proj-eric-oss-dev-local</url>\n\
+          \           </repository>\n           <repository>\n             <snapshots>\n\
+          \               <enabled>false</enabled>\n             </snapshots>\n  \
+          \           <id>staging</id>\n             <name>proj-eric-oss-staging-local</name>\n\
+          \             <url>https://arm.seli.gic.ericsson.se/artifactory/proj-eric-oss-staging-local</url>\n\
+          \           </repository>\n           <repository>\n             <snapshots>\n\
+          \               <enabled>false</enabled>\n             </snapshots>\n  \
+          \           <id>release</id>\n             <name>proj-eric-oss-release-local</name>\n\
+          \             <url>https://arm.seli.gic.ericsson.se/artifactory/proj-eric-oss-release-local</url>\n\
+          \           </repository>\n         </repositories>\n        </profile>\n\
+          \        \n        <profile>\n          <id>archetype</id>\n          <repositories>\n\
+          \            <repository>\n              <id>archetype</id><!-- id expected\
+          \ by maven-archetype-plugin to avoid fetching from everywhere -->\n    \
+          \          <url>https://arm.seli.gic.ericsson.se/artifactory/proj-eric-oss-release-local/com/ericsson/de/microservice-chassis-archetype/</url>\n\
+          \              <releases>\n                <enabled>true</enabled>\n   \
+          \           </releases>\n              <snapshots>\n                <enabled>false</enabled>\n\
+          \              </snapshots>\n            </repository>\n          </repositories>\n\
+          \        </profile>\n        \n        <profile>\n            <id>default-repo</id>\n\
+          \            <repositories>\n                 \n                <repository>\n\
+          \                    <id>eiffel052Nexus</id>\n                    <name>eo-repositories</name>\n\
+          \                    <url>arm1s11-eiffel052.eiffel.gic.ericsson.se:8443/nexus/content/groups/eo-repositories</url>\n\
+          \                </repository>\n                <repository>\n         \
+          \           <id>central</id>\n                    <name>maven-central</name>\n\
+          \                    <url>https://central</url>\n                </repository>\n\
+          \                <!--\n                <repository>\n                  \
+          \  <id>microservice-chassis-archetype</id>\n                    <url>https://arm.seli.gic.ericsson.se/artifactory/proj-eric-oss-release-local/com/ericsson/de/microservice-chassis-archetype/</url>\n\
+          \                </repository>\n                -->\n            </repositories>\n\
+          \            <pluginRepositories>\n                <pluginRepository>\n\
+          \                    <snapshots>\n                        <enabled>false</enabled>\n\
+          \                    </snapshots>\n                    <id>jcat-arm-release</id>\n\
+          \                    <name>proj-jcat-release</name>\n                  \
+          \  <url>https://arm.rnd.ki.sw.ericsson.se/artifactory/proj-jcat-release</url>\n\
+          \                </pluginRepository>\n                <pluginRepository>\n\
+          \                    <snapshots />\n                    <id>jcat-arm-snapshot</id>\n\
+          \                    <name>proj-jcat-dev</name>\n                    <url>https://arm.rnd.ki.sw.ericsson.se/artifactory/proj-jcat-release</url>\n\
+          \                </pluginRepository>\n            </pluginRepositories>\n\
+          \        </profile>\n    </profiles>\n    <activeProfiles>\n        <activeProfile>archetype</activeProfile>\n\
+          \    </activeProfiles>\n  \n  <servers>\n    <server>\n      <id>archetype</id>\n\
+          \      <username>ossadmin</username>\n      <password>tMaPmS&amp;ci0yuhs$467fadsBDL8hsfdgat</password>\n\
+          \    </server>\n  </servers>\n</settings>"
+        id: "maven.settings.artifactory"
+        isReplaceAll: true
+        name: "MySettings"
+        providerId: "org.jenkinsci.plugins.configfiles.maven.MavenSettingsConfig"
+    - mavenSettings:
+        comment: "BSS BEL Chassis Settings XML"
+        content: "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\
+          \ ~ COPYRIGHT Ericsson 2020\n ~\n ~\n ~\n ~ The copyright to the computer\
+          \ program(s) herein is the property of\n ~\n ~ Ericsson Inc. The programs\
+          \ may be used and/or copied only with written\n ~\n ~ permission from Ericsson\
+          \ Inc. or in accordance with the terms and\n ~\n ~ conditions stipulated\
+          \ in the agreement/contract under which the\n ~\n ~ program(s) have been\
+          \ supplied.\n ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->\n\
+          <settings xsi:schemaLocation=\"http://maven.apache.org/SETTINGS/1.1.0 http://maven.apache.org/xsd/settings-1.1.0.xsd\"\
+          \ xmlns=\"http://maven.apache.org/SETTINGS/1.1.0\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\
+          >\n    <pluginGroups>\n        <pluginGroup>org.sonarsource.scanner.maven</pluginGroup>\n\
+          \    </pluginGroups>\n    <mirrors>\n        <mirror>\n            <id>nexus</id>\n\
+          \            <mirrorOf>external:*,central</mirrorOf>\n           <!-- <url>https://arm1s11-eiffel052.eiffel.gic.ericsson.se:8443/nexus/content/groups/eo-repositories</url>\
+          \ -->\n            <url>https://arm.seli.gic.ericsson.se/artifactory/proj-ael-dev</url>\n\
+          \        </mirror>\n    </mirrors>\n     <profiles>\n        <profile>\n\
+          \         <repositories>\n           <repository>\n             <snapshots\
+          \ />\n             <id>snapshot</id>\n             <name>proj-eric-oss-dev-local</name>\n\
+          \             <url>https://arm.seli.gic.ericsson.se/artifactory/proj-eric-oss-dev-local</url>\n\
+          \           </repository>\n           <repository>\n             <snapshots>\n\
+          \               <enabled>false</enabled>\n             </snapshots>\n  \
+          \           <id>staging</id>\n             <name>proj-eric-oss-staging-local</name>\n\
+          \             <url>https://arm.seli.gic.ericsson.se/artifactory/proj-eric-oss-staging-local</url>\n\
+          \           </repository>\n           <repository>\n             <snapshots>\n\
+          \               <enabled>false</enabled>\n             </snapshots>\n  \
+          \           <id>release</id>\n             <name>proj-eric-oss-release-local</name>\n\
+          \             <url>https://arm.seli.gic.ericsson.se/artifactory/proj-eric-oss-release-local</url>\n\
+          \           </repository>\n         </repositories>\n         <id>artifactory</id>\n\
+          \        </profile>\n        <profile>\n            <id>default-repo</id>\n\
+          \            <repositories>\n                <repository>\n            \
+          \        <id>bss</id>\n                    <name>bss</name>\n          \
+          \          <url>https://arm.seli.gic.ericsson.se/artifactory/proj-ael-release</url>\n\
+          \                </repository>    \n                <repository>\n     \
+          \               <id>bss-dev</id>\n                    <name>bss-dev</name>\n\
+          \                    <url>https://arm.seli.gic.ericsson.se/artifactory/proj-ael-dev</url>\n\
+          \                </repository>  \n                <repository>\n       \
+          \             <id>eiffel052Nexus</id>\n                    <name>eo-repositories</name>\n\
+          \                    <url>arm1s11-eiffel052.eiffel.gic.ericsson.se:8443/nexus/content/groups/eo-repositories</url>\n\
+          \                </repository>\n                <repository>\n         \
+          \           <id>central</id>\n                    <name>maven-central</name>\n\
+          \                    <url>https://central</url>\n                </repository>\n\
+          \            </repositories>\n            <pluginRepositories>\n       \
+          \         <pluginRepository>\n                    <snapshots>\n        \
+          \                <enabled>false</enabled>\n                    </snapshots>\n\
+          \                    <id>jcat-arm-release</id>\n                    <name>proj-jcat-release</name>\n\
+          \                    <url>https://arm.rnd.ki.sw.ericsson.se/artifactory/proj-jcat-release</url>\n\
+          \                </pluginRepository>\n                <pluginRepository>\n\
+          \                    <snapshots />\n                    <id>jcat-arm-snapshot</id>\n\
+          \                    <name>proj-jcat-dev</name>\n                    <url>https://arm.rnd.ki.sw.ericsson.se/artifactory/proj-jcat-release</url>\n\
+          \                </pluginRepository>\n            </pluginRepositories>\n\
+          \        </profile>\n    </profiles>\n    <activeProfiles>\n        <activeProfile>default-repo</activeProfile>\n\
+          \    </activeProfiles>\n</settings>"
+        id: "maven.settings.bss"
+        isReplaceAll: true
+        name: "settings.xml"
+        providerId: "org.jenkinsci.plugins.configfiles.maven.MavenSettingsConfig"
+        serverCredentialMappings:
+        - credentialsId: "SELI_ARTIFACTORY"
+          serverId: "snapshot"
+        - credentialsId: "SELI_ARTIFACTORY"
+          serverId: "release"
+    - mavenSettings:
+        comment: "User settings"
+        content: "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\
+          \ ~ COPYRIGHT Ericsson 2020\n ~\n ~\n ~\n ~ The copyright to the computer\
+          \ program(s) herein is the property of\n ~\n ~ Ericsson Inc. The programs\
+          \ may be used and/or copied only with written\n ~\n ~ permission from Ericsson\
+          \ Inc. or in accordance with the terms and\n ~\n ~ conditions stipulated\
+          \ in the agreement/contract under which the\n ~\n ~ program(s) have been\
+          \ supplied.\n ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->\n\
+          <settings xsi:schemaLocation=\"http://maven.apache.org/SETTINGS/1.1.0 http://maven.apache.org/xsd/settings-1.1.0.xsd\"\
+          \ xmlns=\"http://maven.apache.org/SETTINGS/1.1.0\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\
+          >\n  <mirrors>\n        <mirror>\n            <id>nexus</id>\n         \
+          \   <mirrorOf>external:*,!prototype</mirrorOf>\n            <url>https://arm1s11-eiffel004.eiffel.gic.ericsson.se:8443/nexus/content/groups/public</url>\n\
+          \        </mirror>\n    </mirrors>\n    \n    <profiles>\n        <profile>\n\
+          \          <id>nexus</id>\n          <!-- Enable snapshots for the built\
+          \ in central repo to direct -->\n          <!-- all requests to nexus via\
+          \ the mirror -->\n          <repositories>\n            <repository>\n \
+          \             <id>central</id>\n              <url>http://central</url>\n\
+          \              <releases>\n                <enabled>true</enabled>\n   \
+          \             <!-- updatePolicy>always</updatePolicy -->\n             \
+          \ </releases>\n              <snapshots>\n                <enabled>true</enabled>\n\
+          \                <!-- updatePolicy>always</updatePolicy -->\n          \
+          \    </snapshots>\n            </repository>\n          </repositories>\n\
+          \          \n          <pluginRepositories>\n            <pluginRepository>\n\
+          \              <id>central</id>\n              <url>http://central</url>\n\
+          \              <releases><enabled>true</enabled></releases>\n          \
+          \    <snapshots><enabled>true</enabled></snapshots>\n            </pluginRepository>\n\
+          \          </pluginRepositories>\n        </profile>\n  </profiles>\n  \n\
+          \  <activeProfiles>\n    <!-- make the profile active all the time -->\n\
+          \    <activeProfile>nexus</activeProfile>\n  </activeProfiles>\n  \n  <pluginGroups>\n\
+          \    <!-- define the sonatype plugin group, so the nexus plugins will work\
+          \ without typing the groupId -->\n    <pluginGroup>org.sonatype.plugins</pluginGroup>\n\
+          \    <pluginGroup>org.jacoco</pluginGroup>\n  </pluginGroups>\n  \n  <servers>\n\
+          \    <server>\n      <id>releases</id>\n      <username>ossadmin</username>\n\
+          \      <password>{wfdEKWeM+kMHGTUiwwklhQ+ovI44l8c0CjkeWx0fkVw=}</password>\
+          \  \n    </server>\n    <server>           \n      <id>snapshots</id>\n\
+          \      <username>ossadmin</username>\n      <password>{wfdEKWeM+kMHGTUiwwklhQ+ovI44l8c0CjkeWx0fkVw=}</password>\n\
+          \    </server>\n    <server>\n      <id>site</id>\n      <username>ossadmin</username>\n\
+          \      <password>{wfdEKWeM+kMHGTUiwwklhQ+ovI44l8c0CjkeWx0fkVw=}</password>\n\
+          \    </server>\n    <server>\n      <id>nexus</id>\n      <username>ossadmin</username>\n\
+          \      <password>{wfdEKWeM+kMHGTUiwwklhQ+ovI44l8c0CjkeWx0fkVw=}</password>\n\
+          \    </server>\n  </servers>\n  \n</settings>"
+        id: "maven.settings.eiffel004"
+        isReplaceAll: true
+        name: "settings.xml"
+        providerId: "org.jenkinsci.plugins.configfiles.maven.MavenSettingsConfig"
+    - mavenSettings:
+        comment: "ENM Settings XML with Access to Nexus"
+        content: "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<!--\n\n   Copyright\
+          \ (c) 2008-2012 Sonatype, Inc.\n\n   All rights reserved. Includes the third-party\
+          \ code listed at http://links.sonatype.com/products/nexus/pro/attributions\n\
+          \   Sonatype and Sonatype Nexus are trademarks of Sonatype, Inc. Apache\
+          \ Maven is a trademark of the Apache Foundation.\n   M2Eclipse is a trademark\
+          \ of the Eclipse Foundation. All other trademarks are the property of their\
+          \ respective owners.\n\n  -->\n<settings xmlns=\"http://maven.apache.org/SETTINGS/1.0.0\"\
+          \n          xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\n  \
+          \        xsi:schemaLocation=\"http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd\"\
+          >\n  <localRepository>/proj/mvn/.m2/repository</localRepository>\n  <mirrors>\n\
+          \    <mirror>\n      <!-- This sends everything else to /public -->\n  \
+          \    <id>nexus</id>\n      <mirrorOf>external:*,!prototype</mirrorOf>\n\
+          \      <url>https://arm1s11-eiffel004.eiffel.gic.ericsson.se:8443/nexus/content/groups/public</url>\n\
+          \    </mirror>\n  </mirrors>\n  <profiles>\n    <profile>\n      <id>nexus</id>\n\
+          \      <!-- Enable snapshots for the built in central repo to direct -->\n\
+          \      <!-- all requests to nexus via the mirror -->\n      <repositories>\n\
+          \        <repository>\n          <id>central</id>\n          <url>http://central</url>\n\
+          \          <releases>\n            <enabled>true</enabled>\n           \
+          \ <!-- updatePolicy>always</updatePolicy -->\n          </releases>\n  \
+          \        <snapshots>\n            <enabled>true</enabled>\n            <!--\
+          \ updatePolicy>always</updatePolicy -->\n          </snapshots>\n      \
+          \  </repository>\n      </repositories>\n      <pluginRepositories>\n  \
+          \      <pluginRepository>\n          <id>central</id>\n          <url>http://central</url>\n\
+          \          <releases><enabled>true</enabled></releases>\n          <snapshots><enabled>true</enabled></snapshots>\n\
+          \        </pluginRepository>\n      </pluginRepositories>\n    </profile>\n\
+          \  </profiles>\n  <activeProfiles>\n    <!-- make the profile active all\
+          \ the time -->\n    <activeProfile>nexus</activeProfile>\n  </activeProfiles>\n\
+          \  \n  <pluginGroups>\n    <!-- define the sonatype plugin group, so the\
+          \ nexus plugins will work without typing the groupId -->\n    <pluginGroup>org.sonatype.plugins</pluginGroup>\n\
+          \    <pluginGroup>org.jacoco</pluginGroup>\n  </pluginGroups>\n\n</settings>"
+        id: "maven.settings.enm"
+        isReplaceAll: true
+        name: "settings.xml"
+        providerId: "org.jenkinsci.plugins.configfiles.maven.MavenSettingsConfig"
+        serverCredentialMappings:
+        - credentialsId: "GERRIT_PASSWORD"
+          serverId: "releases"
+        - credentialsId: "GERRIT_PASSWORD"
+          serverId: "snapshots"
+        - credentialsId: "GERRIT_PASSWORD"
+          serverId: "nexus"
+        - credentialsId: "GERRIT_PASSWORD"
+          serverId: "site"
+    - mavenSettings:
+        comment: "testing idun sdk release job"
+        content: "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<!--\n\n   Copyright\
+          \ (c) 2008-2012 Sonatype, Inc.\n\n   All rights reserved. Includes the third-party\
+          \ code listed at http://links.sonatype.com/products/nexus/pro/attributions\n\
+          \   Sonatype and Sonatype Nexus are trademarks of Sonatype, Inc. Apache\
+          \ Maven is a trademark of the Apache Foundation.\n   M2Eclipse is a trademark\
+          \ of the Eclipse Foundation. All other trademarks are the property of their\
+          \ respective owners.\n\n  -->\n<settings xmlns=\"http://maven.apache.org/SETTINGS/1.0.0\"\
+          \n          xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\n  \
+          \        xsi:schemaLocation=\"http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd\"\
+          >\n  <localRepository>/proj/mvn/.m2/repository</localRepository>\n  <mirrors>\n\
+          \    <mirror>\n      <!-- This sends everything else to /public -->\n  \
+          \    <id>nexus</id>\n      <mirrorOf>external:*,!prototype</mirrorOf>\n\
+          \      <url>https://arm1s11-eiffel004.eiffel.gic.ericsson.se:8443/nexus/content/groups/public</url>\n\
+          \    </mirror>\n  </mirrors>\n  <profiles>\n    <profile>\n      <id>nexus</id>\n\
+          \      <!-- Enable snapshots for the built in central repo to direct -->\n\
+          \      <!-- all requests to nexus via the mirror -->\n      <repositories>\n\
+          \        <repository>\n          <id>central</id>\n          <url>http://central</url>\n\
+          \          <releases>\n            <enabled>true</enabled>\n           \
+          \ <!-- updatePolicy>always</updatePolicy -->\n          </releases>\n  \
+          \        <snapshots>\n            <enabled>true</enabled>\n            <!--\
+          \ updatePolicy>always</updatePolicy -->\n          </snapshots>\n      \
+          \  </repository>\n      </repositories>\n      <pluginRepositories>\n  \
+          \      <pluginRepository>\n          <id>central</id>\n          <url>http://central</url>\n\
+          \          <releases><enabled>true</enabled></releases>\n          <snapshots><enabled>true</enabled></snapshots>\n\
+          \        </pluginRepository>\n      </pluginRepositories>\n    </profile>\n\
+          \  </profiles>\n  <activeProfiles>\n    <!-- make the profile active all\
+          \ the time -->\n    <activeProfile>nexus</activeProfile>\n  </activeProfiles>\n\
+          \  \n  <pluginGroups>\n    <!-- define the sonatype plugin group, so the\
+          \ nexus plugins will work without typing the groupId -->\n    <pluginGroup>org.sonatype.plugins</pluginGroup>\n\
+          \    <pluginGroup>org.jacoco</pluginGroup>\n  </pluginGroups>\n  <servers>\n\
+          \    <server>\n      <id>nexus</id>\n      <username>ossadmin</username>\n\
+          \      <password>{wfdEKWeM+kMHGTUiwwklhQ+ovI44l8c0CjkeWx0fkVw=}</password>\n\
+          \    </server>\n    <server>\n      <id>site</id>\n      <username>ossadmin</username>\n\
+          \      <password>{wfdEKWeM+kMHGTUiwwklhQ+ovI44l8c0CjkeWx0fkVw=}</password>\n\
+          \    </server>\n    <server>\n      <id>snapshots</id>\n      <username>ossadmin</username>\n\
+          \      <password>{wfdEKWeM+kMHGTUiwwklhQ+ovI44l8c0CjkeWx0fkVw=}</password>\n\
+          \    </server>\n    <server>\n      <id>releases</id>\n      <username>ossadmin</username>\n\
+          \      <password>{wfdEKWeM+kMHGTUiwwklhQ+ovI44l8c0CjkeWx0fkVw=}</password>\n\
+          \    </server>\n  </servers>\n</settings>"
+        id: "maven.settings.enm.test"
+        isReplaceAll: true
+        name: "MySettings"
+        providerId: "org.jenkinsci.plugins.configfiles.maven.MavenSettingsConfig"
+    - mavenSettings:
+        comment: "Microservice Chassis Settings XML with Access to Artifactory Maven\
+          \ Repos"
+        content: |-
+          <?xml version="1.0" encoding="UTF-8"?>
+          <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+           ~ COPYRIGHT Ericsson 2020
+           ~
+           ~
+           ~
+           ~ The copyright to the computer program(s) herein is the property of
+           ~
+           ~ Ericsson Inc. The programs may be used and/or copied only with written
+           ~
+           ~ permission from Ericsson Inc. or in accordance with the terms and
+           ~
+           ~ conditions stipulated in the agreement/contract under which the
+           ~
+           ~ program(s) have been supplied.
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+          <settings xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.1.0 http://maven.apache.org/xsd/settings-1.1.0.xsd" xmlns="http://maven.apache.org/SETTINGS/1.1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+              <pluginGroups>
+                  <pluginGroup>org.sonarsource.scanner.maven</pluginGroup>
+              </pluginGroups>
+            <mirrors>
+                  <mirror>
+                      <id>nexus</id>
+                      <mirrorOf>external:*,central</mirrorOf>
+                      <url>https://arm1s11-eiffel052.eiffel.gic.ericsson.se:8443/nexus/content/groups/eo-repositories</url>
+                  </mirror>
+              </mirrors>
+               <profiles>
+                  <profile>
+                   <repositories>
+                     <repository>
+                       <snapshots />
+                       <id>snapshot</id>
+                       <name>proj-eric-oss-dev-local</name>
+                       <url>https://arm.seli.gic.ericsson.se/artifactory/proj-eric-oss-dev-local</url>
+                     </repository>
+                     <repository>
+                       <snapshots>
+                         <enabled>false</enabled>
+                       </snapshots>
+                       <id>staging</id>
+                       <name>proj-eric-oss-staging-local</name>
+                       <url>https://arm.seli.gic.ericsson.se/artifactory/proj-eric-oss-staging-local</url>
+                     </repository>
+                     <repository>
+                       <snapshots>
+                         <enabled>false</enabled>
+                       </snapshots>
+                       <id>release</id>
+                       <name>proj-eric-oss-release-local</name>
+                       <url>https://arm.seli.gic.ericsson.se/artifactory/proj-eric-oss-release-local</url>
+                     </repository>
+                   </repositories>
+                   <id>artifactory</id>
+                  </profile>
+                  <profile>
+                      <id>default-repo</id>
+                      <repositories>
+                          <repository>
+                              <id>eiffel052Nexus</id>
+                              <name>eo-repositories</name>
+                              <url>arm1s11-eiffel052.eiffel.gic.ericsson.se:8443/nexus/content/groups/eo-repositories</url>
+                          </repository>
+                          <repository>
+                              <id>central</id>
+                              <name>maven-central</name>
+                              <url>https://central</url>
+                          </repository>
+                      </repositories>
+                      <pluginRepositories>
+                          <pluginRepository>
+                              <snapshots>
+                                  <enabled>false</enabled>
+                              </snapshots>
+                              <id>jcat-arm-release</id>
+                              <name>proj-jcat-release</name>
+                              <url>https://arm.rnd.ki.sw.ericsson.se/artifactory/proj-jcat-release</url>
+                          </pluginRepository>
+                          <pluginRepository>
+                              <snapshots />
+                              <id>jcat-arm-snapshot</id>
+                              <name>proj-jcat-dev</name>
+                              <url>https://arm.rnd.ki.sw.ericsson.se/artifactory/proj-jcat-release</url>
+                          </pluginRepository>
+                      </pluginRepositories>
+                  </profile>
+              </profiles>
+              <activeProfiles>
+                  <activeProfile>default-repo</activeProfile>
+              </activeProfiles>
+          </settings>
+        id: "maven.settings.oss"
+        isReplaceAll: true
+        name: "settings.xml"
+        providerId: "org.jenkinsci.plugins.configfiles.maven.MavenSettingsConfig"
+        serverCredentialMappings:
+        - credentialsId: "SELI_ARTIFACTORY"
+          serverId: "snapshot"
+        - credentialsId: "SELI_ARTIFACTORY"
+          serverId: "staging"
+        - credentialsId: "SELI_ARTIFACTORY"
+          serverId: "release"
+    - mavenSettings:
+        comment: "User settings"
+        content: |-
+          <?xml version="1.0" encoding="UTF-8"?>
+          <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+           ~ COPYRIGHT Ericsson 2020
+           ~
+           ~maven.settings.oss_local
+           ~
+           ~ The copyright to the computer program(s) herein is the property of
+           ~
+           ~ Ericsson Inc. The programs may be used and/or copied only with written
+           ~
+           ~ permission from Ericsson Inc. or in accordance with the terms and
+           ~
+           ~ conditions stipulated in the agreement/contract under which the
+           ~
+           ~ program(s) have been supplied.
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+          <settings xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.1.0 http://maven.apache.org/xsd/settings-1.1.0.xsd" xmlns="http://maven.apache.org/SETTINGS/1.1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+              <pluginGroups>
+                  <pluginGroup>org.sonarsource.scanner.maven</pluginGroup>
+              </pluginGroups>
+           <localRepository>/proj/mvn/.m2/repository</localRepository>
+            <mirrors>
+                  <mirror>
+                      <id>nexus</id>
+                      <mirrorOf>external:*,central</mirrorOf>
+                      <url>https://arm1s11-eiffel052.eiffel.gic.ericsson.se:8443/nexus/content/groups/eo-repositories</url>
+                  </mirror>
+              </mirrors>
+               <profiles>
+                  <profile>
+                   <repositories>
+                     <repository>
+                       <snapshots />
+                       <id>snapshot</id>
+                       <name>proj-eric-oss-dev-local</name>
+                       <url>https://arm.seli.gic.ericsson.se/artifactory/proj-eric-oss-dev-local</url>
+                     </repository>
+                     <repository>
+                       <snapshots>
+                         <enabled>false</enabled>
+                       </snapshots>
+                       <id>staging</id>
+                       <name>proj-eric-oss-staging-local</name>
+                       <url>https://arm.seli.gic.ericsson.se/artifactory/proj-eric-oss-staging-local</url>
+                     </repository>
+                     <repository>
+                       <snapshots>
+                         <enabled>false</enabled>
+                       </snapshots>
+                       <id>release</id>
+                       <name>proj-eric-oss-release-local</name>
+                       <url>https://arm.seli.gic.ericsson.se/artifactory/proj-eric-oss-release-local</url>
+                     </repository>
+                   </repositories>
+                   <id>artifactory</id>
+                  </profile>
+                  <profile>
+                      <id>default-repo</id>
+                      <repositories>
+                          <repository>
+                              <id>eiffel052Nexus</id>
+                              <name>eo-repositories</name>
+                              <url>arm1s11-eiffel052.eiffel.gic.ericsson.se:8443/nexus/content/groups/eo-repositories</url>
+                          </repository>
+                          <repository>
+                              <id>central</id>
+                              <name>maven-central</name>
+                              <url>https://central</url>
+                          </repository>
+                      </repositories>
+                      <pluginRepositories>
+                          <pluginRepository>
+                              <snapshots>
+                                  <enabled>false</enabled>
+                              </snapshots>
+                              <id>jcat-arm-release</id>
+                              <name>proj-jcat-release</name>
+                              <url>https://arm.rnd.ki.sw.ericsson.se/artifactory/proj-jcat-release</url>
+                          </pluginRepository>
+                          <pluginRepository>
+                              <snapshots />
+                              <id>jcat-arm-snapshot</id>
+                              <name>proj-jcat-dev</name>
+                              <url>https://arm.rnd.ki.sw.ericsson.se/artifactory/proj-jcat-release</url>
+                          </pluginRepository>
+                      </pluginRepositories>
+                  </profile>
+              </profiles>
+              <activeProfiles>
+                  <activeProfile>default-repo</activeProfile>
+              </activeProfiles>
+          </settings>
+        id: "maven.settings.oss.nexus"
+        isReplaceAll: true
+        name: "settings.xml"
+        providerId: "org.jenkinsci.plugins.configfiles.maven.MavenSettingsConfig"
+        serverCredentialMappings:
+        - credentialsId: "SELI_ARTIFACTORY"
+          serverId: "snapshot"
+        - credentialsId: "SELI_ARTIFACTORY"
+          serverId: "staging"
+        - credentialsId: "SELI_ARTIFACTORY"
+          serverId: "release"
+    - mavenSettings:
+        comment: "Test settings.xml for passwd encryption"
+        content: "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\
+          \ ~ COPYRIGHT Ericsson 2020\n ~\n ~\n ~\n ~ The copyright to the computer\
+          \ program(s) herein is the property of\n ~\n ~ Ericsson Inc. The programs\
+          \ may be used and/or copied only with written\n ~\n ~ permission from Ericsson\
+          \ Inc. or in accordance with the terms and\n ~\n ~ conditions stipulated\
+          \ in the agreement/contract under which the\n ~\n ~ program(s) have been\
+          \ supplied.\n ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->\n\
+          <settings xsi:schemaLocation=\"http://maven.apache.org/SETTINGS/1.1.0 http://maven.apache.org/xsd/settings-1.1.0.xsd\"\
+          \ xmlns=\"http://maven.apache.org/SETTINGS/1.1.0\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\
+          >\n    <localRepository>/proj/mvn/.m2/repository</localRepository>\n   \
+          \ <mirrors>\n\t\t<mirror>\n\t\t\t<id>nexus-eo</id>\n\t\t\t<mirrorOf>external:*,central</mirrorOf>\n\
+          \t\t\t<url>https://arm1s11-eiffel052.eiffel.gic.ericsson.se:8443/nexus/content/groups/eo-repositories</url>\n\
+          \t\t</mirror>\n\t\t<mirror>\n\t\t\t<id>nexus-enm-central</id>\n\t\t\t<mirrorOf>central</mirrorOf>\n\
+          \t\t\t<url>https://arm1s11-eiffel004.eiffel.gic.ericsson.se:8443/nexus/content/groups/public</url>\n\
+          \t\t</mirror>\n\t\t<mirror>\n\t\t\t<!-- This sends everything else to /public\
+          \ -->\n\t\t\t<id>nexus-enm</id>\n\t\t\t<mirrorOf>central,external:*,!prototype</mirrorOf>\n\
+          \t\t\t<url>https://arm1s11-eiffel004.eiffel.gic.ericsson.se:8443/nexus/content/groups/public</url>\n\
+          \t\t</mirror>\n\t</mirrors>\n    <profiles>\n        <profile>\n       \
+          \     <id>artifactory</id>\n            <repositories>\n               \
+          \ <repository>\n                    <snapshots />\n                    <id>snapshot</id>\n\
+          \                    <name>proj-eric-oss-dev-local</name>\n            \
+          \        <url>https://arm.seli.gic.ericsson.se/artifactory/proj-eric-oss-dev-local</url>\n\
+          \                </repository>\n                <repository>\n         \
+          \           <snapshots>\n                        <enabled>false</enabled>\n\
+          \                    </snapshots>\n                    <id>staging</id>\n\
+          \                    <name>proj-eric-oss-staging-local</name>\n        \
+          \            <url>https://arm.seli.gic.ericsson.se/artifactory/proj-eric-oss-staging-local</url>\n\
+          \                </repository>\n                <repository>\n         \
+          \           <snapshots>\n                        <enabled>false</enabled>\n\
+          \                    </snapshots>\n                    <id>release</id>\n\
+          \                    <name>proj-eric-oss-release-local</name>\n        \
+          \            <url>https://arm.seli.gic.ericsson.se/artifactory/proj-eric-oss-release-local</url>\n\
+          \                </repository>\n            </repositories>\n        </profile>\n\
+          \        <profile>\n            <id>default-repo</id>\n            <repositories>\n\
+          \                <repository>\n                    <id>eiffel052Nexus</id>\n\
+          \                    <name>eo-repositories</name>\n                    <url>arm1s11-eiffel052.eiffel.gic.ericsson.se:8443/nexus/content/groups/eo-repositories</url>\n\
+          \                </repository>\n                <repository>\n         \
+          \           <id>central</id>\n                    <name>maven-central</name>\n\
+          \                    <url>https://central</url>\n                </repository>\n\
+          \            </repositories>\n            <pluginRepositories>\n       \
+          \         <pluginRepository>\n                    <snapshots>\n        \
+          \                <enabled>false</enabled>\n                    </snapshots>\n\
+          \                    <id>jcat-arm-release</id>\n                    <name>proj-jcat-release</name>\n\
+          \                    <url>https://arm.rnd.ki.sw.ericsson.se/artifactory/proj-jcat-release</url>\n\
+          \                </pluginRepository>\n                <pluginRepository>\n\
+          \                    <snapshots />\n                    <id>jcat-arm-snapshot</id>\n\
+          \                    <name>proj-jcat-dev</name>\n                    <url>https://arm.rnd.ki.sw.ericsson.se/artifactory/proj-jcat-release</url>\n\
+          \                </pluginRepository>\n            </pluginRepositories>\n\
+          \        </profile>\n        <profile>\n\t\t\t<id>nexus-enm-eiffel004</id>\n\
+          \t\t\t<!-- Enable snapshots for the built in central repo to direct -->\n\
+          \t\t\t<!-- all requests to nexus via the mirror -->\n\t\t\t<repositories>\n\
+          \t\t\t\t<repository>\n\t\t\t\t\t<id>central</id>\n\t\t\t\t\t<url>http://central</url>\n\
+          \t\t\t\t\t<releases>\n\t\t\t\t\t\t<enabled>true</enabled>\n\t\t\t\t\t\t\
+          <!-- updatePolicy>always</updatePolicy -->\n\t\t\t\t\t</releases>\n\t\t\t\
+          \t\t<snapshots>\n\t\t\t\t\t\t<enabled>true</enabled>\n\t\t\t\t\t\t<!-- updatePolicy>always</updatePolicy\
+          \ -->\n\t\t\t\t\t</snapshots>\n\t\t\t\t</repository>\n\t\t\t</repositories>\n\
+          \t\t\t<pluginRepositories>\n\t\t\t\t<pluginRepository>\n\t\t\t\t\t<id>central</id>\n\
+          \t\t\t\t\t<url>http://central</url>\n\t\t\t\t\t<releases>\n\t\t\t\t\t\t\
+          <enabled>true</enabled>\n\t\t\t\t\t</releases>\n\t\t\t\t\t<snapshots>\n\t\
+          \t\t\t\t\t<enabled>true</enabled>\n\t\t\t\t\t</snapshots>\n\t\t\t\t</pluginRepository>\n\
+          \t\t\t</pluginRepositories>\n\t\t</profile>\n    </profiles>\n    <activeProfiles>\n\
+          \        <activeProfile>default-repo</activeProfile>\n        <activeProfile>nexus-enm-eiffel004</activeProfile>\n\
+          \    </activeProfiles>\n    <pluginGroups>\n\t\t<pluginGroup>org.sonarsource.scanner.maven</pluginGroup>\n\
+          \t\t<!-- define the sonatype plugin group, so the nexus plugins will work\
+          \ without typing the groupId -->\n\t\t<pluginGroup>org.sonatype.plugins</pluginGroup>\n\
+          \t\t<pluginGroup>org.jacoco</pluginGroup>\n\t</pluginGroups>\n  <servers>\n\
+          \    <server>\n      <id>site</id>\n      <username>ossadmin</username>\n\
+          \      <password>{wfdEKWeM+kMHGTUiwwklhQ+ovI44l8c0CjkeWx0fkVw=}</password>\n\
+          \    </server>\n    <server>\n      <id>nexus-enm-eiffel004</id>\n     \
+          \ <username>ossadmin</username>\n      <password>{wfdEKWeM+kMHGTUiwwklhQ+ovI44l8c0CjkeWx0fkVw=}</password>\n\
+          \    </server>\n    <server>\n      <id>release</id>\n      <username>ossadmin</username>\n\
+          \      <password>AKCp8ihf8VKmbZ6skZhoXxQZfpNevkY1HUhcjSBE98mTyNMyMGv3MDmdiCJDQDow3sAk1XL8g</password>\n\
+          \    </server>\n    <server>\n      <id>staging</id>\n      <username>ossadmin</username>\n\
+          \      <password>AKCp8ihf8VKmbZ6skZhoXxQZfpNevkY1HUhcjSBE98mTyNMyMGv3MDmdiCJDQDow3sAk1XL8g</password>\n\
+          \    </server>\n    <server>\n      <id>snapshot</id>\n      <username>ossadmin</username>\n\
+          \      <password>AKCp8ihf8VKmbZ6skZhoXxQZfpNevkY1HUhcjSBE98mTyNMyMGv3MDmdiCJDQDow3sAk1XL8g</password>\n\
+          \    </server>\n  </servers>\n</settings>"
+        id: "maven.settings.oss.nexus-test-IDUN-18243"
+        isReplaceAll: true
+        name: "settings.xml"
+        providerId: "org.jenkinsci.plugins.configfiles.maven.MavenSettingsConfig"
+        serverCredentialMappings:
+        - credentialsId: "SELI_ARTIFACTORY"
+          serverId: "snapshot"
+        - credentialsId: "SELI_ARTIFACTORY"
+          serverId: "staging"
+        - credentialsId: "SELI_ARTIFACTORY"
+          serverId: "release"
+    - mavenSettings:
+        comment: "User settings"
+        content: |-
+          <?xml version="1.0" encoding="UTF-8"?>
+          <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+           ~ COPYRIGHT Ericsson 2020
+           ~
+           ~ maven.settings.oss_Tamas
+           ~
+           ~ The copyright to the computer program(s) herein is the property of
+           ~
+           ~ Ericsson Inc. The programs may be used and/or copied only with written
+           ~
+           ~ permission from Ericsson Inc. or in accordance with the terms and
+           ~
+           ~ conditions stipulated in the agreement/contract under which the
+           ~
+           ~ program(s) have been supplied.
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+          <settings xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.1.0 http://maven.apache.org/xsd/settings-1.1.0.xsd" xmlns="http://maven.apache.org/SETTINGS/1.1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+              <localRepository>/proj/mvn/.m2/repository</localRepository>
+              <mirrors>
+                  <mirror>
+                      <id>nexus-eo</id>
+                      <mirrorOf>external:*,central,!release,!plugin</mirrorOf>
+                      <url>
+                          https://arm1s11-eiffel052.eiffel.gic.ericsson.se:8443/nexus/content/groups/eo-repositories
+                      </url>
+                  </mirror>
+                  <mirror>
+                      <id>nexus-enm-central</id>
+                      <mirrorOf>central</mirrorOf>
+                      <url>
+                          https://arm1s11-eiffel004.eiffel.gic.ericsson.se:8443/nexus/content/groups/public
+                      </url>
+                  </mirror>
+                  <mirror>
+                      <!-- This sends everything else to /public -->
+                      <id>nexus-enm</id>
+                      <mirrorOf>central,external:*,!release,!plugin</mirrorOf>
+                      <url>
+                          https://arm1s11-eiffel004.eiffel.gic.ericsson.se:8443/nexus/content/groups/public
+                      </url>
+                  </mirror>
+              </mirrors>
+              <profiles>
+                  <profile>
+                      <id>artifactory</id>
+                      <repositories>
+                          <repository>
+                              <snapshots/>
+                              <id>snapshot</id>
+                              <name>proj-eric-oss-dev-local</name>
+                              <url>
+                                  https://arm.seli.gic.ericsson.se/artifactory/proj-eric-oss-dev-local
+                              </url>
+                          </repository>
+                          <repository>
+                              <snapshots>
+                                  <enabled>false</enabled>
+                              </snapshots>
+                              <id>staging</id>
+                              <name>proj-eric-oss-staging-local</name>
+                              <url>
+                                  https://arm.seli.gic.ericsson.se/artifactory/proj-eric-oss-staging-local
+                              </url>
+                          </repository>
+                          <repository>
+                              <snapshots>
+                                  <enabled>false</enabled>
+                              </snapshots>
+                              <id>release</id>
+                              <name>proj-eric-oss-release-local</name>
+                              <url>
+                                  https://arm.seli.gic.ericsson.se/artifactory/proj-eric-oss-release-local
+                              </url>
+                          </repository>
+                      </repositories>
+                      <pluginRepositories>
+                          <pluginRepository>
+                              <snapshots>
+                                  <enabled>false</enabled>
+                              </snapshots>
+                              <id>plugin</id>
+                              <name>proj-eric-oss-release-local</name>
+                              <url>
+                                  https://arm.seli.gic.ericsson.se/artifactory/proj-eric-oss-release-local
+                              </url>
+                          </pluginRepository>
+                      </pluginRepositories>
+                  </profile>
+                  <profile>
+                      <id>default-repo</id>
+                      <repositories>
+                          <repository>
+                              <id>eiffel052Nexus</id>
+                              <name>eo-repositories</name>
+                              <url>
+                                  arm1s11-eiffel052.eiffel.gic.ericsson.se:8443/nexus/content/groups/eo-repositories
+                              </url>
+                          </repository>
+                          <repository>
+                              <id>central</id>
+                              <name>maven-central</name>
+                              <url>https://central</url>
+                          </repository>
+                      </repositories>
+                      <pluginRepositories>
+                          <pluginRepository>
+                              <snapshots>
+                                  <enabled>false</enabled>
+                              </snapshots>
+                              <id>jcat-arm-release</id>
+                              <name>proj-jcat-release</name>
+                              <url>
+                                  https://arm.rnd.ki.sw.ericsson.se/artifactory/proj-jcat-release
+                              </url>
+                          </pluginRepository>
+                          <pluginRepository>
+                              <snapshots/>
+                              <id>jcat-arm-snapshot</id>
+                              <name>proj-jcat-dev</name>
+                              <url>
+                                  https://arm.rnd.ki.sw.ericsson.se/artifactory/proj-jcat-release
+                              </url>
+                          </pluginRepository>
+                      </pluginRepositories>
+                  </profile>
+                  <profile>
+                      <id>nexus-enm-eiffel004</id>
+                      <!--
+                       Enable snapshots for the built in central repo to direct
+                      -->
+                      <!-- all requests to nexus via the mirror -->
+                      <repositories>
+                          <repository>
+                              <id>central</id>
+                              <url>http://central</url>
+                              <releases>
+                                  <enabled>true</enabled>
+                                  <!-- updatePolicy>always</updatePolicy -->
+                              </releases>
+                              <snapshots>
+                                  <enabled>true</enabled>
+                                  <!-- updatePolicy>always</updatePolicy -->
+                              </snapshots>
+                          </repository>
+                      </repositories>
+                      <pluginRepositories>
+                          <pluginRepository>
+                              <id>central</id>
+                              <url>http://central</url>
+                              <releases>
+                                  <enabled>true</enabled>
+                              </releases>
+                              <snapshots>
+                                  <enabled>true</enabled>
+                              </snapshots>
+                          </pluginRepository>
+                      </pluginRepositories>
+                  </profile>
+              </profiles>
+              <activeProfiles>
+                  <activeProfile>default-repo</activeProfile>
+                  <activeProfile>nexus-enm-eiffel004</activeProfile>
+                  <activeProfile>artifactory</activeProfile>
+              </activeProfiles>
+              <pluginGroups>
+                  <pluginGroup>org.sonarsource.scanner.maven</pluginGroup>
+                  <!--
+                   define the sonatype plugin group, so the nexus plugins will work without typing the groupId
+                  -->
+                  <pluginGroup>org.sonatype.plugins</pluginGroup>
+                  <pluginGroup>org.jacoco</pluginGroup>
+              </pluginGroups>
+              <servers>
+              <server>
+                <id>site</id>
+                <username>ossadmin</username>
+                <password>{wfdEKWeM+kMHGTUiwwklhQ+ovI44l8c0CjkeWx0fkVw=}</password>
+              </server>
+              <server>
+                <id>release</id>
+                <username>ossadmin</username>
+                <password>AKCp8ihf8VKmbZ6skZhoXxQZfpNevkY1HUhcjSBE98mTyNMyMGv3MDmdiCJDQDow3sAk1XL8g</password>
+              </server>
+              <server>
+                <id>staging</id>
+                <username>ossadmin</username>
+                <password>AKCp8ihf8VKmbZ6skZhoXxQZfpNevkY1HUhcjSBE98mTyNMyMGv3MDmdiCJDQDow3sAk1XL8g</password>
+              </server>
+              <server>
+                <id>snapshot</id>
+                <username>ossadmin</username>
+                <password>AKCp8ihf8VKmbZ6skZhoXxQZfpNevkY1HUhcjSBE98mTyNMyMGv3MDmdiCJDQDow3sAk1XL8g</password>
+              </server>
+              <server>
+                <id>plugin</id>
+                <username>ossadmin</username>
+                <password>AKCp8ihf8VKmbZ6skZhoXxQZfpNevkY1HUhcjSBE98mTyNMyMGv3MDmdiCJDQDow3sAk1XL8g</password>
+              </server>
+            </servers>
+          </settings>
+        id: "maven.settings.oss_Tamas"
+        isReplaceAll: true
+        name: "settings.xml"
+        providerId: "org.jenkinsci.plugins.configfiles.maven.MavenSettingsConfig"
+    - mavenSettings:
+        comment: "Microservice Chassis Settings XML with /proj/mvn/ local"
+        content: |-
+          <?xml version="1.0" encoding="UTF-8"?>
+          <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+           ~ COPYRIGHT Ericsson 2020
+           ~
+           ~maven.settings.oss_local
+           ~
+           ~ The copyright to the computer program(s) herein is the property of
+           ~
+           ~ Ericsson Inc. The programs may be used and/or copied only with written
+           ~
+           ~ permission from Ericsson Inc. or in accordance with the terms and
+           ~
+           ~ conditions stipulated in the agreement/contract under which the
+           ~
+           ~ program(s) have been supplied.
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+          <settings xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.1.0 http://maven.apache.org/xsd/settings-1.1.0.xsd" xmlns="http://maven.apache.org/SETTINGS/1.1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+              <pluginGroups>
+                  <pluginGroup>org.sonarsource.scanner.maven</pluginGroup>
+              </pluginGroups>
+           <localRepository>/proj/mvn/.m2/repository</localRepository>
+            <mirrors>
+                  <mirror>
+                      <id>nexus</id>
+                      <mirrorOf>external:*,central</mirrorOf>
+                      <url>https://arm1s11-eiffel052.eiffel.gic.ericsson.se:8443/nexus/content/groups/eo-repositories</url>
+                  </mirror>
+              </mirrors>
+               <profiles>
+                  <profile>
+                   <repositories>
+                     <repository>
+                       <snapshots />
+                       <id>snapshot</id>
+                       <name>proj-eric-oss-dev-local</name>
+                       <url>https://arm.seli.gic.ericsson.se/artifactory/proj-eric-oss-dev-local</url>
+                     </repository>
+                     <repository>
+                       <snapshots>
+                         <enabled>false</enabled>
+                       </snapshots>
+                       <id>staging</id>
+                       <name>proj-eric-oss-staging-local</name>
+                       <url>https://arm.seli.gic.ericsson.se/artifactory/proj-eric-oss-staging-local</url>
+                     </repository>
+                     <repository>
+                       <snapshots>
+                         <enabled>false</enabled>
+                       </snapshots>
+                       <id>release</id>
+                       <name>proj-eric-oss-release-local</name>
+                       <url>https://arm.seli.gic.ericsson.se/artifactory/proj-eric-oss-release-local</url>
+                     </repository>
+                   </repositories>
+                   <id>artifactory</id>
+                  </profile>
+                  <profile>
+                      <id>default-repo</id>
+                      <repositories>
+                          <repository>
+                              <id>eiffel052Nexus</id>
+                              <name>eo-repositories</name>
+                              <url>arm1s11-eiffel052.eiffel.gic.ericsson.se:8443/nexus/content/groups/eo-repositories</url>
+                          </repository>
+                          <repository>
+                              <id>central</id>
+                              <name>maven-central</name>
+                              <url>https://central</url>
+                          </repository>
+                      </repositories>
+                      <pluginRepositories>
+                          <pluginRepository>
+                              <snapshots>
+                                  <enabled>false</enabled>
+                              </snapshots>
+                              <id>jcat-arm-release</id>
+                              <name>proj-jcat-release</name>
+                              <url>https://arm.rnd.ki.sw.ericsson.se/artifactory/proj-jcat-release</url>
+                          </pluginRepository>
+                          <pluginRepository>
+                              <snapshots />
+                              <id>jcat-arm-snapshot</id>
+                              <name>proj-jcat-dev</name>
+                              <url>https://arm.rnd.ki.sw.ericsson.se/artifactory/proj-jcat-release</url>
+                          </pluginRepository>
+                      </pluginRepositories>
+                  </profile>
+              </profiles>
+              <activeProfiles>
+                  <activeProfile>default-repo</activeProfile>
+              </activeProfiles>
+          </settings>
+        id: "maven.settings.oss_local"
+        isReplaceAll: true
+        name: "settings.xml"
+        providerId: "org.jenkinsci.plugins.configfiles.maven.MavenSettingsConfig"
+        serverCredentialMappings:
+        - credentialsId: "SELI_ARTIFACTORY"
+          serverId: "snapshot"
+        - credentialsId: "SELI_ARTIFACTORY"
+          serverId: "staging"
+        - credentialsId: "SELI_ARTIFACTORY"
+          serverId: "release"
+  globalLibraries:
+    libraries:
+    - defaultVersion: "master"
+      includeInChangesets: false
+      name: "ci-pipeline-lib"
+      retriever:
+        modernSCM:
+          scm:
+            git:
+              id: "51911ac0-c41a-4cfd-baf6-1bf499552b83"
+              remote: "ssh://gerritmirror.seli.gic.ericsson.se:29418/OSS/com.ericsson.oss.de/ci-pipeline-jenkins-config"
+              traits:
+              - "gitBranchDiscovery"
+    - defaultVersion: "master"
+      includeInChangesets: false
+      name: "oss-common-pipeline-lib"
+      retriever:
+        modernSCM:
+          scm:
+            git:
+              id: "b87a66a0-9fa8-4376-bbce-1b30a6361d2b"
+              remote: "ssh://gerritmirror.seli.gic.ericsson.se:29418/OSS/com.ericsson.oss.ci/oss-common-ci-utils"
+              traits:
+              - "gitBranchDiscovery"
+  groovy:
+    installations:
+    - home: "/proj/ciexadm200/tools/groovy/groovy-2.2.2"
+      name: "Groovy 2.2.2"
+  junitTestResultStorage:
+    storage: "file"
+  location:
+    adminAddress: "address not configured yet <nobody@nowhere>"
+    url: "https://fem3s11-eiffel216.eiffel.gic.ericsson.se:8443/jenkins/"
+  lockableResourcesManager:
+    declaredResources:
+    - description: "Namespace1 as part of hahn186 KaaS cluster (CPU=6000m, Memory=12Gi)"
+      labels: "kaas"
+      name: "hahn186_namespace31"
+    - description: "Namespace2 as part of hahn186 KaaS cluster (CPU=6000m, Memory=12Gi)"
+      labels: "kaas"
+      name: "hahn186_namespace32"
+    - description: "Namespace3 as part of hahn186 KaaS cluster (CPU=6000m, Memory=12Gi)"
+      labels: "kaas"
+      name: "hahn186_namespace33"
+    - description: "Namespace4 as part of hahn186 KaaS cluster (CPU=6000m, Memory=12Gi)"
+      labels: "kaas"
+      name: "hahn186_namespace34"
+    - description: "Namespace5 as part of hahn186 KaaS cluster (CPU=6000m, Memory=12Gi)"
+      labels: "kaas"
+      name: "hahn186_namespace35"
+  mailer:
+    charset: "UTF-8"
+    smtpHost: "mail-vip.seli.gic.ericsson.se"
+    smtpPort: "25"
+    useSsl: false
+    useTls: false
+  mavenModuleSet:
+    localRepository: "default"
+  metricsAccessKey:
+    accessKeys:
+    - canHealthCheck: true
+      canMetrics: true
+      canPing: true
+      canThreadDump: false
+      description: "Metrics key used to monitor execution and queue times."
+      key: "{AQAAABAAAABQGK7cQ/nUo2ni2Uae+beZCIz05fEUg3VOdcViYygjuJrrcVJYxaE7r9SWkgtRuTnHMrvTX55zMvofzDSqibZgyr9ZI203h4jDL3BEb+Y2O+5AgSlP4Nvy9rZPiOjvj8Cw}"
+      origins: "*"
+  pollSCM:
+    pollingThreadCount: 10
+  prometheusConfiguration:
+    appendParamLabel: false
+    appendStatusLabel: false
+    collectDiskUsage: true
+    collectingMetricsPeriodInSeconds: 120
+    countAbortedBuilds: true
+    countFailedBuilds: true
+    countNotBuiltBuilds: true
+    countSuccessfulBuilds: true
+    countUnstableBuilds: true
+    defaultNamespace: "default"
+    fetchTestResults: true
+    jobAttributeName: "jenkins_job"
+    path: "prometheus"
+    processingDisabledBuilds: false
+    useAuthenticatedEndpoint: false
+  sonarGlobalConfiguration:
+    buildWrapperEnabled: false
+    installations:
+    - credentialsId: "SQ_auth_token"
+      name: "sonarqube enterprise 79"
+      serverUrl: "https://codeanalyzer2.internal.ericsson.com"
+      triggers:
+        skipScmCause: false
+        skipUpstreamCause: false
+  splunkJenkinsInstallation:
+    enabled: false
+    globalPipelineFilter: true
+    maxEventsBatchSize: 262144
+    metadataHost: "fem3s11-eiffel216.eiffel.gic.ericsson.se"
+    port: 8088
+    rawEventEnabled: true
+    retriesOnError: 3
+    scriptContent: |-
+      //send job metadata and junit reports with page size set to 50 (each event contains max 50 test cases)
+      splunkins.sendTestReport(50)
+      //send coverage, each event contains max 50 class metrics
+      splunkins.sendCoverageReport(50)
+      //send all logs from workspace to splunk, with each file size limits to 10MB
+      splunkins.archive("**/*.log", null, false, "10MB")
+
+      //end
+    useSSL: true
+  subversionSCM:
+    workspaceFormat: 8
+  timestamper:
+    allPipelines: false
+    elapsedTimeFormat: "'<b>'HH:mm:ss.S'</b>'"
+    systemTimeFormat: "'<b>'HH:mm:ss'</b>'"
+  upstream:
+    globalUpstreamFilterStrategy: UseOldest
+tool:
+  git:
+    installations:
+    - home: "/proj/ossmsci/tools/git/2.30.0/bin/git"
+      name: "Default"
+  groovy:
+    installations:
+    - home: "/proj/ciexadm200/tools/groovy/groovy-2.2.2"
+      name: "Groovy 2.2.2"
+  jdk:
+    installations:
+    - home: "/app/vbuild/SLED11-x86_64/jdk/1.8.0_172"
+      name: "JDK 1.8.0_172"
+    - home: "/app/vbuild/SLED11-x86_64/jdk/11.0.1"
+      name: "jdk-11.0.1"
+  maven:
+    installations:
+    - home: "/app/vbuild/tools/maven/3.5.3/"
+      name: "Maven 3.5.3"
+  mavenGlobalConfig:
+    globalSettingsProvider: "standard"
+    settingsProvider: "standard"
+  pipelineMaven:
+    triggerDownstreamUponResultAborted: false
+    triggerDownstreamUponResultFailure: false
+    triggerDownstreamUponResultNotBuilt: false
+    triggerDownstreamUponResultSuccess: true
+    triggerDownstreamUponResultUnstable: false

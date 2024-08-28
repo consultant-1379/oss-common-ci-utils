@@ -1,0 +1,33 @@
+#
+# COPYRIGHT Ericsson 2022
+#
+#
+#
+# The copyright to the computer program(s) herein is the property of
+#
+# Ericsson Inc. The programs may be used and/or copied only with written
+#
+# permission from Ericsson Inc. or in accordance with the terms and
+#
+# conditions stipulated in the agreement/contract under which the
+#
+# program(s) have been supplied.
+#
+
+repository: eridoca
+documents:
+  #Directories on Eridoc
+  - title: "Key Management Agent - User Guide"
+    folderId: 0b004cffce66e4fa
+    file: "ci/eridocOutput/User_Guide/User_Guide.pdf"
+    source_files:
+      - ../doc/User_Guide/User_Guide.md
+      - ../doc/User_Guide/Architecture_Diagram_KMSAgent.png
+      - ../doc/User_Guide/Deployment_Diagram_KMSAgent.png
+    decimal-class: "1553"
+    individual-number: "APR 201 748"
+    eri_document_type: "User Guide"
+    lang: "en"
+    format: "pdf"
+    #strategy: "ordinal" // ERROR - Document type [1553] and strategy [ordinal] are mutually exclusive
+

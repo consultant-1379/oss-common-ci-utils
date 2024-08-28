@@ -1,0 +1,53 @@
+#
+# COPYRIGHT Ericsson 2021
+#
+#
+#
+# The copyright to the computer program(s) herein is the property of
+#
+# Ericsson Inc. The programs may be used and/or copied only with written
+#
+# permission from Ericsson Inc. or in accordance with the terms and
+#
+# conditions stipulated in the agreement/contract under which the
+#
+# program(s) have been supplied.
+#
+
+modelVersion: 2.0
+
+description: "Rule sets for oss-common-ci-utils utils"
+
+# See image catalog: https://eteamspace.internal.ericsson.com/x/zUqhQw
+docker-images:
+  - shellcheck: armdockerhub.rnd.ericsson.se/koalaman/shellcheck:stable
+  - tree: armdockerhub.rnd.ericsson.se/iankoulski/tree:latest
+
+env:
+  - HOME
+  - PWD
+  - DOCKER_VOLUME_MAPPING_PASSWD (default=--volume ${env.HOME}/mypasswd:/etc/passwd:ro)
+
+var:
+  - all-shellscripts
+
+# Rules to execute
+rules:
+
+  shell-test:
+    - task: find-scripts
+      cmd:
+       - find . -not -path '*/\.*' -type f -name '*.sh' > .bob/var.all-shellscripts;
+    - task: echo-scripts
+      cmd:
+       - bash -c 'for i in $(find . -not -path "*/\.*" -type f -name "*.sh");
+        do
+          echo $i;
+        done'
+    - task: test-scripts
+      cmd:
+       - bash -c 'for i in $(find . -not -path "*/\.*" -type f -name "*.sh");
+        do
+          docker run --rm -v '$(pwd):/mnt' armdockerhub.rnd.ericsson.se/koalaman/shellcheck:stable "$i";
+        done'
+

@@ -1,0 +1,496 @@
+#
+# COPYRIGHT Ericsson 2021
+#
+#
+#
+# The copyright to the computer program(s) herein is the property of
+#
+# Ericsson Inc. The programs may be used and/or copied only with written
+#
+# permission from Ericsson Inc. or in accordance with the terms and
+#
+# conditions stipulated in the agreement/contract under which the
+#
+# program(s) have been supplied.
+#
+
+modelVersion: 2.0
+
+description: "Rules for monitoring and generating reports for DE infrastructure"
+
+docker-images:
+  - adp-release-auto: armdocker.rnd.ericsson.se/proj-adp-cicd-drop/bob-adp-release-auto:${env.RELEASE_AUTO_TAG}
+  - adp-python: armdocker.rnd.ericsson.se/proj-adp-cicd-drop/bob-py3kubehelmbuilder:${env.PYTHON_TAG}
+  - pythonds: armdocker.rnd.ericsson.se/proj-eric-oss-dev-test/pythonds:1.0
+env:
+  - GERRIT_REFSPEC
+  - HOME
+
+  # Default docker image tags
+  - RELEASE_AUTO_TAG (default=latest)
+  - PYTHON_TAG (default=latest)
+
+  # Credentials
+  - SELI_ARTIFACTORY_REPO_USER
+  - SELI_ARTIFACTORY_REPO_PASS
+
+  # Artifactory URLs
+  - SELI_ARTIFACTORY_DOMAIN (default=arm.seli.gic.ericsson.se)
+  - SELI_ARTIFACTORY_URL (default=https://${env.SELI_ARTIFACTORY_DOMAIN}/artifactory)
+  - DOCKER_REGISTRY_URL (default=armdocker.rnd.ericsson.se)
+  - DOCKER_LOCAL_REPO_ID (default=docker-v2-global-local)
+  - DOCKER_DEV_TEST_ID (default=proj-eric-oss-dev-test-docker-global)
+  - DOCKER_CI_INTERNAL_ID (default=proj-eric-oss-ci-internal-docker-global)
+
+  # Artifactory repo names
+  - DEV_REPO_NAME (default=proj-eric-oss-dev)
+  - DEV_TEST_REPO_NAME (default=proj-eric-oss-dev-test)
+  - CI_INTERNAL_REPO_NAME (default=proj-eric-oss-ci-internal)
+  - DROP_REPO_NAME (default=proj-eric-oss-drop)
+  - RELEASED_REPO_NAME (default=proj-eric-oss-released)
+  - MAVEN_SNAPSHOT_REPO_NAME (default=proj-eric-oss-dev-local)
+  - MAVEN_RELEASE_REPO_NAME (default=proj-eric-oss-release-local)
+  - MAVEN_STAGING_REPO_NAME (default=proj-eric-oss-staging-local)
+  - THIRDPARTY_REPO_NAME (default=proj-eric-oss-thirdparty-generic-local)
+  - NPM_RELEASE_REPO_NAME (default=proj-oss-tools-internal-released-npm-local)
+  - NPM_DEV_REPO_NAME (default=proj-oss-tools-internal-dev-npm-local)
+
+  # Temp
+  - TEMP_DIR (default=.tmp)
+  - BOB_OUTPUT_DIR (default=${env.TEMP_DIR}/.bob)
+  - USAGE_REPORT_LOCAL_DIR (default=${env.TEMP_DIR}/.usage-report)
+  - HELM_LOCAL_DIR (default=${env.TEMP_DIR}/.helm)
+  - GENERIC_LOCAL_DIR (default=${env.TEMP_DIR}/.generic)
+  - MAVEN_LOCAL_DIR (default=${env.TEMP_DIR}/.maven)
+  - DOCKER_LOCAL_DIR (default=${env.TEMP_DIR}/.docker)
+  - THIRDPARTY_LOCAL_DIR (default=${env.TEMP_DIR}/.thirdparty)
+  - NPM_LOCAL_DIR (default=${env.TEMP_DIR}/.npm)
+  - TMP_FILE (default=${env.TEMP_DIR}/tmpOutputFile.txt)
+
+  # Artifact naming
+  - REPORT_PREFIX (default=artifactory-repo-usage-report)
+  - REPORT_POSTFIX_DOCKER (default=docker.json)
+  - REPORT_POSTFIX_HELM (default=helm.json)
+  - REPORT_POSTFIX_GENERIC (default=generic.json)
+  - REPORT_POSTFIX_MAVEN (default=maven.json)
+  - REPORT_POSTFIX_THIRDPARTY (default=thirdparty.json)
+  - REPORT_POSTFIX_NPM (default=npm.json)
+  - MAVEN_ARTIFACT_DOWNLOAD_POSTFIX (default=maven_downloaded-file.mvn)
+  - THIRDPARTY_ARTIFACT_DOWNLOAD_POSTFIX (default=thirdparty_downloaded-file.txt)
+  - NPM_ARTIFACT_DOWNLOAD_POSTFIX (default=npm_downloaded-file.json)
+  - PUBLISH_DIR (default=monitoring)
+  - MAVEN_PUBLISH_PATH (default=com/ericsson/de/${env.PUBLISH_DIR})
+  - DUMMY_HELM_CHART_NAME (default=eric-oss-dummy-chart)
+  - TEST_TXT_NAME (default=test.txt)
+  - TEST_JSON_NAME (default=testPackage.json)
+
+  # Docker image
+  - IMAGE_NAME (default=eric-oss-dummy-image)
+  - IMAGE_TAG (default=0.1.0)
+  - IMAGE_PATH_NAME (default=monitoring/${env.IMAGE_NAME})
+  - IMAGE_PATH_NAME_TAG (default=${env.IMAGE_PATH_NAME}:${env.IMAGE_TAG})
+  - DOCKER_FILE_NAME (default=SmallTestDockerfile)
+  - DOCKER_FILE_LOCATION (default=${env.DOCKER_LOCAL_DIR}/${env.DOCKER_FILE_NAME})
+
+rules:
+  clean:
+    - task: cleanup
+      cmd:
+        - rm -rf ${env.BOB_OUTPUT_DIR}
+        - rm -rf build/
+        - git clean -xdf
+
+  init:
+    - task: setup-temp-dirs
+      cmd:
+        - mkdir -p ${env.DOCKER_LOCAL_DIR}
+        - mkdir -p ${env.HELM_LOCAL_DIR}
+        - mkdir -p ${env.MAVEN_LOCAL_DIR}
+        - mkdir -p ${env.GENERIC_LOCAL_DIR}
+        - mkdir -p ${env.USAGE_REPORT_LOCAL_DIR}
+        - mkdir -p ${env.THIRDPARTY_LOCAL_DIR}
+        - mkdir -p ${env.NPM_LOCAL_DIR}
+    - task: create-dockerfile
+      cmd:
+        - mkdir -p ${env.DOCKER_LOCAL_DIR}
+        - echo "FROM armdockerhub.rnd.ericsson.se/alpine:3.7" > ${env.DOCKER_FILE_LOCATION}
+        - cat ${env.DOCKER_FILE_LOCATION}
+    - task: create-helm-chart
+      docker-image: adp-release-auto
+      cmd:
+        - helm create ${env.DUMMY_HELM_CHART_NAME}
+        - mv ${env.DUMMY_HELM_CHART_NAME} ${env.HELM_LOCAL_DIR}
+        - ls -ltrR ${env.HELM_LOCAL_DIR}/${env.DUMMY_HELM_CHART_NAME}
+    - task: create-txt-file
+      cmd:
+        - echo "Test file" > ${env.TEST_TXT_NAME}
+        - mv ${env.TEST_TXT_NAME} ${env.THIRDPARTY_LOCAL_DIR}
+        - cat ${env.THIRDPARTY_LOCAL_DIR}/${env.TEST_TXT_NAME}
+    - task: create-json-package
+      cmd:
+        - echo "{ }" > ${env.TEST_JSON_NAME}
+        - mv ${env.TEST_JSON_NAME} ${env.NPM_LOCAL_DIR}
+        - cat ${env.NPM_LOCAL_DIR}/${env.TEST_JSON_NAME}
+
+  artifactory-usage-report:
+    - rule: artifactory-usage-report-generic
+    - rule: artifactory-usage-report-docker
+    - rule: artifactory-usage-report-maven
+    - rule: artifactory-usage-report-helm
+    - rule: artifactory-usage-report-thirdparty
+    - rule: artifactory-usage-report-npm
+    - rule: artifactory-usage-report-generation
+
+  artifactory-usage-report-generic:
+    - task: get-generic-repo-usage
+      docker-image: pythonds
+      cmd:
+        - echo -e '"Generic Repo Usage Report (proj-eric-oss-*-generic)"' > ${env.TMP_FILE}
+        - curl -u ${env.SELI_ARTIFACTORY_REPO_USER}:${env.SELI_ARTIFACTORY_REPO_PASS}
+          "${env.SELI_ARTIFACTORY_URL}/api/plugins/execute/repoSize?params=repoId=${env.DEV_REPO_NAME}-generic-local" >> ${env.TMP_FILE}
+        - curl -u ${env.SELI_ARTIFACTORY_REPO_USER}:${env.SELI_ARTIFACTORY_REPO_PASS}
+          "${env.SELI_ARTIFACTORY_URL}/api/plugins/execute/repoSize?params=repoId=${env.CI_INTERNAL_REPO_NAME}-generic-local" >> ${env.TMP_FILE}
+        - curl -u ${env.SELI_ARTIFACTORY_REPO_USER}:${env.SELI_ARTIFACTORY_REPO_PASS}
+          "${env.SELI_ARTIFACTORY_URL}/api/plugins/execute/repoSize?params=repoId=${env.DROP_REPO_NAME}-generic-local" >> ${env.TMP_FILE}
+        - curl -u ${env.SELI_ARTIFACTORY_REPO_USER}:${env.SELI_ARTIFACTORY_REPO_PASS}
+          "${env.SELI_ARTIFACTORY_URL}/api/plugins/execute/repoSize?params=repoId=${env.RELEASED_REPO_NAME}-generic-local" >> ${env.TMP_FILE}
+        - curl -u ${env.SELI_ARTIFACTORY_REPO_USER}:${env.SELI_ARTIFACTORY_REPO_PASS}
+          "${env.SELI_ARTIFACTORY_URL}/api/plugins/execute/repoSize?params=repoId=${env.DEV_TEST_REPO_NAME}-generic-local" >> ${env.TMP_FILE}
+    - task: format-json
+      docker-image: pythonds
+      cmd:
+        - sh -c 'cat ${env.TMP_FILE} | jq -s > ${env.USAGE_REPORT_LOCAL_DIR}/${env.REPORT_PREFIX}_${env.REPORT_POSTFIX_GENERIC}'
+        - cat ${env.USAGE_REPORT_LOCAL_DIR}/${env.REPORT_PREFIX}_${env.REPORT_POSTFIX_GENERIC}
+        - curl -v -u ${env.SELI_ARTIFACTORY_REPO_USER}:${env.SELI_ARTIFACTORY_REPO_PASS} "${env.SELI_ARTIFACTORY_URL}/proj-eric-oss-drop-generic-local/monitoring/${env.REPORT_PREFIX}/${env.REPORT_PREFIX}_generic.csv" -o .tmp/.usage-report/${env.REPORT_PREFIX}_generic.csv
+        - python3 ci/scripts/monitoring/generategraph.py generic
+        - curl -v -u ${env.SELI_ARTIFACTORY_REPO_USER}:${env.SELI_ARTIFACTORY_REPO_PASS} --upload-file .tmp/.usage-report/${env.REPORT_PREFIX}_generic.csv "${env.SELI_ARTIFACTORY_URL}/proj-eric-oss-drop-generic-local/monitoring/${env.REPORT_PREFIX}/${env.REPORT_PREFIX}_generic.csv"
+        - python3 ci/scripts/monitoring/generateformattedcsv.py generic
+
+  artifactory-usage-report-docker:
+    - task: get-docker-repo-usage
+      docker-image: adp-python
+      cmd:
+        - echo -e '"Docker Registry Usage Report (proj-eric-oss-*)"' > ${env.TMP_FILE}
+        - curl -u ${env.SELI_ARTIFACTORY_REPO_USER}:${env.SELI_ARTIFACTORY_REPO_PASS}
+          "${env.SELI_ARTIFACTORY_URL}/api/plugins/execute/repoSize?params=repoId=${env.DOCKER_LOCAL_REPO_ID};repoPath=${env.DEV_REPO_NAME}" >> ${env.TMP_FILE}
+        - curl -u ${env.SELI_ARTIFACTORY_REPO_USER}:${env.SELI_ARTIFACTORY_REPO_PASS}
+          "${env.SELI_ARTIFACTORY_URL}/api/plugins/execute/repoSize?params=repoId=${env.DOCKER_CI_INTERNAL_ID};repoPath=${env.CI_INTERNAL_REPO_NAME}" >> ${env.TMP_FILE}
+        - curl -u ${env.SELI_ARTIFACTORY_REPO_USER}:${env.SELI_ARTIFACTORY_REPO_PASS}
+          "${env.SELI_ARTIFACTORY_URL}/api/plugins/execute/repoSize?params=repoId=${env.DOCKER_LOCAL_REPO_ID};repoPath=${env.DROP_REPO_NAME}" >> ${env.TMP_FILE}
+        - curl -u ${env.SELI_ARTIFACTORY_REPO_USER}:${env.SELI_ARTIFACTORY_REPO_PASS}
+          "${env.SELI_ARTIFACTORY_URL}/api/plugins/execute/repoSize?params=repoId=${env.DOCKER_LOCAL_REPO_ID};repoPath=${env.RELEASED_REPO_NAME}" >> ${env.TMP_FILE}
+        - curl -u ${env.SELI_ARTIFACTORY_REPO_USER}:${env.SELI_ARTIFACTORY_REPO_PASS}
+          "${env.SELI_ARTIFACTORY_URL}/api/plugins/execute/repoSize?params=repoId=${env.DOCKER_DEV_TEST_ID};repoPath=${env.DEV_TEST_REPO_NAME}" >> ${env.TMP_FILE}
+    - task: format-json
+      docker-image: pythonds
+      cmd:
+        - sh -c 'cat ${env.TMP_FILE} | jq -s > ${env.USAGE_REPORT_LOCAL_DIR}/${env.REPORT_PREFIX}_${env.REPORT_POSTFIX_DOCKER}'
+        - cat ${env.USAGE_REPORT_LOCAL_DIR}/${env.REPORT_PREFIX}_${env.REPORT_POSTFIX_DOCKER}
+        - curl -v -u ${env.SELI_ARTIFACTORY_REPO_USER}:${env.SELI_ARTIFACTORY_REPO_PASS} "${env.SELI_ARTIFACTORY_URL}/proj-eric-oss-drop-generic-local/monitoring/${env.REPORT_PREFIX}/${env.REPORT_PREFIX}_docker.csv" -o .tmp/.usage-report/${env.REPORT_PREFIX}_docker.csv
+        - python3 ci/scripts/monitoring/generategraph.py docker
+        - curl -v -u ${env.SELI_ARTIFACTORY_REPO_USER}:${env.SELI_ARTIFACTORY_REPO_PASS} --upload-file .tmp/.usage-report/${env.REPORT_PREFIX}_docker.csv "${env.SELI_ARTIFACTORY_URL}/proj-eric-oss-drop-generic-local/monitoring/${env.REPORT_PREFIX}/${env.REPORT_PREFIX}_docker.csv"
+        - python3 ci/scripts/monitoring/generateformattedcsv.py docker
+
+  artifactory-usage-report-maven:
+    - task: get-maven-repo-usage
+      docker-image: adp-python
+      cmd:
+        - echo -e '"Maven Repo Usage Report (proj-eric-oss-*)"' > ${env.TMP_FILE}
+        - curl -u ${env.SELI_ARTIFACTORY_REPO_USER}:${env.SELI_ARTIFACTORY_REPO_PASS}
+          "${env.SELI_ARTIFACTORY_URL}/api/plugins/execute/repoSize?params=repoId=${env.MAVEN_SNAPSHOT_REPO_NAME}" >> ${env.TMP_FILE}
+        - curl -u ${env.SELI_ARTIFACTORY_REPO_USER}:${env.SELI_ARTIFACTORY_REPO_PASS}
+          "${env.SELI_ARTIFACTORY_URL}/api/plugins/execute/repoSize?params=repoId=${env.MAVEN_RELEASE_REPO_NAME}" >> ${env.TMP_FILE}
+        - curl -u ${env.SELI_ARTIFACTORY_REPO_USER}:${env.SELI_ARTIFACTORY_REPO_PASS}
+          "${env.SELI_ARTIFACTORY_URL}/api/plugins/execute/repoSize?params=repoId=${env.MAVEN_STAGING_REPO_NAME}" >> ${env.TMP_FILE}
+    - task: format-json
+      docker-image: pythonds
+      cmd:
+        - sh -c 'cat ${env.TMP_FILE} | jq -s > ${env.USAGE_REPORT_LOCAL_DIR}/${env.REPORT_PREFIX}_${env.REPORT_POSTFIX_MAVEN}'
+        - cat ${env.USAGE_REPORT_LOCAL_DIR}/${env.REPORT_PREFIX}_${env.REPORT_POSTFIX_MAVEN}
+        - curl -v -u ${env.SELI_ARTIFACTORY_REPO_USER}:${env.SELI_ARTIFACTORY_REPO_PASS} "${env.SELI_ARTIFACTORY_URL}/proj-eric-oss-drop-generic-local/monitoring/${env.REPORT_PREFIX}/${env.REPORT_PREFIX}_maven.csv" -o .tmp/.usage-report/${env.REPORT_PREFIX}_maven.csv
+        - python3 ci/scripts/monitoring/generategraph.py maven
+        - curl -v -u ${env.SELI_ARTIFACTORY_REPO_USER}:${env.SELI_ARTIFACTORY_REPO_PASS} --upload-file .tmp/.usage-report/${env.REPORT_PREFIX}_maven.csv "${env.SELI_ARTIFACTORY_URL}/proj-eric-oss-drop-generic-local/monitoring/${env.REPORT_PREFIX}/${env.REPORT_PREFIX}_maven.csv"
+        - python3 ci/scripts/monitoring/generateformattedcsv.py maven
+
+  artifactory-usage-report-helm:
+    - task: get-helm-repo-usage
+      docker-image: adp-python
+      cmd:
+        - echo -e '"Helm Repo Usage Report (proj-eric-oss-*-helm)"' > ${env.TMP_FILE}
+        - curl -u ${env.SELI_ARTIFACTORY_REPO_USER}:${env.SELI_ARTIFACTORY_REPO_PASS}
+          "${env.SELI_ARTIFACTORY_URL}/api/plugins/execute/repoSize?params=repoId=${env.DEV_REPO_NAME}-helm-local" >> ${env.TMP_FILE}
+        - curl -u ${env.SELI_ARTIFACTORY_REPO_USER}:${env.SELI_ARTIFACTORY_REPO_PASS}
+          "${env.SELI_ARTIFACTORY_URL}/api/plugins/execute/repoSize?params=repoId=${env.CI_INTERNAL_REPO_NAME}-helm-local" >> ${env.TMP_FILE}
+        - curl -u ${env.SELI_ARTIFACTORY_REPO_USER}:${env.SELI_ARTIFACTORY_REPO_PASS}
+          "${env.SELI_ARTIFACTORY_URL}/api/plugins/execute/repoSize?params=repoId=${env.DROP_REPO_NAME}-helm-local" >> ${env.TMP_FILE}
+        - curl -u ${env.SELI_ARTIFACTORY_REPO_USER}:${env.SELI_ARTIFACTORY_REPO_PASS}
+          "${env.SELI_ARTIFACTORY_URL}/api/plugins/execute/repoSize?params=repoId=${env.RELEASED_REPO_NAME}-helm-local" >> ${env.TMP_FILE}
+    - task: format-json
+      docker-image: pythonds
+      cmd:
+        - sh -c 'cat ${env.TMP_FILE} | jq -s > ${env.USAGE_REPORT_LOCAL_DIR}/${env.REPORT_PREFIX}_${env.REPORT_POSTFIX_HELM}'
+        - cat ${env.USAGE_REPORT_LOCAL_DIR}/${env.REPORT_PREFIX}_${env.REPORT_POSTFIX_HELM}
+        - curl -v -u ${env.SELI_ARTIFACTORY_REPO_USER}:${env.SELI_ARTIFACTORY_REPO_PASS} "${env.SELI_ARTIFACTORY_URL}/proj-eric-oss-drop-generic-local/monitoring/${env.REPORT_PREFIX}/${env.REPORT_PREFIX}_helm.csv" -o .tmp/.usage-report/${env.REPORT_PREFIX}_helm.csv
+        - python3 ci/scripts/monitoring/generategraph.py helm
+        - curl -v -u ${env.SELI_ARTIFACTORY_REPO_USER}:${env.SELI_ARTIFACTORY_REPO_PASS} --upload-file .tmp/.usage-report/artifactory-repo-usage-report_helm.csv "${env.SELI_ARTIFACTORY_URL}/proj-eric-oss-drop-generic-local/monitoring/${env.REPORT_PREFIX}/${env.REPORT_PREFIX}_helm.csv"
+        - ls -lart ci/scripts/monitoring
+        - python3 ci/scripts/monitoring/generateformattedcsv.py helm
+
+  artifactory-usage-report-thirdparty:
+    - task: get-thirdparty-repo-usage
+      docker-image: adp-python
+      cmd:
+        - echo -e '"Thirdparty Repo Usage Report (proj-eric-oss-*-generic)"' > ${env.TMP_FILE}
+        - curl -u ${env.SELI_ARTIFACTORY_REPO_USER}:${env.SELI_ARTIFACTORY_REPO_PASS}
+          "${env.SELI_ARTIFACTORY_URL}/api/plugins/execute/repoSize?params=repoId=${env.THIRDPARTY_REPO_NAME}" >> ${env.TMP_FILE}
+
+    - task: format-json
+      docker-image: pythonds
+      cmd:
+        - sh -c 'cat ${env.TMP_FILE} | jq -s > ${env.USAGE_REPORT_LOCAL_DIR}/${env.REPORT_PREFIX}_${env.REPORT_POSTFIX_THIRDPARTY}'
+        - cat ${env.USAGE_REPORT_LOCAL_DIR}/${env.REPORT_PREFIX}_${env.REPORT_POSTFIX_THIRDPARTY}
+        - curl -v -u ${env.SELI_ARTIFACTORY_REPO_USER}:${env.SELI_ARTIFACTORY_REPO_PASS} "${env.SELI_ARTIFACTORY_URL}/proj-eric-oss-drop-generic-local/monitoring/${env.REPORT_PREFIX}/${env.REPORT_PREFIX}_thirdparty.csv" -o .tmp/.usage-report/${env.REPORT_PREFIX}_thirdparty.csv
+        - python3 ci/scripts/monitoring/generategraph.py thirdparty
+        - curl -v -u ${env.SELI_ARTIFACTORY_REPO_USER}:${env.SELI_ARTIFACTORY_REPO_PASS} --upload-file .tmp/.usage-report/${env.REPORT_PREFIX}_thirdparty.csv "${env.SELI_ARTIFACTORY_URL}/proj-eric-oss-drop-generic-local/monitoring/${env.REPORT_PREFIX}/${env.REPORT_PREFIX}_thirdparty.csv"
+        - python3 ci/scripts/monitoring/generateformattedcsv.py thirdparty
+
+  artifactory-usage-report-npm:
+    - task: get-npm-repo-usage
+      docker-image: adp-python
+      cmd:
+        - echo -e '"NPM Repo Usage Report (proj-oss-tools-internal-*-npm-local)"' > ${env.TMP_FILE}
+        - curl -u ${env.SELI_ARTIFACTORY_REPO_USER}:${env.SELI_ARTIFACTORY_REPO_PASS}
+          "${env.SELI_ARTIFACTORY_URL}/api/plugins/execute/repoSize?params=repoId=${env.NPM_RELEASE_REPO_NAME}" >> ${env.TMP_FILE}
+        - curl -u ${env.SELI_ARTIFACTORY_REPO_USER}:${env.SELI_ARTIFACTORY_REPO_PASS}
+          "${env.SELI_ARTIFACTORY_URL}/api/plugins/execute/repoSize?params=repoId=${env.NPM_DEV_REPO_NAME}" >> ${env.TMP_FILE}
+
+    - task: format-json
+      docker-image: pythonds
+      cmd:
+        - sh -c 'cat ${env.TMP_FILE} | jq -s > ${env.USAGE_REPORT_LOCAL_DIR}/${env.REPORT_PREFIX}_${env.REPORT_POSTFIX_NPM}'
+        - cat ${env.USAGE_REPORT_LOCAL_DIR}/${env.REPORT_PREFIX}_${env.REPORT_POSTFIX_NPM}
+        - curl -v -u ${env.SELI_ARTIFACTORY_REPO_USER}:${env.SELI_ARTIFACTORY_REPO_PASS} "${env.SELI_ARTIFACTORY_URL}/proj-eric-oss-drop-generic-local/monitoring/${env.REPORT_PREFIX}/${env.REPORT_PREFIX}_npm.csv" -o .tmp/.usage-report/${env.REPORT_PREFIX}_npm.csv
+        - python3 ci/scripts/monitoring/generategraph.py npm
+        - curl -v -u ${env.SELI_ARTIFACTORY_REPO_USER}:${env.SELI_ARTIFACTORY_REPO_PASS} --upload-file .tmp/.usage-report/${env.REPORT_PREFIX}_npm.csv "${env.SELI_ARTIFACTORY_URL}/proj-eric-oss-drop-generic-local/monitoring/${env.REPORT_PREFIX}/${env.REPORT_PREFIX}_npm.csv"
+        - python3 ci/scripts/monitoring/generateformattedcsv.py npm
+
+  artifactory-usage-report-generation:
+    - task: generate-report
+      docker-image: pythonds
+      cmd:
+        - echo -e '[\n"Artifactory Usage Report for Common OSS Repositories",\n' > ${env.TMP_FILE}
+        - cat ${env.USAGE_REPORT_LOCAL_DIR}/${env.REPORT_PREFIX}_${env.REPORT_POSTFIX_GENERIC} >> ${env.TMP_FILE}
+        - echo , >> ${env.TMP_FILE}
+        - cat ${env.USAGE_REPORT_LOCAL_DIR}/${env.REPORT_PREFIX}_${env.REPORT_POSTFIX_DOCKER} >> ${env.TMP_FILE}
+        - echo , >> ${env.TMP_FILE}
+        - cat ${env.USAGE_REPORT_LOCAL_DIR}/${env.REPORT_PREFIX}_${env.REPORT_POSTFIX_MAVEN} >> ${env.TMP_FILE}
+        - echo , >> ${env.TMP_FILE}
+        - cat ${env.USAGE_REPORT_LOCAL_DIR}/${env.REPORT_PREFIX}_${env.REPORT_POSTFIX_HELM} >> ${env.TMP_FILE}
+        - echo , >> ${env.TMP_FILE}
+        - cat ${env.USAGE_REPORT_LOCAL_DIR}/${env.REPORT_PREFIX}_${env.REPORT_POSTFIX_THIRDPARTY} >> ${env.TMP_FILE}
+        - echo , >> ${env.TMP_FILE}
+        - cat ${env.USAGE_REPORT_LOCAL_DIR}/${env.REPORT_PREFIX}_${env.REPORT_POSTFIX_NPM} >> ${env.TMP_FILE}
+        - echo -e '\n]\n' >> ${env.TMP_FILE}
+        - sh -c 'cat ${env.TMP_FILE} | jq -s > ${env.USAGE_REPORT_LOCAL_DIR}/${env.REPORT_PREFIX}.json'
+        - python3 ci/scripts/monitoring/consolidated.py
+
+  artifactory-usage-report-publish:
+    - task: publish-to-artifactory
+      docker-image: adp-python
+      cmd:
+        - curl -u ${env.SELI_ARTIFACTORY_REPO_USER}:${env.SELI_ARTIFACTORY_REPO_PASS} -X PUT -T ${env.USAGE_REPORT_LOCAL_DIR}/${env.REPORT_PREFIX}.json "${env.SELI_ARTIFACTORY_URL}/${env.DROP_REPO_NAME}-generic-local/${env.PUBLISH_DIR}/${env.REPORT_PREFIX}/${env.REPORT_PREFIX}_$(date +'%Y_%m_%d_%H_%M_%S').json"
+        - curl -u ${env.SELI_ARTIFACTORY_REPO_USER}:${env.SELI_ARTIFACTORY_REPO_PASS} -X PUT -T ${env.USAGE_REPORT_LOCAL_DIR}/${env.REPORT_PREFIX}.json "${env.SELI_ARTIFACTORY_URL}/${env.DROP_REPO_NAME}-generic-local/${env.PUBLISH_DIR}/${env.REPORT_PREFIX}/${env.REPORT_PREFIX}-latest.json"
+
+  verify-publishing:
+    - rule: generic-publish
+    - rule: image-publish
+    - rule: helm-publish
+    - rule: maven-publish
+    - rule: thirdparty-publish
+    - rule: npm-publish
+
+  verify-pulling:
+    - rule: generic-pull
+    - rule: image-pull
+    - rule: helm-pull
+    - rule: maven-pull
+    - rule: thirdparty-pull
+
+  generic-publish:
+    - task: publish-generic-artifacts
+      docker-image: adp-python
+      cmd:
+        - curl -u ${env.SELI_ARTIFACTORY_REPO_USER}:${env.SELI_ARTIFACTORY_REPO_PASS} -X PUT -T ${env.DOCKER_FILE_LOCATION} "${env.SELI_ARTIFACTORY_URL}/${env.DEV_REPO_NAME}-generic-local/${env.PUBLISH_DIR}/${env.DOCKER_FILE_LOCATION}"
+        - curl -u ${env.SELI_ARTIFACTORY_REPO_USER}:${env.SELI_ARTIFACTORY_REPO_PASS} -X PUT -T ${env.DOCKER_FILE_LOCATION} "${env.SELI_ARTIFACTORY_URL}/${env.CI_INTERNAL_REPO_NAME}-generic-local/${env.PUBLISH_DIR}/${env.DOCKER_FILE_LOCATION}"
+        - curl -u ${env.SELI_ARTIFACTORY_REPO_USER}:${env.SELI_ARTIFACTORY_REPO_PASS} -X PUT -T ${env.DOCKER_FILE_LOCATION} "${env.SELI_ARTIFACTORY_URL}/${env.DROP_REPO_NAME}-generic-local/${env.PUBLISH_DIR}/${env.DOCKER_FILE_LOCATION}"
+        - curl -u ${env.SELI_ARTIFACTORY_REPO_USER}:${env.SELI_ARTIFACTORY_REPO_PASS} -X PUT -T ${env.DOCKER_FILE_LOCATION} "${env.SELI_ARTIFACTORY_URL}/${env.RELEASED_REPO_NAME}-generic-local/${env.PUBLISH_DIR}/${env.DOCKER_FILE_LOCATION}"
+        - curl -u ${env.SELI_ARTIFACTORY_REPO_USER}:${env.SELI_ARTIFACTORY_REPO_PASS} -X PUT -T ${env.DOCKER_FILE_LOCATION} "${env.SELI_ARTIFACTORY_URL}/${env.DEV_TEST_REPO_NAME}-generic-local/${env.PUBLISH_DIR}/${env.DOCKER_FILE_LOCATION}"
+
+  generic-pull:
+    - task: pull-published-generic-artifacts
+      docker-image: adp-python
+      cmd:
+        - curl -u ${env.SELI_ARTIFACTORY_REPO_USER}:${env.SELI_ARTIFACTORY_REPO_PASS} "${env.SELI_ARTIFACTORY_URL}/${env.DEV_REPO_NAME}-generic-local/${env.PUBLISH_DIR}/${env.DOCKER_FILE_LOCATION}" -o ${env.GENERIC_LOCAL_DIR}/${env.DEV_REPO_NAME}-generic-local_downloaded-file.Dockerfile
+        - curl -u ${env.SELI_ARTIFACTORY_REPO_USER}:${env.SELI_ARTIFACTORY_REPO_PASS} "${env.SELI_ARTIFACTORY_URL}/${env.CI_INTERNAL_REPO_NAME}-generic-local/${env.PUBLISH_DIR}/${env.DOCKER_FILE_LOCATION}" -o ${env.GENERIC_LOCAL_DIR}/${env.CI_INTERNAL_REPO_NAME}-generic-local_downloaded-file.Dockerfile
+        - curl -u ${env.SELI_ARTIFACTORY_REPO_USER}:${env.SELI_ARTIFACTORY_REPO_PASS} "${env.SELI_ARTIFACTORY_URL}/${env.DROP_REPO_NAME}-generic-local/${env.PUBLISH_DIR}/${env.DOCKER_FILE_LOCATION}" -o ${env.GENERIC_LOCAL_DIR}/${env.DROP_REPO_NAME}-generic-local_downloaded-file.Dockerfile
+        - curl -u ${env.SELI_ARTIFACTORY_REPO_USER}:${env.SELI_ARTIFACTORY_REPO_PASS} "${env.SELI_ARTIFACTORY_URL}/${env.RELEASED_REPO_NAME}-generic-local/${env.PUBLISH_DIR}/${env.DOCKER_FILE_LOCATION}" -o ${env.GENERIC_LOCAL_DIR}/${env.RELEASED_REPO_NAME}-generic-local_downloaded-file.Dockerfile
+        - curl -u ${env.SELI_ARTIFACTORY_REPO_USER}:${env.SELI_ARTIFACTORY_REPO_PASS} "${env.SELI_ARTIFACTORY_URL}/${env.DEV_TEST_REPO_NAME}-generic-local/${env.PUBLISH_DIR}/${env.DOCKER_FILE_LOCATION}" -o ${env.GENERIC_LOCAL_DIR}/${env.DEV_TEST_REPO_NAME}-generic-local_downloaded-file.Dockerfile
+    - task: cat-generic-artifacts
+      cmd:
+        - cat ${env.GENERIC_LOCAL_DIR}/${env.DEV_REPO_NAME}-generic-local_downloaded-file.Dockerfile
+        - cat ${env.GENERIC_LOCAL_DIR}/${env.CI_INTERNAL_REPO_NAME}-generic-local_downloaded-file.Dockerfile
+        - cat ${env.GENERIC_LOCAL_DIR}/${env.DROP_REPO_NAME}-generic-local_downloaded-file.Dockerfile
+        - cat ${env.GENERIC_LOCAL_DIR}/${env.RELEASED_REPO_NAME}-generic-local_downloaded-file.Dockerfile
+        - cat ${env.GENERIC_LOCAL_DIR}/${env.DEV_TEST_REPO_NAME}-generic-local_downloaded-file.Dockerfile
+
+  image:
+    - task: build-docker-image-locally
+      cmd:
+        - docker build -f ${env.DOCKER_FILE_LOCATION} . -t ${env.IMAGE_NAME}:${env.IMAGE_TAG}
+        - docker images | grep ${env.IMAGE_NAME}
+
+  image-publish:
+    - rule: image
+    - task: docker-login
+      cmd: docker login armdocker.rnd.ericsson.se -u $SELI_ARTIFACTORY_REPO_USER -p $SELI_ARTIFACTORY_REPO_PASS
+    - task: tag-docker-images
+      cmd:
+        - docker tag ${env.IMAGE_NAME}:${env.IMAGE_TAG} ${env.DOCKER_REGISTRY_URL}/${env.DEV_REPO_NAME}/${env.IMAGE_PATH_NAME_TAG}
+        - docker tag ${env.IMAGE_NAME}:${env.IMAGE_TAG} ${env.DOCKER_REGISTRY_URL}/${env.CI_INTERNAL_REPO_NAME}/${env.IMAGE_PATH_NAME_TAG}
+        - docker tag ${env.IMAGE_NAME}:${env.IMAGE_TAG} ${env.DOCKER_REGISTRY_URL}/${env.DROP_REPO_NAME}/${env.IMAGE_PATH_NAME_TAG}
+        - docker tag ${env.IMAGE_NAME}:${env.IMAGE_TAG} ${env.DOCKER_REGISTRY_URL}/${env.RELEASED_REPO_NAME}/${env.IMAGE_PATH_NAME_TAG}
+        - docker tag ${env.IMAGE_NAME}:${env.IMAGE_TAG} ${env.DOCKER_REGISTRY_URL}/${env.DEV_TEST_REPO_NAME}/${env.IMAGE_PATH_NAME_TAG}
+        - docker images | grep ${env.IMAGE_NAME}
+    - task: push-docker-images
+      cmd:
+        - docker push ${env.DOCKER_REGISTRY_URL}/${env.DEV_REPO_NAME}/${env.IMAGE_PATH_NAME_TAG}
+        - docker push ${env.DOCKER_REGISTRY_URL}/${env.CI_INTERNAL_REPO_NAME}/${env.IMAGE_PATH_NAME_TAG}
+        - docker push ${env.DOCKER_REGISTRY_URL}/${env.DROP_REPO_NAME}/${env.IMAGE_PATH_NAME_TAG}
+        - docker push ${env.DOCKER_REGISTRY_URL}/${env.RELEASED_REPO_NAME}/${env.IMAGE_PATH_NAME_TAG}
+        - docker push ${env.DOCKER_REGISTRY_URL}/${env.DEV_TEST_REPO_NAME}/${env.IMAGE_PATH_NAME_TAG}
+    - task: rmi-docker-images-locally
+      cmd:
+        - docker rmi ${env.DOCKER_REGISTRY_URL}/${env.DEV_REPO_NAME}/${env.IMAGE_PATH_NAME_TAG}
+        - docker rmi ${env.DOCKER_REGISTRY_URL}/${env.CI_INTERNAL_REPO_NAME}/${env.IMAGE_PATH_NAME_TAG}
+        - docker rmi ${env.DOCKER_REGISTRY_URL}/${env.DROP_REPO_NAME}/${env.IMAGE_PATH_NAME_TAG}
+        - docker rmi ${env.DOCKER_REGISTRY_URL}/${env.RELEASED_REPO_NAME}/${env.IMAGE_PATH_NAME_TAG}
+        - docker rmi ${env.DOCKER_REGISTRY_URL}/${env.DEV_TEST_REPO_NAME}/${env.IMAGE_PATH_NAME_TAG}
+        - docker images
+
+  image-pull:
+    - task: pull-published-docker-images
+      cmd:
+        - docker pull ${env.DOCKER_REGISTRY_URL}/${env.DEV_REPO_NAME}/${env.IMAGE_PATH_NAME_TAG}
+        - docker pull ${env.DOCKER_REGISTRY_URL}/${env.CI_INTERNAL_REPO_NAME}/${env.IMAGE_PATH_NAME_TAG}
+        - docker pull ${env.DOCKER_REGISTRY_URL}/${env.DROP_REPO_NAME}/${env.IMAGE_PATH_NAME_TAG}
+        - docker pull ${env.DOCKER_REGISTRY_URL}/${env.RELEASED_REPO_NAME}/${env.IMAGE_PATH_NAME_TAG}
+        - docker pull ${env.DOCKER_REGISTRY_URL}/${env.DEV_TEST_REPO_NAME}/${env.IMAGE_PATH_NAME_TAG}
+        - docker images | grep ${env.IMAGE_NAME}
+
+  package:
+    - task: package-helm-chart
+      docker-image: adp-release-auto
+      cmd: helm-package
+        --folder ${env.HELM_LOCAL_DIR}/${env.DUMMY_HELM_CHART_NAME}
+        --workdir ${env.BOB_OUTPUT_DIR}
+        --output ${env.BOB_OUTPUT_DIR}/${env.DUMMY_HELM_CHART_NAME}
+        --version ${env.IMAGE_TAG}
+
+  helm-publish:
+    - rule: package
+    - task: publish-helm-charts
+      docker-image: adp-release-auto
+      cmd:
+        - upload_file.sh
+          --filename=${env.BOB_OUTPUT_DIR}/${env.DUMMY_HELM_CHART_NAME}/${env.DUMMY_HELM_CHART_NAME}-${env.IMAGE_TAG}.tgz
+          --repository=${env.SELI_ARTIFACTORY_URL}/${env.DEV_REPO_NAME}-helm/${env.PUBLISH_DIR}/${env.DEV_REPO_NAME}/
+          --api-token=${env.SELI_ARTIFACTORY_REPO_PASS}
+        - upload_file.sh
+          --filename=${env.BOB_OUTPUT_DIR}/${env.DUMMY_HELM_CHART_NAME}/${env.DUMMY_HELM_CHART_NAME}-${env.IMAGE_TAG}.tgz
+          --repository=${env.SELI_ARTIFACTORY_URL}/${env.CI_INTERNAL_REPO_NAME}-helm/${env.PUBLISH_DIR}/${env.CI_INTERNAL_REPO_NAME}/
+          --api-token=${env.SELI_ARTIFACTORY_REPO_PASS}
+        - upload_file.sh
+          --filename=${env.BOB_OUTPUT_DIR}/${env.DUMMY_HELM_CHART_NAME}/${env.DUMMY_HELM_CHART_NAME}-${env.IMAGE_TAG}.tgz
+          --repository=${env.SELI_ARTIFACTORY_URL}/${env.DROP_REPO_NAME}-helm/${env.PUBLISH_DIR}/${env.DROP_REPO_NAME}/
+          --api-token=${env.SELI_ARTIFACTORY_REPO_PASS}
+        - upload_file.sh
+          --filename=${env.BOB_OUTPUT_DIR}/${env.DUMMY_HELM_CHART_NAME}/${env.DUMMY_HELM_CHART_NAME}-${env.IMAGE_TAG}.tgz
+          --repository=${env.SELI_ARTIFACTORY_URL}/${env.RELEASED_REPO_NAME}-helm/${env.PUBLISH_DIR}/${env.RELEASED_REPO_NAME}/
+          --api-token=${env.SELI_ARTIFACTORY_REPO_PASS}
+
+  helm-pull:
+    - task: pull-published-helm-charts
+      docker-image: adp-release-auto
+      cmd:
+        - mkdir -p ${env.HELM_LOCAL_DIR}/${env.DEV_REPO_NAME} ${env.HELM_LOCAL_DIR}/${env.CI_INTERNAL_REPO_NAME} ${env.HELM_LOCAL_DIR}/${env.DROP_REPO_NAME} ${env.HELM_LOCAL_DIR}/${env.RELEASED_REPO_NAME}
+        - helm pull --username ${env.SELI_ARTIFACTORY_REPO_USER} --password ${env.SELI_ARTIFACTORY_REPO_PASS} ${env.SELI_ARTIFACTORY_URL}/${env.DEV_REPO_NAME}-helm-local/${env.PUBLISH_DIR}/${env.DEV_REPO_NAME}/${env.DUMMY_HELM_CHART_NAME}-${env.IMAGE_TAG}.tgz -d ${env.HELM_LOCAL_DIR}/${env.DEV_REPO_NAME}
+        - helm pull --username ${env.SELI_ARTIFACTORY_REPO_USER} --password ${env.SELI_ARTIFACTORY_REPO_PASS} ${env.SELI_ARTIFACTORY_URL}/${env.CI_INTERNAL_REPO_NAME}-helm-local/${env.PUBLISH_DIR}/${env.CI_INTERNAL_REPO_NAME}/${env.DUMMY_HELM_CHART_NAME}-${env.IMAGE_TAG}.tgz -d ${env.HELM_LOCAL_DIR}/${env.CI_INTERNAL_REPO_NAME}
+        - helm pull --username ${env.SELI_ARTIFACTORY_REPO_USER} --password ${env.SELI_ARTIFACTORY_REPO_PASS} ${env.SELI_ARTIFACTORY_URL}/${env.DROP_REPO_NAME}-helm-local/${env.PUBLISH_DIR}/${env.DROP_REPO_NAME}/${env.DUMMY_HELM_CHART_NAME}-${env.IMAGE_TAG}.tgz -d ${env.HELM_LOCAL_DIR}/${env.DROP_REPO_NAME}
+        - helm pull --username ${env.SELI_ARTIFACTORY_REPO_USER} --password ${env.SELI_ARTIFACTORY_REPO_PASS} ${env.SELI_ARTIFACTORY_URL}/${env.RELEASED_REPO_NAME}-helm-local/${env.PUBLISH_DIR}/${env.RELEASED_REPO_NAME}/${env.DUMMY_HELM_CHART_NAME}-${env.IMAGE_TAG}.tgz -d ${env.HELM_LOCAL_DIR}/${env.RELEASED_REPO_NAME}
+        - ls -ltrR ${env.HELM_LOCAL_DIR}/${env.DEV_REPO_NAME} ${env.HELM_LOCAL_DIR}/${env.CI_INTERNAL_REPO_NAME} ${env.HELM_LOCAL_DIR}/${env.DROP_REPO_NAME} ${env.HELM_LOCAL_DIR}/${env.RELEASED_REPO_NAME}
+
+  maven-publish:
+    - task: publish-maven-artifacts
+      docker-image: adp-python
+      cmd:
+        - curl -u ${env.SELI_ARTIFACTORY_REPO_USER}:${env.SELI_ARTIFACTORY_REPO_PASS} -X PUT -T ${env.DOCKER_FILE_LOCATION} "${env.SELI_ARTIFACTORY_URL}/${env.MAVEN_SNAPSHOT_REPO_NAME}/${env.MAVEN_PUBLISH_PATH}/${env.IMAGE_TAG}/${env.DOCKER_FILE_LOCATION}"
+        - curl -u ${env.SELI_ARTIFACTORY_REPO_USER}:${env.SELI_ARTIFACTORY_REPO_PASS} -X PUT -T ${env.DOCKER_FILE_LOCATION} "${env.SELI_ARTIFACTORY_URL}/${env.MAVEN_RELEASE_REPO_NAME}/${env.MAVEN_PUBLISH_PATH}/${env.IMAGE_TAG}/${env.DOCKER_FILE_LOCATION}"
+        - curl -u ${env.SELI_ARTIFACTORY_REPO_USER}:${env.SELI_ARTIFACTORY_REPO_PASS} -X PUT -T ${env.DOCKER_FILE_LOCATION} "${env.SELI_ARTIFACTORY_URL}/${env.MAVEN_STAGING_REPO_NAME}/${env.MAVEN_PUBLISH_PATH}/${env.IMAGE_TAG}/${env.DOCKER_FILE_LOCATION}"
+
+  maven-pull:
+    - task: pull-maven-artifacts
+      docker-image: adp-python
+      cmd:
+        - mkdir -p ${env.MAVEN_LOCAL_DIR}
+        - curl -u ${env.SELI_ARTIFACTORY_REPO_USER}:${env.SELI_ARTIFACTORY_REPO_PASS} "${env.SELI_ARTIFACTORY_URL}/${env.MAVEN_SNAPSHOT_REPO_NAME}/${env.MAVEN_PUBLISH_PATH}/${env.IMAGE_TAG}/${env.DOCKER_FILE_LOCATION}" -o ${env.MAVEN_LOCAL_DIR}/${env.MAVEN_SNAPSHOT_REPO_NAME}_${env.MAVEN_ARTIFACT_DOWNLOAD_POSTFIX}
+        - curl -u ${env.SELI_ARTIFACTORY_REPO_USER}:${env.SELI_ARTIFACTORY_REPO_PASS} "${env.SELI_ARTIFACTORY_URL}/${env.MAVEN_RELEASE_REPO_NAME}/${env.MAVEN_PUBLISH_PATH}/${env.IMAGE_TAG}/${env.DOCKER_FILE_LOCATION}" -o ${env.MAVEN_LOCAL_DIR}/${env.MAVEN_RELEASE_REPO_NAME}_${env.MAVEN_ARTIFACT_DOWNLOAD_POSTFIX}
+        - curl -u ${env.SELI_ARTIFACTORY_REPO_USER}:${env.SELI_ARTIFACTORY_REPO_PASS} "${env.SELI_ARTIFACTORY_URL}/${env.MAVEN_STAGING_REPO_NAME}/${env.MAVEN_PUBLISH_PATH}/${env.IMAGE_TAG}/${env.DOCKER_FILE_LOCATION}" -o ${env.MAVEN_LOCAL_DIR}/${env.MAVEN_STAGING_REPO_NAME}_${env.MAVEN_ARTIFACT_DOWNLOAD_POSTFIX}
+    - task: cat-maven-artifacts
+      cmd:
+        - cat ${env.MAVEN_LOCAL_DIR}/${env.MAVEN_SNAPSHOT_REPO_NAME}_${env.MAVEN_ARTIFACT_DOWNLOAD_POSTFIX}
+        - cat ${env.MAVEN_LOCAL_DIR}/${env.MAVEN_RELEASE_REPO_NAME}_${env.MAVEN_ARTIFACT_DOWNLOAD_POSTFIX}
+        - cat ${env.MAVEN_LOCAL_DIR}/${env.MAVEN_STAGING_REPO_NAME}_${env.MAVEN_ARTIFACT_DOWNLOAD_POSTFIX}
+
+  thirdparty-publish:
+    - task: publish-thirdparty-artifacts
+      docker-image: adp-release-auto
+      cmd:
+        - upload_file.sh
+          --filename=${env.THIRDPARTY_LOCAL_DIR}/${env.TEST_TXT_NAME}
+          --repository=${env.SELI_ARTIFACTORY_URL}/${env.THIRDPARTY_REPO_NAME}/${env.PUBLISH_DIR}/
+          --api-token=${env.SELI_ARTIFACTORY_REPO_PASS}
+
+  thirdparty-pull:
+    - task: pull-thirdparty-artifacts
+      docker-image: adp-release-auto
+      cmd:
+          - mkdir -p ${env.THIRDPARTY_LOCAL_DIR}
+          - curl -u ${env.SELI_ARTIFACTORY_REPO_USER}:${env.SELI_ARTIFACTORY_REPO_PASS} "${env.SELI_ARTIFACTORY_URL}/${env.THIRDPARTY_REPO_NAME}/${env.PUBLISH_DIR}/${env.TEST_TXT_NAME}" -o ${env.THIRDPARTY_LOCAL_DIR}/${env.THIRDPARTY_REPO_NAME}_${env.THIRDPARTY_ARTIFACT_DOWNLOAD_POSTFIX}
+    - task: cat-thirdparty-artifacts
+      cmd:
+          - cat ${env.THIRDPARTY_LOCAL_DIR}/${env.THIRDPARTY_REPO_NAME}_${env.THIRDPARTY_ARTIFACT_DOWNLOAD_POSTFIX}
+
+  npm-publish:
+    - task: publish-npm-artifacts
+      docker-image: adp-release-auto
+      cmd:
+          - upload_file.sh
+            --filename=${env.NPM_LOCAL_DIR}/${env.TEST_JSON_NAME}
+            --repository=${env.SELI_ARTIFACTORY_URL}/${env.NPM_RELEASE_REPO_NAME}/${env.PUBLISH_DIR}/
+            --api-token=${env.SELI_ARTIFACTORY_REPO_PASS}
+          - upload_file.sh
+            --filename=${env.NPM_LOCAL_DIR}/${env.TEST_JSON_NAME}
+            --repository=${env.SELI_ARTIFACTORY_URL}/${env.NPM_DEV_REPO_NAME}/${env.PUBLISH_DIR}/
+            --api-token=${env.SELI_ARTIFACTORY_REPO_PASS}
+
+  npm-pull:
+    - task: pull-npm-artifacts
+      docker-image: adp-release-auto
+      cmd:
+          - mkdir -p ${env.NPM_LOCAL_DIR}
+          - curl -u ${env.SELI_ARTIFACTORY_REPO_USER}:${env.SELI_ARTIFACTORY_REPO_PASS} "${env.SELI_ARTIFACTORY_URL}/${env.NPM_RELEASE_REPO_NAME}/${env.PUBLISH_DIR}/${env.TEST_JSON_NAME}" -o ${env.NPM_LOCAL_DIR}/${env.NPM_RELEASE_REPO_NAME}_${env.NPM_ARTIFACT_DOWNLOAD_POSTFIX}
+          - curl -u ${env.SELI_ARTIFACTORY_REPO_USER}:${env.SELI_ARTIFACTORY_REPO_PASS} "${env.SELI_ARTIFACTORY_URL}/${env.NPM_RELEASE_REPO_NAME}/${env.PUBLISH_DIR}/${env.TEST_JSON_NAME}" -o ${env.NPM_LOCAL_DIR}/${env.NPM_DEV_REPO_NAME}_${env.NPM_ARTIFACT_DOWNLOAD_POSTFIX}
+    - task: cat-npm-artifacts
+      cmd:
+          - cat ${env.NPM_LOCAL_DIR}/${env.NPM_RELEASE_REPO_NAME}_${env.NPM_ARTIFACT_DOWNLOAD_POSTFIX}
+          - cat ${env.NPM_LOCAL_DIR}/${env.NPM_DEV_REPO_NAME}_${env.NPM_ARTIFACT_DOWNLOAD_POSTFIX}

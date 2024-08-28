@@ -1,0 +1,47 @@
+#
+# COPYRIGHT Ericsson 2023
+#
+#
+#
+# The copyright to the computer program(s) herein is the property of
+#
+# Ericsson Inc. The programs may be used and/or copied only with written
+#
+# permission from Ericsson Inc. or in accordance with the terms and
+#
+# conditions stipulated in the agreement/contract under which the
+#
+# program(s) have been supplied.
+#
+
+modelVersion: 2.0
+
+description: "xray healthcheck ruleset"
+
+docker-images:
+  - adp-release-auto: armdocker.rnd.ericsson.se/proj-adp-cicd-drop/bob-adp-release-auto:latest
+
+# The docker image eric-oss-enm-notification-simulator:1.0.565-1 is not included in the retention policy.
+# https://arm.seli.gic.ericsson.se/artifactory/proj-eric-oss-ci-internal-docker-global/proj-eric-oss-ci-internal/eric-oss-enm-notification-simulator/1.0.565-1/
+
+properties:
+  - image: eric-oss-enm-notification-simulator
+  - version: 1.0.565-1
+
+env:
+  - PWD
+  - SELI_ARTIFACTORY_REPO_USER
+  - SELI_ARTIFACTORY_REPO_PASS
+
+rules:
+  xray-scan:
+    - task: fetch-xray-report
+      docker-image: adp-release-auto
+      cmd: bash -c 'fetch-xray
+        --config ${env.PWD}/ci/configs/healthcheck/xray.config
+        --user ${env.SELI_ARTIFACTORY_REPO_USER}
+        --apikey ${env.SELI_ARTIFACTORY_REPO_PASS}
+        --output ${env.PWD}/build/xray-reports/xray_report.json
+        --set image=${image}
+        --set version=${version}
+        --raw-output ${env.PWD}/build/xray-reports/raw_xray_report.json'

@@ -1,0 +1,683 @@
+jenkins:
+  agentProtocols:
+  - "JNLP4-connect"
+  - "Ping"
+  authorizationStrategy:
+    globalMatrix:
+      permissions:
+      - "Agent/Build:aispinn"
+      - "Agent/Build:ewhegar"
+      - "Agent/Build:ezaltru"
+      - "Agent/Configure:aispinn"
+      - "Agent/Configure:ewhegar"
+      - "Agent/Configure:ezaltru"
+      - "Agent/Connect:aispinn"
+      - "Agent/Connect:ewhegar"
+      - "Agent/Connect:ezaltru"
+      - "Agent/Create:aispinn"
+      - "Agent/Create:ewhegar"
+      - "Agent/Create:ezaltru"
+      - "Agent/Delete:aispinn"
+      - "Agent/Delete:ewhegar"
+      - "Agent/Delete:ezaltru"
+      - "Agent/Disconnect:aispinn"
+      - "Agent/Disconnect:ewhegar"
+      - "Agent/Disconnect:ezaltru"
+      - "Agent/ExtendedRead:aispinn"
+      - "Build Failure Analyzer/RemoveCause:aispinn"
+      - "Build Failure Analyzer/RemoveCause:ewhegar"
+      - "Build Failure Analyzer/RemoveCause:ezaltru"
+      - "Build Failure Analyzer/UpdateCauses:aispinn"
+      - "Build Failure Analyzer/UpdateCauses:ewhegar"
+      - "Build Failure Analyzer/UpdateCauses:ezaltru"
+      - "Build Failure Analyzer/ViewCauses:aispinn"
+      - "Build Failure Analyzer/ViewCauses:ezaltru"
+      - "Credentials/Create:aispinn"
+      - "Credentials/Create:ewhegar"
+      - "Credentials/Create:ezaltru"
+      - "Credentials/Delete:aispinn"
+      - "Credentials/Delete:ewhegar"
+      - "Credentials/Delete:ezaltru"
+      - "Credentials/ManageDomains:aispinn"
+      - "Credentials/ManageDomains:ewhegar"
+      - "Credentials/ManageDomains:ezaltru"
+      - "Credentials/Update:aispinn"
+      - "Credentials/Update:ewhegar"
+      - "Credentials/Update:ezaltru"
+      - "Credentials/View:aispinn"
+      - "Credentials/View:ewhegar"
+      - "Credentials/View:ezaltru"
+      - "Gerrit/ManualTrigger:aispinn"
+      - "Gerrit/ManualTrigger:ewhegar"
+      - "Gerrit/ManualTrigger:ezaltru"
+      - "Gerrit/Retrigger:aispinn"
+      - "Job Config History/DeleteEntry:aispinn"
+      - "Job Config History/DeleteEntry:ewhegar"
+      - "Job Config History/DeleteEntry:ezaltru"
+      - "Job Import/JobImport:ewhegar"
+      - "Job Import/JobImport:ezaltru"
+      - "Job/Build:aispinn"
+      - "Job/Build:authenticated"
+      - "Job/Build:ekriswe"
+      - "Job/Build:ewhegar"
+      - "Job/Build:ezaltru"
+      - "Job/Cancel:aispinn"
+      - "Job/Cancel:authenticated"
+      - "Job/Cancel:ekriswe"
+      - "Job/Cancel:ewhegar"
+      - "Job/Cancel:ezaltru"
+      - "Job/Configure:aispinn"
+      - "Job/Configure:ekriswe"
+      - "Job/Configure:ewhegar"
+      - "Job/Configure:ezaltru"
+      - "Job/Create:aispinn"
+      - "Job/Create:ekriswe"
+      - "Job/Create:ewhegar"
+      - "Job/Create:ezaltru"
+      - "Job/Delete:aispinn"
+      - "Job/Delete:ekriswe"
+      - "Job/Delete:ewhegar"
+      - "Job/Delete:ezaltru"
+      - "Job/Discover:aispinn"
+      - "Job/Discover:anonymous"
+      - "Job/Discover:ewhegar"
+      - "Job/Discover:ezaltru"
+      - "Job/ExtendedRead:aispinn"
+      - "Job/Move:aispinn"
+      - "Job/Move:ewhegar"
+      - "Job/Move:ezaltru"
+      - "Job/Read:aispinn"
+      - "Job/Read:authenticated"
+      - "Job/Read:ekriswe"
+      - "Job/Read:ewhegar"
+      - "Job/Read:ezaltru"
+      - "Job/Workspace:aispinn"
+      - "Job/Workspace:authenticated"
+      - "Job/Workspace:ekriswe"
+      - "Job/Workspace:ewhegar"
+      - "Job/Workspace:ezaltru"
+      - "Lockable Resources/Reserve:aispinn"
+      - "Lockable Resources/Unlock:aispinn"
+      - "Lockable Resources/View:aispinn"
+      - "Metrics/HealthCheck:aispinn"
+      - "Metrics/HealthCheck:ewhegar"
+      - "Metrics/HealthCheck:ezaltru"
+      - "Metrics/ThreadDump:aispinn"
+      - "Metrics/View:aispinn"
+      - "Overall/Administer:EEICMNA"
+      - "Overall/Administer:EIS_GLOBAL_EIFFEL_OPS"
+      - "Overall/Administer:ZMCDDEC"
+      - "Overall/Administer:aispinn"
+      - "Overall/Administer:ealopin"
+      - "Overall/Administer:eanadrb"
+      - "Overall/Administer:ekmnauv"
+      - "Overall/Administer:ekstsvt"
+      - "Overall/Administer:epiwalh"
+      - "Overall/Administer:eshafly"
+      - "Overall/Administer:evrgsjn"
+      - "Overall/Administer:idm-3f2g4f4fc469"
+      - "Overall/Administer:lciadm100"
+      - "Overall/Administer:philip.walsh@ericsson.com"
+      - "Overall/Administer:zapsauc"
+      - "Overall/Administer:zcapett"
+      - "Overall/Administer:zdamgok"
+      - "Overall/Administer:zkocili"
+      - "Overall/Administer:zlaigar"
+      - "Overall/Administer:zravroh"
+      - "Overall/Administer:zshicna"
+      - "Overall/Administer:zvidani"
+      - "Overall/Read:aispinn"
+      - "Overall/Read:authenticated"
+      - "Overall/Read:ewhegar"
+      - "Overall/Read:ezaltru"
+      - "Overall/Read:zmcfmic"
+      - "Overall/SystemRead:aispinn"
+      - "Overall/SystemRead:ewhegar"
+      - "Overall/SystemRead:ezaltru"
+      - "Run/Delete:aispinn"
+      - "Run/Delete:ewhegar"
+      - "Run/Delete:ezaltru"
+      - "Run/Replay:aispinn"
+      - "Run/Update:aispinn"
+      - "Run/Update:ewhegar"
+      - "Run/Update:ezaltru"
+      - "SCM/Tag:aispinn"
+      - "Support/DownloadBundle:aispinn"
+      - "View/Configure:aispinn"
+      - "View/Configure:ewhegar"
+      - "View/Configure:ezaltru"
+      - "View/Create:aispinn"
+      - "View/Create:ewhegar"
+      - "View/Create:ezaltru"
+      - "View/Delete:aispinn"
+      - "View/Delete:ewhegar"
+      - "View/Delete:ezaltru"
+      - "View/Read:aispinn"
+      - "View/Read:ewhegar"
+      - "View/Read:ezaltru"
+  crumbIssuer:
+    strict:
+      checkSessionMatch: false
+  disableRememberMe: false
+  disabledAdministrativeMonitors:
+  - "OldData"
+  - "jenkins.security.QueueItemAuthenticatorMonitor"
+  - "jenkins.security.s2m.MasterKillSwitchWarning"
+  globalNodeProperties:
+  - envVars:
+      env:
+      - key: "GERRIT_CENTRAL"
+        value: "ssh://gerrit.ericsson.se:29418"
+      - key: "GERRIT_MIRROR"
+        value: "ssh://gerritmirror.seli.gic.ericsson.se:29418"
+      - key: "GIT_HOME"
+        value: "/proj/ossmsci/tools/git/2.30.0/bin/git"
+      - key: "K8S_TEST"
+        value: "true"
+      - key: "M2_HOME"
+        value: "/proj/ossmsci/tools/maven/3.5.3"
+      - key: "SQ_ENABLED"
+        value: "true"
+      - key: "SQ_SERVER"
+        value: "sonarqube enterprise 79"
+  labelAtoms:
+  - name: "GridEngine"
+  - name: "IDUN_CICD"
+  - name: "IDUN_CICD_ONE_POD_H"
+  - name: "RHEL7_GE_Docker_1"
+  - name: "RHEL7_GE_Docker_2"
+  - name: "docker"
+  - name: "master"
+  markupFormatter:
+    rawHtml:
+      disableSyntaxHighlighting: false
+  mode: NORMAL
+  myViewsTabBar: "standard"
+  nodes:
+  - permanent:
+      labelString: "IDUN_CICD"
+      launcher:
+        ssh:
+          credentialsId: "bd639e7d-43eb-4748-b166-13e95157e85e"
+          host: "150.132.8.132"
+          port: 22
+          sshHostKeyVerificationStrategy: "nonVerifyingKeyVerificationStrategy"
+      name: "IDUN_CICD_ONE_POD_H"
+      nodeDescription: " (USED FOR aaS)"
+      numExecutors: 20
+      remoteFS: "/home/lciadm100/jenkins/fem2s11"
+      retentionStrategy: "always"
+  - permanent:
+      labelString: "GridEngine docker"
+      launcher:
+        command:
+          command: "/proj/ossmsci/GEagents/e2cgejenkins-master.sh --fetch_slave_jar_using_ssl\
+            \ -q ossmsci.q -l h=seliius25746.seli.gic.ericsson.se"
+      name: "RHEL7_GE_Docker_1"
+      nodeDescription: "Docker Agent - seliius25746.seli.gic.ericsson.se"
+      nodeProperties:
+      - envVars:
+          env:
+          - key: "DOCKER_CERT_PATH"
+            value: "/home/ossadmin/.twic/certs/TSA_jenkins_cert/"
+          - key: "DOCKER_HOST"
+            value: "tcp://seliius25746.seli.gic.ericsson.se:2376"
+          - key: "DOCKER_TLS_VERIFY"
+            value: "1"
+      numExecutors: 20
+      remoteFS: "/proj/eiffel216_config_fem2s11/agents/RHEL7_GE_Docker_1"
+      retentionStrategy: "always"
+  - permanent:
+      labelString: "GridEngine docker"
+      launcher:
+        command:
+          command: "/proj/ossmsci/GEagents/e2cgejenkins-master.sh --fetch_slave_jar_using_ssl\
+            \ -q ossmsci.q -l h=seliius25746.seli.gic.ericsson.se"
+      name: "RHEL7_GE_Docker_2"
+      nodeDescription: "Docker Agent - seliius25746.seli.gic.ericsson.se"
+      nodeProperties:
+      - envVars:
+          env:
+          - key: "DOCKER_CERT_PATH"
+            value: "/home/ossadmin/.twic/certs/TSA_jenkins_cert/"
+          - key: "DOCKER_TLS_VERIFY"
+            value: "tcp://seliius25746.seli.gic.ericsson.se:2376"
+      numExecutors: 4
+      remoteFS: "/proj/eiffel216_config_fem2s11/agents/RHEL7_GE_Docker_2"
+      retentionStrategy:
+        demand:
+          idleDelay: 1
+          inDemandDelay: 0
+  numExecutors: 1
+  primaryView:
+    all:
+      name: "all"
+  projectNamingStrategy: "standard"
+  proxy:
+    name: "www-proxy.ericsson.se"
+    noProxyHost: "localhost, 127.0.0.1, *.ericsson.se"
+    port: 8080
+    secretPassword: "{AQAAABAAAAAQ+djP/eLmrFTpbp+RbBvj3DpgDciXpBker6SnYzDN2tc=}"
+    testUrl: "http://www-proxy.seli.gic.ericsson.se "
+  quietPeriod: 5
+  remotingSecurity:
+    enabled: false
+  scmCheckoutRetryCount: 0
+  securityRealm:
+    activeDirectory:
+      bindPassword: "{AQAAABAAAAAQtKZ/FEFYJ7HVwzmo0UPvP/hT8rvet6Oi1BX6Mlthoc0=}"
+      customDomain: true
+      domains:
+      - bindName: "CN=eif216ldap,OU=CA,OU=SvcAccount,OU=P001,OU=ID,OU=Data,DC=ericsson,DC=se"
+        bindPassword: "{AQAAABAAAAAg/FIFQNCiRxmIlGUHBrJaQ/QcagXr54sUTKwLVbl2D+8d5cvqUdoe611wWT0UM528}"
+        name: "ericsson.se"
+        site: "Semea46"
+        tlsConfiguration: JDK_TRUSTSTORE
+      groupLookupStrategy: RECURSIVE
+      removeIrrelevantGroups: false
+      startTls: true
+  slaveAgentPort: 0
+  systemMessage: "<div align=\"left\">\r\n  <h1 style=\"color:#80bfff\">DE FEM2S11\
+    \ for IDUN, Managed by Team Hummingbirds</h1>\r\n</div>\r\n<div align=\"left\"\
+    >\r\n  <h3>Useful links:</h3>\r\n  <ul>\r\n\t<li><a href=\"https://gerrit.ericsson.se\"\
+    \ target=\"_blank\">Gerrit Central</a><br>\r\n    <li>For information about Jenkins/FEM,\
+    \ please visit - <a href=\"https://eiffel-web.rnd.ki.sw.ericsson.se/customerwiki\
+    \ \" target=\"_blank\">EIFFEL Customer Information</a><br>\r\n    <li><font color=\"\
+    red\">To report an issue</font> - <a href=\"https://eteamspace.internal.ericsson.com/x/dhRke\"\
+    >Write a JIRA on Hummingbirds</a></li>\r\n  </ul>\r\n</div>"
+  updateCenter:
+    sites:
+    - id: "default"
+      url: "https://updates.jenkins-ci.org/update-center.json"
+  views:
+  - list:
+      columns:
+      - "status"
+      - "weather"
+      - "jobName"
+      - "lastSuccess"
+      - "lastFailure"
+      - "lastDuration"
+      - "buildButton"
+      description: "View for IDUN aaS"
+      jobNames:
+      - "eiap_setup__gather_env_details"
+      - "eiap_setup__presetup_checks"
+      - "eiap_setup__push_images"
+      - "eiap_setup__setup_aws_cluster"
+      - "idunaas_check_rollback_need"
+      - "idunaas_check_rollback_need_helmfile"
+      - "idunaas_create_aws_ecr_token"
+      - "idunaas_deploy_helmfile"
+      - "idunaas_deploy_helmfile_using_oss_integration_ci"
+      - "IDUNaaS_deployment_service_Build_And_Publish"
+      - "IDUNaaS_deployment_service_Precode"
+      - "IDUNaaS_EKS_Upgrade"
+      - "IDUNaaS_EKS_Upgrade_Cleanup"
+      - "IDUNaaS_EKS_Upgrade_Rollback"
+      - "idunaas_gather_env_logs"
+      - "idunaas_get_installed_chart"
+      - "idunaas_get_latest_helmfile"
+      - "idunaas_healthCheck"
+      - "idunaas_pause_resume_grafana_alerts"
+      - "IDUNaaS_Perform_Backup"
+      - "IdunaaS_Perform_Backup_Public"
+      - "IDUNaaS_Pipeline_Polling_Job"
+      - "idunaas_post_install"
+      - "IDUNaaS_pre_code_python_Build_And_Publish"
+      - "idunaas_pre_deployment"
+      - "idunaas_preinstall_helmfile"
+      - "idunaas_push_image_ecr"
+      - "idunaas_push_image_ecr_europe"
+      - "idunaas_restore_from_backup"
+      - "idunaas_restore_from_backup_public"
+      - "IDUNaaS_Setup_Gather_Env_Details"
+      - "IDUNaaS_Setup_Pre-setup_Checks"
+      - "IDUNaaS_Setup_Setup_AWS_Cluster"
+      - "idunaas_spin_cli_pre_release"
+      - "idunaas_subsystemsConnect"
+      - "idunaas_uds_backend_job_wait"
+      - "idunaas_uds_cleanup"
+      - "idunaas_uds_deploy_helmfile"
+      - "IDUNaaS_Upgrade_Deploy_Charts"
+      - "IDUNaaS_Upgrade_Gather_Env_Details"
+      - "IDUNaaS_Upgrade_Get_Chart_Version"
+      - "IDUNaaS_Upgrade_Pre_Upgrade"
+      - "zcapett_ettore__idunaas_restore_from_backup"
+      name: "IDUN aaS"
+  - list:
+      columns:
+      - "status"
+      - "weather"
+      - "jobName"
+      - "lastSuccess"
+      - "lastFailure"
+      - "lastDuration"
+      - "buildButton"
+      jobNames:
+      - "idunaas_spin_cli_pre_release"
+      - "idunaas_spin_cli_release"
+      name: "Official_Gary"
+  - list:
+      columns:
+      - "status"
+      - "weather"
+      - "jobName"
+      - "lastSuccess"
+      - "lastFailure"
+      - "lastDuration"
+      - "buildButton"
+      jobNames:
+      - "gary-Get-K8S-logs"
+      - "gary-Get-K8S-logs-stephen"
+      - "garytest"
+      - "idunaas_create_aws_ecr_token_test"
+      - "idunaas_deploy_helmfile_devphase2_branch"
+      - "idunaas_spin_cli_pre_release_branch"
+      - "idunaas_spin_cli_pre_release_branch_refs"
+      - "idunaas_uds_cleanup_test_kafka_script"
+      - "Naveen-IDUNaaS_EKS_Upgrade"
+      - "spin_cli_test_2"
+      name: "Test"
+  - all:
+      name: "all"
+  viewsTabBar: "standard"
+security:
+  anonymizeSupportBundle:
+    enabled: false
+  apiToken:
+    creationOfLegacyTokenEnabled: false
+    tokenGenerationOnCreationEnabled: false
+    usageStatisticsEnabled: true
+  envInject:
+    enableLoadingFromMaster: false
+    enablePermissions: false
+    hideInjectedVars: false
+  sSHD:
+    port: 53801
+  scriptApproval:
+    approvedSignatures:
+    - "method com.cloudbees.plugins.credentials.CredentialsStore addCredentials com.cloudbees.plugins.credentials.domains.Domain\
+      \ com.cloudbees.plugins.credentials.Credentials"
+    - "method com.cloudbees.plugins.credentials.SystemCredentialsProvider getStore"
+    - "method groovy.lang.GroovyObject getProperty java.lang.String"
+    - "method groovy.lang.GroovyObject invokeMethod java.lang.String java.lang.Object"
+    - "method hudson.model.Saveable save"
+    - "method jenkins.model.Jenkins getExtensionList java.lang.String"
+    - "new com.cloudbees.plugins.credentials.impl.UsernamePasswordCredentialsImpl\
+      \ com.cloudbees.plugins.credentials.CredentialsScope java.lang.String java.lang.String\
+      \ java.lang.String java.lang.String"
+    - "staticField com.cloudbees.plugins.credentials.CredentialsScope GLOBAL"
+    - "staticMethod com.cloudbees.plugins.credentials.SystemCredentialsProvider getInstance"
+    - "staticMethod com.cloudbees.plugins.credentials.domains.Domain global"
+    - "staticMethod jenkins.model.Jenkins getInstance"
+unclassified:
+  ansiColorBuildWrapper:
+    colorMaps:
+    - black: "#000000"
+      blackB: "#4C4C4C"
+      blue: "#1E90FF"
+      blueB: "#4682B4"
+      cyan: "#00CDCD"
+      cyanB: "#00FFFF"
+      green: "#00CD00"
+      greenB: "#00FF00"
+      magenta: "#CD00CD"
+      magentaB: "#FF00FF"
+      name: "xterm"
+      red: "#CD0000"
+      redB: "#FF0000"
+      white: "#E5E5E5"
+      whiteB: "#FFFFFF"
+      yellow: "#CDCD00"
+      yellowB: "#FFFF00"
+    - black: "#000000"
+      blackB: "#555555"
+      blue: "#0000AA"
+      blueB: "#5555FF"
+      cyan: "#00AAAA"
+      cyanB: "#55FFFF"
+      defaultBackground: 0
+      defaultForeground: 7
+      green: "#00AA00"
+      greenB: "#55FF55"
+      magenta: "#AA00AA"
+      magentaB: "#FF55FF"
+      name: "vga"
+      red: "#AA0000"
+      redB: "#FF5555"
+      white: "#AAAAAA"
+      whiteB: "#FFFFFF"
+      yellow: "#AA5500"
+      yellowB: "#FFFF55"
+    - black: "black"
+      blackB: "black"
+      blue: "blue"
+      blueB: "blue"
+      cyan: "cyan"
+      cyanB: "cyan"
+      green: "green"
+      greenB: "green"
+      magenta: "magenta"
+      magentaB: "magenta"
+      name: "css"
+      red: "red"
+      redB: "red"
+      white: "white"
+      whiteB: "white"
+      yellow: "yellow"
+      yellowB: "yellow"
+    - black: "#2E3436"
+      blackB: "#2E3436"
+      blue: "#3465A4"
+      blueB: "#3465A4"
+      cyan: "#06989A"
+      cyanB: "#06989A"
+      defaultBackground: 0
+      defaultForeground: 7
+      green: "#4E9A06"
+      greenB: "#4E9A06"
+      magenta: "#75507B"
+      magentaB: "#75507B"
+      name: "gnome-terminal"
+      red: "#CC0000"
+      redB: "#CC0000"
+      white: "#D3D7CF"
+      whiteB: "#D3D7CF"
+      yellow: "#C4A000"
+      yellowB: "#C4A000"
+  badgePlugin:
+    disableFormatHTML: false
+  buildDiscarders:
+    configuredBuildDiscarders:
+    - "jobBuildDiscarder"
+  buildFailureAnalyzer:
+    doNotAnalyzeAbortedJob: false
+    gerritTriggerEnabled: true
+    globalEnabled: true
+    graphsEnabled: false
+    knowledgeBase: "localFile"
+    maxLogSize: 0
+    noCausesEnabled: true
+    noCausesMessage: "No problems were identified. If you know why this problem occurred,\
+      \ please add a suitable Cause for it."
+    nrOfScanThreads: 3
+    slackFailureCategories: "ALL"
+    slackNotifEnabled: false
+    testResultParsingEnabled: false
+  buildStepOperation:
+    enabled: false
+  claimConfig:
+    blockAutoRefreshWhileClaiming: false
+    propagateToFollowingBuildsByDefault: false
+    sendEmails: false
+    sendEmailsForStickyFailures: false
+    sortUsersByFullName: false
+    stickyByDefault: true
+  defaultFolderConfiguration:
+    healthMetrics:
+    - worstChildHealthMetric:
+        recursive: true
+  email-ext:
+    adminRequiredForTemplateTesting: false
+    allowUnregisteredEnabled: false
+    charset: "UTF-8"
+    debugMode: false
+    defaultBody: |-
+      $PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS:
+
+      Check console output at $BUILD_URL to view the results.
+    defaultContentType: "text/plain"
+    defaultSubject: "$PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS!"
+    defaultTriggerIds:
+    - "hudson.plugins.emailext.plugins.trigger.FailureTrigger"
+    mailAccount:
+      smtpPassword: "{AQAAABAAAAAQLJkx2m8ZahoC5YqSc+o71ctAbOIWVVkdgNFZ5lBNqhQ=}"
+    maxAttachmentSize: -1
+    maxAttachmentSizeMb: -1
+    precedenceBulk: false
+    watchingEnabled: false
+  fingerprints:
+    fingerprintCleanupDisabled: false
+    storage: "file"
+  gerrit-trigger:
+    servers:
+    - config:
+        buildCurrentPatchesOnly:
+          abortManualPatchsets: false
+          abortNewPatchsets: false
+          abortSameTopic: false
+          enabled: false
+        categories:
+        - verdictDescription: "Code Review"
+          verdictValue: "Code-Review"
+        - verdictDescription: "Verified"
+          verdictValue: "Verified"
+        gerritFrontEndUrl: "https://gerrit.ericsson.se/"
+        gerritHostName: "gerrit.ericsson.se"
+        gerritHttpPassword: "****"
+        gerritHttpUserName: "ossadmin"
+        gerritUserName: "ossadmin"
+        replicationConfig:
+          enableReplication: true
+          replicas:
+          - host: "gerritmirror.seli.gic.ericsson.se"
+            id: "6df98480-01f0-4610-a126-d9634e6acca4"
+            name: "Linköping HUB"
+            timeoutInSeconds: 300
+        restCodeReview: true
+        restVerified: true
+        useRestApi: true
+      name: "Gerrit_Central"
+      noConnectionOnStartup: false
+  gitHubConfiguration:
+    apiRateLimitChecker: ThrottleForNormalize
+  gitHubPluginConfig:
+    hookUrl: "https://fem2s11-eiffel216.eiffel.gic.ericsson.se:8443/jenkins/github-webhook/"
+  gitSCM:
+    addGitTagAction: false
+    allowSecondFetch: false
+    createAccountBasedOnEmail: false
+    disableGitToolChooser: false
+    hideCredentials: false
+    showEntireCommitSummaryInChanges: false
+    useExistingAccountWithSameEmail: false
+  globalLibraries:
+    libraries:
+    - name: "aas-muon-lib"
+      retriever:
+        modernSCM:
+          scm:
+            git:
+              credentialsId: "idunaas_spinnaker_creds"
+              id: "22105817-8f1c-4f29-a31d-9c7191e13511"
+              remote: "https://gerrit.ericsson.se/a/ENMaaS/com.ericsson.idunaas.ci.git"
+              traits:
+              - "gitBranchDiscovery"
+  groovy:
+    installations:
+    - home: "/proj/ciexadm200/tools/groovy/groovy-2.2.2"
+      name: "Groovy 2.2.2"
+  jobImportGlobalConfig:
+    sites:
+    - defaultCredentialsId: "Declan.McDaid"
+      name: "Fem12s11"
+      url: "https://fem12s11-eiffel004.eiffel.gic.ericsson.se:8443/jenkins/"
+  junitTestResultStorage:
+    storage: "file"
+  location:
+    adminAddress: "address not configured yet <nobody@nowhere>"
+    url: "https://fem2s11-eiffel216.eiffel.gic.ericsson.se:8443/jenkins/"
+  lockableResourcesManager:
+    declaredResources:
+    - description: "Namespace1 as part of hahn186 KaaS cluster"
+      labels: "kaas"
+      name: "hahn186_namespace21"
+    - description: "Namespace2 as part of hahn186 KaaS cluster"
+      labels: "kaas"
+      name: "hahn186_namespace22"
+    - description: "Namespace3 as part of hahn186 KaaS cluster"
+      labels: "kaas"
+      name: "hahn186_namespace23"
+  mailer:
+    charset: "UTF-8"
+    useSsl: false
+    useTls: false
+  mavenModuleSet:
+    localRepository: "default"
+  pollSCM:
+    pollingThreadCount: 10
+  prometheusConfiguration:
+    appendParamLabel: true
+    appendStatusLabel: true
+    collectDiskUsage: true
+    collectingMetricsPeriodInSeconds: 120
+    countAbortedBuilds: true
+    countFailedBuilds: true
+    countNotBuiltBuilds: true
+    countSuccessfulBuilds: true
+    countUnstableBuilds: true
+    defaultNamespace: "default"
+    fetchTestResults: true
+    jobAttributeName: "jenkins_job"
+    path: "prometheus"
+    processingDisabledBuilds: false
+    useAuthenticatedEndpoint: false
+  sonarGlobalConfiguration:
+    buildWrapperEnabled: false
+    installations:
+    - credentialsId: "SQ_auth_token"
+      name: "sonarqube enterprise 79"
+      serverUrl: "https://codeanalyzer2.internal.ericsson.com"
+      triggers:
+        skipScmCause: false
+        skipUpstreamCause: false
+  subversionSCM:
+    workspaceFormat: 8
+  timestamper:
+    allPipelines: false
+    elapsedTimeFormat: "'<b>'HH:mm:ss.S'</b> '"
+    systemTimeFormat: "'<b>'HH:mm:ss'</b> '"
+tool:
+  git:
+    installations:
+    - home: "/usr/bin/git"
+      name: "Default"
+  groovy:
+    installations:
+    - home: "/proj/ciexadm200/tools/groovy/groovy-2.2.2"
+      name: "Groovy 2.2.2"
+  jdk:
+    installations:
+    - home: "/app/vbuild/SLED11-x86_64/jdk/1.8.0_172"
+      name: "JDK 1.8.0_172"
+  maven:
+    installations:
+    - home: "/app/vbuild/tools/maven/3.5.3/"
+      name: "Maven 3.5.3"
+  pipelineMaven:
+    triggerDownstreamUponResultAborted: false
+    triggerDownstreamUponResultFailure: false
+    triggerDownstreamUponResultNotBuilt: false
+    triggerDownstreamUponResultSuccess: true
+    triggerDownstreamUponResultUnstable: false

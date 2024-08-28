@@ -1,0 +1,532 @@
+jenkins:
+  agentProtocols:
+  - "JNLP4-connect"
+  - "Ping"
+  authorizationStrategy:
+    globalMatrix:
+      permissions:
+      - "Job/Build:authenticated"
+      - "Job/Cancel:authenticated"
+      - "Job/Discover:anonymous"
+      - "Job/Read:authenticated"
+      - "Job/ExtendedRead:authenticated"
+      - "Job/Workspace:authenticated"
+      - "Lockable Resources/View:authenticated"
+      - "Overall/Administer:EIS_GLOBAL_EIFFEL_OPS"
+      - "Overall/Administer:eiffelop5"
+      - "Overall/Administer:idm-3f2g4f4fc469"
+      - "Overall/Read:authenticated"
+  clouds:
+  - kubernetes:
+      connectTimeout: 5
+      containerCapStr: "10"
+      credentialsId: ""
+      jenkinsTunnel: "fem10s11-eiffel216.eiffel.gic.ericsson.se:50000"
+      jenkinsUrl: "https://fem10s11-eiffel216.eiffel.gic.ericsson.se:8443/jenkins/"
+      maxRequestsPerHostStr: "32"
+      name: "kubernetes"
+      namespace: "cdd-app"
+      podLabels:
+      - key: "cdd-app/kubernetes"
+        value: "true"
+      readTimeout: 15
+      serverUrl: "https://frappuccino.rnd.gic.ericsson.se/k8s/clusters/c-8m4h5"
+      skipTlsVerify: true
+      templates:
+      - containers:
+        - args: "^${computer.jnlpmac} ^${computer.name}"
+          command: "sleep"
+          envVars:
+          - envVar:
+              key: "JENKINS_URL"
+              value: "https://fem10s11-eiffel216.eiffel.gic.ericsson.se:8443/jenkins/"
+          image: "jenkins/inbound-agent:4.6-1"
+          livenessProbe:
+            failureThreshold: 0
+            initialDelaySeconds: 0
+            periodSeconds: 0
+            successThreshold: 0
+            timeoutSeconds: 0
+          name: "jnlp"
+          resourceLimitCpu: "512m"
+          resourceLimitMemory: "512Mi"
+          resourceRequestCpu: "512m"
+          resourceRequestMemory: "512Mi"
+          runAsGroup: "0"
+          runAsUser: "0"
+          workingDir: "/home/jenkins/agent"
+        hostNetwork: false
+        label: "kubernetes"
+        name: "default"
+        nodeUsageMode: NORMAL
+        podRetention: "never"
+        serviceAccount: "default"
+        showRawYaml: false
+        yamlMergeStrategy: "override"
+  crumbIssuer:
+    strict:
+      checkSessionMatch: false
+  disableRememberMe: false
+  globalNodeProperties:
+  - envVars:
+      env:
+      - key: "GERRIT_CENTRAL"
+        value: "ssh://gerrit.ericsson.se:29418"
+      - key: "GERRIT_MIRROR"
+        value: "ssh://gerritmirror-ha.lmera.ericsson.se:29418"
+      - key: "GIT_HOME"
+        value: "/proj/ossmsci/tools/git/2.30.0/bin/git"
+      - key: "K8S_TEST"
+        value: "true"
+      - key: "M2_HOME"
+        value: "/proj/ossmsci/tools/maven/3.5.3"
+      - key: "SQ_ENABLED"
+        value: "true"
+      - key: "SQ_SERVER"
+        value: "sonarqube enterprise 79"
+  labelAtoms:
+  - name: "GridEngine"
+  - name: "GridEngineDISABLE"
+  - name: "RHEL7_GE_Docker_1"
+  - name: "RHEL7_GE_Docker_2"
+  - name: "docker"
+  - name: "master"
+  markupFormatter:
+    rawHtml:
+      disableSyntaxHighlighting: false
+  mode: NORMAL
+  myViewsTabBar: "standard"
+  nodes:
+  - permanent:
+      labelString: "GridEngine"
+      launcher:
+        command:
+          command: "/proj/ossmsci/GEagents/e2cgejenkins-master.sh --fetch_slave_jar_using_ssl\
+            \ -q ossmsci.q -l h=seliius26247.seli.gic.ericsson.se"
+      name: "RHEL7_GE_Docker_1"
+      nodeDescription: "Docker Agent - seliius26247.seli.gic.ericsson.se"
+      nodeProperties:
+      - envVars:
+          env:
+          - key: "DOCKER_CERT_PATH"
+            value: "/home/ossadmin/.twic/certs/TSA_jenkins_cert/"
+          - key: "DOCKER_HOST"
+            value: "tcp://seliius26247.seli.gic.ericsson.se:2376"
+          - key: "DOCKER_TLS_VERIFY"
+            value: "1"
+      numExecutors: 4
+      remoteFS: "/proj/eiffel216_config_fem10s11/agents/RHEL7_GE_Docker_1"
+      retentionStrategy: "always"
+  - permanent:
+      labelString: "GridEngine"
+      launcher:
+        command:
+          command: "/proj/ossmsci/GEagents/e2cgejenkins-master.sh --fetch_slave_jar_using_ssl\
+            \ -q ossmsci.q -l h=seliius26247.seli.gic.ericsson.se"
+      name: "RHEL7_GE_Docker_2"
+      nodeDescription: "Docker Agent - seliius26247.seli.gic.ericsson.se"
+      nodeProperties:
+      - envVars:
+          env:
+          - key: "DOCKER_CERT_PATH"
+            value: "/home/ossadmin/.twic/certs/TSA_jenkins_cert/"
+          - key: "DOCKER_HOST"
+            value: "tcp://seliius26247.seli.gic.ericsson.se:2376"
+          - key: "DOCKER_TLS_VERIFY"
+            value: "1"
+      numExecutors: 4
+      remoteFS: "/proj/eiffel216_config_fem10s11/agents/RHEL7_GE_Docker_2"
+      retentionStrategy:
+        demand:
+          idleDelay: 1
+          inDemandDelay: 0
+  numExecutors: 1
+  primaryView:
+    list:
+      columns:
+      - "status"
+      - "weather"
+      - "jobName"
+      - "lastSuccess"
+      - "lastFailure"
+      - "lastDuration"
+      name: "All"
+  projectNamingStrategy: "standard"
+  quietPeriod: 5
+  remotingSecurity:
+    enabled: false
+  scmCheckoutRetryCount: 0
+  slaveAgentPort: 0
+  systemMessage: "<h2 style=\"color:#296487; text-align: center;\">fem8s11 - Jenkins\
+    \ Server for EIAP, managed by The Hummingbirds</h2>\r\n<ul>\r\n<li>Hummingbirds\
+    \ <a href=\"https://eteamspace.internal.ericsson.com/x/dhRke\"\
+    \ target=\"_blank\">Confluence</a></li>\r\n<li>Need Support? Please refer to the\
+    \ <a href=\"https://eteamspace.internal.ericsson.com/x/6RZke\"\
+    >Common Pipeline Issues</a> and the <a href=\"https://eteamspace.internal.ericsson.com/x/fhRke\"\
+    >Support WoW</a></li>\r\n<li> Please find the page for Tools and Dashboards for\
+    \ Aeonic: <a href=\"https://eteamspace.internal.ericsson.com/x/aBRke\"\
+    >Tools and Dashboards for Aeonic</a></li>\r\n</ul>\r\n"
+  updateCenter:
+    sites:
+    - id: "default"
+      url: "https://updates.jenkins-ci.org/update-center.json"
+  views:
+  - list:
+      columns:
+      - "status"
+      - "weather"
+      - "jobName"
+      - "lastSuccess"
+      - "lastFailure"
+      - "lastDuration"
+      includeRegex: "^(Admin.*)"
+      name: "Admin Jobs"
+  - all:
+      name: "all"
+  viewsTabBar: "countJobs"
+security:
+  apiToken:
+    creationOfLegacyTokenEnabled: false
+    tokenGenerationOnCreationEnabled: false
+    usageStatisticsEnabled: true
+  envInject:
+    enableLoadingFromMaster: false
+    enablePermissions: false
+    hideInjectedVars: false
+  globalJobDslSecurityConfiguration:
+    useScriptSecurity: false
+  sSHD:
+    port: 53801
+  scriptApproval:
+    approvedSignatures:
+    - "field net.bull.javamelody.internal.model.JavaInformations os"
+    - "field net.bull.javamelody.internal.model.JavaInformations pid"
+    - "method com.sun.management.OperatingSystemMXBean getTotalPhysicalMemorySize"
+    - "method com.sun.management.OperatingSystemMXBean getTotalSwapSpaceSize"
+    - "method hudson.model.Item getFullName"
+    - "method hudson.model.ItemGroup getAllItems java.lang.Class"
+    - "method hudson.model.Job isBuildable"
+    - "method java.net.HttpURLConnection getResponseCode"
+    - "method java.net.HttpURLConnection setRequestMethod java.lang.String"
+    - "method java.net.URL openConnection"
+    - "method java.net.URLConnection getInputStream"
+    - "method jenkins.model.ParameterizedJobMixIn$ParameterizedJob isDisabled"
+    - "method net.bull.javamelody.internal.model.JavaInformations getActiveThreadCount"
+    - "method net.bull.javamelody.internal.model.JavaInformations getAvailableProcessors"
+    - "method net.bull.javamelody.internal.model.JavaInformations getContextPath"
+    - "method net.bull.javamelody.internal.model.JavaInformations getHost"
+    - "method net.bull.javamelody.internal.model.JavaInformations getJavaVersion"
+    - "method net.bull.javamelody.internal.model.JavaInformations getJvmVersion"
+    - "method net.bull.javamelody.internal.model.JavaInformations getMemoryInformations"
+    - "method net.bull.javamelody.internal.model.JavaInformations getServerInfo"
+    - "method net.bull.javamelody.internal.model.JavaInformations getSessionCount"
+    - "method net.bull.javamelody.internal.model.JavaInformations getStartDate"
+    - "method net.bull.javamelody.internal.model.JavaInformations getSystemCpuLoad"
+    - "method net.bull.javamelody.internal.model.JavaInformations getSystemLoadAverage"
+    - "method net.bull.javamelody.internal.model.JavaInformations getThreadCount"
+    - "method net.bull.javamelody.internal.model.JavaInformations getThreadInformationsList"
+    - "method net.bull.javamelody.internal.model.MemoryInformations getMaxMemory"
+    - "method net.bull.javamelody.internal.model.MemoryInformations getMaxPermGen"
+    - "method net.bull.javamelody.internal.model.MemoryInformations getUsedMemory"
+    - "method net.bull.javamelody.internal.model.MemoryInformations getUsedNonHeapMemory"
+    - "method net.bull.javamelody.internal.model.MemoryInformations getUsedPermGen"
+    - "method net.bull.javamelody.internal.model.MemoryInformations getUsedPhysicalMemorySize"
+    - "method net.bull.javamelody.internal.model.MemoryInformations getUsedSwapSpaceSize"
+    - "method net.bull.javamelody.internal.model.ThreadInformations isDeadlocked"
+    - "new java.util.ArrayList"
+    - "new net.bull.javamelody.internal.model.JavaInformations javax.servlet.ServletContext\
+      \ boolean"
+    - "new net.bull.javamelody.internal.model.MemoryInformations"
+    - "staticMethod java.lang.Double parseDouble java.lang.String"
+    - "staticMethod java.lang.management.ManagementFactory getOperatingSystemMXBean"
+    - "staticMethod jenkins.model.Jenkins getInstance"
+    - "staticMethod net.bull.javamelody.internal.common.Parameters getServletContext"
+    - "staticMethod org.codehaus.groovy.runtime.DefaultGroovyMethods getText java.io.InputStream"
+unclassified:
+  badgePlugin:
+    disableFormatHTML: false
+  bitbucketEndpointConfiguration:
+    endpoints:
+    - bitbucketCloudEndpoint:
+        enableCache: false
+        manageHooks: false
+        repositoriesCacheDuration: 0
+        teamCacheDuration: 0
+  buildDiscarders:
+    configuredBuildDiscarders:
+    - "jobBuildDiscarder"
+  defaultFolderConfiguration:
+    healthMetrics:
+    - worstChildHealthMetric:
+        recursive: true
+  fingerprints:
+    fingerprintCleanupDisabled: false
+    storage: "file"
+  gerrit-trigger:
+    servers:
+    - config:
+        buildCurrentPatchesOnly:
+          abortManualPatchsets: false
+          abortNewPatchsets: false
+          abortSameTopic: false
+          enabled: false
+        categories:
+        - verdictDescription: "Code Review"
+          verdictValue: "Code-Review"
+        - verdictDescription: "Verified"
+          verdictValue: "Verified"
+        gerritFrontEndUrl: "https://gerrit.ericsson.se/"
+        gerritHostName: "gerrit.ericsson.se"
+        gerritHttpPassword: ""
+        gerritHttpUserName: "ossadmin"
+        gerritUserName: "ossadmin"
+        replicationConfig:
+          enableReplication: true
+          replicas:
+          - host: "gerritmirror-ha.lmera.ericsson.se"
+            id: "a389971c-305c-4270-a737-78dfa5c951f3"
+            name: "Linköping HUB"
+            timeoutInSeconds: 300
+        restCodeReview: true
+        restVerified: true
+        useRestApi: true
+      name: "Gerrit_Central"
+      noConnectionOnStartup: false
+  gitHubConfiguration:
+    apiRateLimitChecker: ThrottleForNormalize
+  gitHubPluginConfig:
+    hookUrl: "https://fem10s11-eiffel216.eiffel.gic.ericsson.se:8443/jenkins/github-webhook/"
+  gitSCM:
+    allowSecondFetch: false
+    createAccountBasedOnEmail: false
+    disableGitToolChooser: false
+    hideCredentials: false
+    showEntireCommitSummaryInChanges: false
+    useExistingAccountWithSameEmail: false
+  globalConfigFiles:
+    configs:
+    - custom:
+        comment: "KaaS cluster (hahn186)"
+        content: |
+          apiVersion: v1
+          clusters:
+          - cluster:
+              certificate-authority-data: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUZ5RENDQTdDZ0F3SUJBZ0lSQU9uSXdMZ1V0dnhCaDgyTTFnMVdMRWN3RFFZSktvWklodmNOQVFFTEJRQXcKYlRFTE1Ba0dBMVVFQmhNQ1UwVXhFakFRQmdOVkJBZ01DVk4wYjJOcmFHOXNiVEVTTUJBR0ExVUVCd3dKVTNSdgpZMnRvYjJ4dE1SRXdEd1lEVlFRS0RBaEZjbWxqYzNOdmJqRU5NQXNHQTFVRUN3d0VRMDVFUlRFVU1CSUdBMVVFCkF3d0xSVmRUSUZKdmIzUWdRMEV3SGhjTk1qQXdOVEUzTWpBek9UQTRXaGNOTkRVd05URXhNakF6T1RBNFdqQnQKTVFzd0NRWURWUVFHRXdKVFJURVNNQkFHQTFVRUNBd0pVM1J2WTJ0b2IyeHRNUkl3RUFZRFZRUUhEQWxUZEc5agphMmh2YkcweEVUQVBCZ05WQkFvTUNFVnlhV056YzI5dU1RMHdDd1lEVlFRTERBUkRUa1JGTVJRd0VnWURWUVFECkRBdEZWMU1nVW05dmRDQkRRVENDQWlJd0RRWUpLb1pJaHZjTkFRRUJCUUFEZ2dJUEFEQ0NBZ29DZ2dJQkFNQ2kKbDluczczYW9Cam9oRzhaSDlZeVhWNWQ4UUw5ZmlGRC96MThCcU9ZTGZtVFBlM01zMHJrcmdkUUJIMUdib1hNQwpJbzJoVFFERi9sMzJXWFlWcXpPU3BvUzhNdkR2MFNaRGFUNW1QeWdQZVozSU5ndmZwNldnZnV2VE9MUG1sWEY5CnRCaXdQSU9iMGh3RkxtOVQrTW5ISW5mbG0wZGJxYXhxT2ZsQ3ltbDBkSCtiQ1l3WmxKa1VXUXI1SThyUUxtN1MKSzBneXFYMHE1VTR5NTF6TnpZRlZmWWZFSGNTbDBnZEN3ekhOaDc0ekl4aktQRmxBbVNNVTRES1hURXBqdDQzTgpZR0tYUk9DWUtkZmlzVWRGQlhVTnhkNzVGMXNwWEVBblZUMlVVWk1ZelhidzRxR2NzUDhpUFVrUXBJUEU5aG16CllJMUpJOUVvaWJnajNOV0hxMGdzRTJIdUdOdDFoeVhpVmhGTytuYkw0L21iY250OUxuT2sra0txZXNlZVNSd08KLzVqTFJITTY4MVptdUwrTXFaSm4zR2FyY2xqNzRWMFVrbFc5ZUU0a3NTeVEzQ1hrN24vWWlBUXpTUWZkV0wwWgpWTHpiTkxEdC93QzVPRXBuUG5DbnhYUXJzVzlQRnlGeDNoWkV1a3FFMENzY0drK1NCL1R6YXNrb1pvTU0xV3JDCndITXEzNUxnN1BJWW9UNTZXaHFJeHFRSzBrNitBbkJORUc0d043ODdVOUlsbW1WdHlzdjFDbkVrMW5oU3A0MjgKSjBnWUZKZDltNUdGU3BIYk44NDE2OVRiZjlXNVBkMVV4andVc2JHMlVvOWkyQWZZYkxrYVZ4OVUvcHhtZmpkVwpYVnpPbjZCQ0liUlFjaVpSeVp2czE0ak1vaElOclBIYVRYOTM0VnJWQWdNQkFBR2pZekJoTUE4R0ExVWRFd0VCCi93UUZNQU1CQWY4d0RnWURWUjBQQVFIL0JBUURBZ0dHTUIwR0ExVWREZ1FXQkJSYmRqU1JLdlJxcW12NG8zM3kKVDk3ay9TQkkvREFmQmdOVkhTTUVHREFXZ0JSYmRqU1JLdlJxcW12NG8zM3lUOTdrL1NCSS9EQU5CZ2txaGtpRwo5dzBCQVFzRkFBT0NBZ0VBb2RHMzFjQUxQRzVOUkZkSVZMc2hOK2EyQzcyQVk4WnNVSEx6OERHOEpqb3ZVQ1VwCjlRL3NOSnB3eVY4WGtiTG91Wjh2WUdFRms3RUFzYWRIdkRDa0dqZ0lPVFI4NnlGdlJxbFkraVZ6Q2xYd0xpMlQKYWFodTQ4QnV0bVhqQlU4WjIxQkNySUF4aTg4Z01aUVQ3dkl0eHN4WG1iU1NmZHhFdDh1ek9ESUxEV0twU2lVagpEUzZmbmNCN1psNUlGWk9tbVhSaERieHEwbFl3RlZxOEQ5RXQ3QTM4UmhHUzQ3SVJXRTZDeFBNdldvSkREYjRKCkxKcmdVU0JEZWUrY0VwMUtQS1BwcUZpVjV1TE5hV2JJK1NaQkZnLzkwbTk5WlAxZWIxd0dhMmE2NjZCN2xnTVAKT2Z1S1llT1IySU9UclptQWJiTXMrOEthV2lHNHFlakFzaHROMDRQcDdEN2djdXJ5VTJlSGZKS0ZHeGhsMkNzbQpYQXFRdmMzM1NtN2xiVDN6VFlZUEphWXR6N1ZZMXNNL29vc1ozdk9JTGloVDZvYnJZeENRWElHeUpIMEFvSDg2CmJrSzNhSE9aWW5qS0dhaEZXb2xmcFdKeXpSaVZ1KytwQVpaVXU2VjJQM2RUakI3TVlOTG1LQmFlZnJRbVhNT1YKdEUxQnVFKy9yalNSNzhuTEc4a3dyVk1xZkxyRHRsK1JxcE9ET0oxdnpONHRxKzM2dTNHMnRJVEdoVTh1SlJPMApieS9QVGxMaFc5TUd4SWwzSTk3a2xZT2dMSXpVdWh4a3ZCZXgvUDVaMk1NaHJxS0N2TW9RZ1ZVclFjWHlYcGF6CjMyVVNKK1dYTzc5Ty83WVExM2lpTnlXQWZQQlBtWXpRR2k3OGVlR1dtWkc2L01ReHliTjJkL1AyMXFBPQotLS0tLUVORCBDRVJUSUZJQ0FURS0tLS0tCi0tLS0tQkVHSU4gQ0VSVElGSUNBVEUtLS0tLQpNSUlFeWpDQ0FyS2dBd0lCQWdJUkFPbkl3TGdVdHZ4Qmg4Mk0xZzFXTEVnd0RRWUpLb1pJaHZjTkFRRUxCUUF3CmJURUxNQWtHQTFVRUJoTUNVMFV4RWpBUUJnTlZCQWdNQ1ZOMGIyTnJhRzlzYlRFU01CQUdBMVVFQnd3SlUzUnYKWTJ0b2IyeHRNUkV3RHdZRFZRUUtEQWhGY21samMzTnZiakVOTUFzR0ExVUVDd3dFUTA1RVJURVVNQklHQTFVRQpBd3dMUlZkVElGSnZiM1FnUTBFd0hoY05NakF3TlRFNE1ETTFNakl6V2hjTk16QXdOVEUyTURNMU1qSXpXakJzCk1Rc3dDUVlEVlFRR0V3SlRSVEVTTUJBR0ExVUVDQXdKVTNSdlkydG9iMnh0TVJJd0VBWURWUVFIREFsVGRHOWoKYTJodmJHMHhFVEFQQmdOVkJBb01DRVZ5YVdOemMyOXVNUTB3Q3dZRFZRUUxEQVJEVGtSRk1STXdFUVlEVlFRRApEQXByZFdKbGNtNWxkR1Z6TUlJQklqQU5CZ2txaGtpRzl3MEJBUUVGQUFPQ0FROEFNSUlCQ2dLQ0FRRUF2NWdhClhaR2hvVSs5MXFNUmp6aXdGWTNFeUZXZEpzbE1Yb1ZWbHdKSEkza09EWFZVcTJUNEhSd3N4cnUzeEVtVkcvQkcKMWpWcGFPR0JlWUMzNEhjeERvNVh3RURIazMvV0QyYmtxTllwUEswU3BBMXk1cUEzS2FGOUxCM05rRUdQU0tCZgphSUVOUVptV3pNN2RuZUtPM1p0V3RGUEZkeWF4WEp2d0kwaHR2cy81eExCM2tMWHZOdkRrRjVRQ0NIdXAxUU5kCmlBb3dmMnlQWmsyN3pmN1JiYysxUDlvZjcwRG5RY2k0T1A1K2g5Qis0cEJNamJ3MVRDQ1N0SE9LUzBEOForL0UKbFR0bUN0ajVTRVhodFJnd2JXQVhaNStyb1lhTnBjRjRVbVJ1TmNSWFlVSzhGOUtnOGFYYi94all6cUQ1c3dRRgp2TFAwZ1hmRUJMdVgycC9GU1FJREFRQUJvMll3WkRBU0JnTlZIUk1CQWY4RUNEQUdBUUgvQWdFQU1BNEdBMVVkCkR3RUIvd1FFQXdJQmhqQWRCZ05WSFE0RUZnUVVBUFgycHV1SXpvT012THhlNWJud1djaUE4dFF3SHdZRFZSMGoKQkJnd0ZvQVVXM1kwa1NyMGFxcHIrS045OGsvZTVQMGdTUHd3RFFZSktvWklodmNOQVFFTEJRQURnZ0lCQUF0cgpHbW1zcldvMFRmNUtPOU9JcEo0dlNLdEZNTUR6VWEvOEVIZHg4WG1TbXZxS2YrajE2TXg0cUFwaUE2ZHR4ODlJCjdSMlkrd2pKWWlMOGV0c2tQVGlLdGNuV0JDNEJzNUpZNTFsblhjenFnbG91cE5hTnNRV0FTOEZySldwU0xMU0kKTkU0anhEY1ZyajBuaG1KeEVUZ3FkSmRPVTByK2FtMXFmeHNKQ0dNa0tMVTgxaE12UHRnWFUrK01oVjVwOXhaQgpLdklLVHlHbnlGWnpUZ3BEWXdxU3doSTRhRmNieG1qcGkwMUtiaHFXZWJNSjVzOFVZZFFZSm4weWxSd2NzMTB5Cjd2MEQvcEhmREVRSzFFVnNhd0haTlZVaW9kRWw1VUFuTzBudWcwWDlzeFJmeGNQRmtOSmMwUk1UMFVJRFlWMnAKMnluM2pCZkZlWVhDazdiZURzVmpyZEw5NkR2aHd3V3UxNmpTZWlNc2lWdUpHYzZWNHRkZEF0VUVxenJFOGZwaApHS2F2eXh2dVJsemFPMnJURkw2ZUdSWkhtaWwrQ04vQ0sraWNRQWF4WWZmWnl6YVUwbUVydEtpUnlDOW93RUFOClAzc0trSS93RGJibmxkeHE5Wnp6Q0plclNFcFdHUi9HVExqR0t4cFV2NGRSR1RtWXVOZjU1ZVU4Zzk5YXdrdnMKTHc3SlFZeng3bVpacnVxclNQS3QrVHZCSkp2M0hMbVlTY09FTlk3VUJvMTliWTl1bFVnSHpGaDFtUVRDaCtmNgpiSUY3RUF5eGtnb2ZVeXVpbWQwVTJHaTZjd2ZPbGdFUFkzWW5oTVdxUExFMlhmbG5Hbk9pN1h1VFFDWFl2bGF1CktUQ28vZVJhcmQ1ZGNlSzZkb3A4NklhRFNpWEZiSVZlTnRPcHI1bnkKLS0tLS1FTkQgQ0VSVElGSUNBVEUtLS0tLQo=
+              server: https://hahn186.k8s.gic.ericsson.se:6443
+            name: hahn186
+          contexts:
+          - context:
+              cluster: hahn186
+              user: cattle
+            name: cattle@hahn186
+          current-context: cattle@hahn186
+          kind: Config
+          preferences: {}
+          users:
+          - name: cattle
+            user:
+              token: eyJhbGciOiJSUzI1NiIsImtpZCI6IjZpZVhQWFVUNXhYaG1qdk5iM09BbWx1VHNaTF9ScGtacXBIaTdjaTI5dUEifQ.eyJpc3MiOiJrdWJlcm5ldGVzL3NlcnZpY2VhY2NvdW50Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9uYW1lc3BhY2UiOiJjYXR0bGUtc3lzdGVtIiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9zZWNyZXQubmFtZSI6ImNhdHRsZS10b2tlbi1qNnQ2dyIsImt1YmVybmV0ZXMuaW8vc2VydmljZWFjY291bnQvc2VydmljZS1hY2NvdW50Lm5hbWUiOiJjYXR0bGUiLCJrdWJlcm5ldGVzLmlvL3NlcnZpY2VhY2NvdW50L3NlcnZpY2UtYWNjb3VudC51aWQiOiI5OTRjMTAyYS1kYTNkLTQxNWYtYTExMi0yZmY2MWFhOTY5MTEiLCJzdWIiOiJzeXN0ZW06c2VydmljZWFjY291bnQ6Y2F0dGxlLXN5c3RlbTpjYXR0bGUifQ.RFjHf7lSzlEMC8c9qtRm3hFm3QI8IDuxMBGXsTQtaV7HteZQzzPYjnxppqJHnfS1jM5XgCVk9f7IwJA6YTQWAx0i37lr4ctx-5ruTrMtHRJ8y7Q2-n-uGbAuNJAZLYxHf6HJqlnbX7fD3pxLf0HsWxou7Kn7mxe5hLMvYURne4WhksdY3axhBNd-PAAvAjdUq7D19ZR1htEhwquVIvzxfg3q_9RCHEbBXBAaxVHN2QDukBS-ECwcRU9LgTKA_ynnrsoUh8KcR4iW-hiOjik5BueyUDB2qNfcJFTZSUo5bZWlo3QCp97iAKB3PnMJF-mW_gOJXO91HZd54ytgZRf9Hg
+        id: "hahn186"
+        name: "config"
+        providerId: "org.jenkinsci.plugins.configfiles.custom.CustomConfig"
+    - mavenSettings:
+        comment: "Microservice Chassis Settings XML with Access to Artifactory, Nexus004 and Nexus052\
+          \ Repos"
+        content: |-
+          <?xml version="1.0" encoding="UTF-8"?>
+          <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+           ~ COPYRIGHT Ericsson 2020
+           ~
+           ~
+           ~
+           ~ The copyright to the computer program(s) herein is the property of
+           ~
+           ~ Ericsson Inc. The programs may be used and/or copied only with written
+           ~
+           ~ permission from Ericsson Inc. or in accordance with the terms and
+           ~
+           ~ conditions stipulated in the agreement/contract under which the
+           ~
+           ~ program(s) have been supplied.
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+          <settings xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.1.0 http://maven.apache.org/xsd/settings-1.1.0.xsd" xmlns="http://maven.apache.org/SETTINGS/1.1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+              <pluginGroups>
+                  <pluginGroup>org.sonarsource.scanner.maven</pluginGroup>
+              </pluginGroups>
+              <mirrors>
+                  <mirror>
+                      <id>nexus</id>
+                      <mirrorOf>external:*,central</mirrorOf>
+                      <url>https://arm1s11-eiffel052.eiffel.gic.ericsson.se:8443/nexus/content/groups/eo-repositories</url>
+                  </mirror>
+                  <mirror>
+                      <id>nexus-arm1s11-eiffel004</id>
+                      <mirrorOf>central</mirrorOf>
+                      <url>https://arm1s11-eiffel004.eiffel.gic.ericsson.se:8443/nexus/content/groups/public</url>
+                  </mirror>
+              </mirrors>
+               <profiles>
+                  <profile>
+                   <repositories>
+                     <repository>
+                       <snapshots />
+                       <id>snapshot</id>
+                       <name>proj-eric-oss-dev-local</name>
+                       <url>https://arm.seli.gic.ericsson.se/artifactory/proj-eric-oss-dev-local</url>
+                     </repository>
+                     <repository>
+                       <snapshots>
+                         <enabled>false</enabled>
+                       </snapshots>
+                       <id>staging</id>
+                       <name>proj-eric-oss-staging-local</name>
+                       <url>https://arm.seli.gic.ericsson.se/artifactory/proj-eric-oss-staging-local</url>
+                     </repository>
+                     <repository>
+                       <snapshots>
+                         <enabled>false</enabled>
+                       </snapshots>
+                       <id>release</id>
+                       <name>proj-eric-oss-release-local</name>
+                       <url>https://arm.seli.gic.ericsson.se/artifactory/proj-eric-oss-release-local</url>
+                     </repository>
+                   </repositories>
+                   <id>artifactory</id>
+                  </profile>
+                  <profile>
+                      <id>default-repo</id>
+                      <repositories>
+                          <repository>
+                              <id>eiffel052Nexus</id>
+                              <name>eo-repositories</name>
+                              <url>arm1s11-eiffel052.eiffel.gic.ericsson.se:8443/nexus/content/groups/eo-repositories</url>
+                          </repository>
+                          <repository>
+                              <id>central</id>
+                              <name>maven-central</name>
+                              <url>https://central</url>
+                          </repository>
+                      </repositories>
+                      <pluginRepositories>
+                          <pluginRepository>
+                              <snapshots>
+                                  <enabled>false</enabled>
+                              </snapshots>
+                              <id>jcat-arm-release</id>
+                              <name>proj-jcat-release</name>
+                              <url>https://arm.rnd.ki.sw.ericsson.se/artifactory/proj-jcat-release</url>
+                          </pluginRepository>
+                          <pluginRepository>
+                              <snapshots />
+                              <id>jcat-arm-snapshot</id>
+                              <name>proj-jcat-dev</name>
+                              <url>https://arm.rnd.ki.sw.ericsson.se/artifactory/proj-jcat-release</url>
+                          </pluginRepository>
+                      </pluginRepositories>
+                  </profile>
+              </profiles>
+              <activeProfiles>
+                  <activeProfile>default-repo</activeProfile>
+              </activeProfiles>
+          </settings>
+        id: "maven.settings.oss"
+        isReplaceAll: true
+        name: "settings.xml"
+        providerId: "org.jenkinsci.plugins.configfiles.maven.MavenSettingsConfig"
+        serverCredentialMappings:
+        - credentialsId: "SELI_ARTIFACTORY"
+          serverId: "snapshot"
+        - credentialsId: "SELI_ARTIFACTORY"
+          serverId: "staging"
+        - credentialsId: "SELI_ARTIFACTORY"
+          serverId: "release"
+  globalLibraries:
+    libraries:
+    - defaultVersion: "master"
+      includeInChangesets: false
+      name: "oss-common-pipeline-lib"
+      retriever:
+        modernSCM:
+          scm:
+            git:
+              id: "0036074f-1b1f-420a-9220-7b35b77f38a9"
+              remote: "ssh://gerritmirror-ha.lmera.ericsson.se:29418/OSS/com.ericsson.oss.ci/oss-common-ci-utils"
+              traits:
+              - "gitBranchDiscovery"
+  groovy:
+    installations:
+    - home: "/proj/ciexadm200/tools/groovy/groovy-2.2.2"
+      name: "Groovy 2.2.2"
+  junitTestResultStorage:
+    storage: "file"
+  location:
+    adminAddress: "address not configured yet <nobody@nowhere>"
+    url: "https://fem10s11-eiffel216.eiffel.gic.ericsson.se:8443/jenkins/"
+  lockableResourcesManager:
+    declaredResources:
+    - description: "Namespace11 as part of hahn186 KaaS cluster (CPU=6000m, Memory=12Gi)"
+      labels: "kaas"
+      name: "hahn186_namespace11"
+    - description: "Namespace12 as part of hahn186 KaaS cluster (CPU=6000m, Memory=12Gi)"
+      labels: "kaas"
+      name: "hahn186_namespace12"
+    - description: "Namespace13 as part of hahn186 KaaS cluster (CPU=6000m, Memory=12Gi)"
+      labels: "kaas"
+      name: "hahn186_namespace13"
+    - description: "Namespace14 as part of hahn186 KaaS cluster (CPU=6000m, Memory=12Gi)"
+      labels: "kaas"
+      name: "hahn186_namespace14"
+    - description: "Namespace15 as part of hahn186 KaaS cluster (CPU=6000m, Memory=12Gi)"
+      labels: "kaas"
+      name: "hahn186_namespace15"
+    - description: "Namespace16 as part of hahn186 KaaS cluster (CPU=6000m, Memory=12Gi)"
+      labels: "kaas"
+      name: "hahn186_namespace16"
+  mailer:
+    charset: "UTF-8"
+    smtpHost: "smtp-seli.lx.gic.ericsson.se"
+    smtpPort: "25"
+    useSsl: false
+    useTls: false
+  mavenModuleSet:
+    localRepository: "default"
+  pollSCM:
+    pollingThreadCount: 10
+  sonarGlobalConfiguration:
+    buildWrapperEnabled: false
+    installations:
+    - credentialsId: "SQ_auth_token"
+      name: "sonarqube enterprise 79"
+      serverUrl: "https://codeanalyzer2.internal.ericsson.com"
+      triggers:
+        skipScmCause: false
+        skipUpstreamCause: false
+  timestamper:
+    allPipelines: false
+    elapsedTimeFormat: "'<b>'HH:mm:ss.S'</b> '"
+    systemTimeFormat: "'<b>'HH:mm:ss'</b> '"
+tool:
+  git:
+    installations:
+    - home: "/proj/ossmsci/tools/git/2.30.0/bin/git"
+      name: "Default"
+  groovy:
+    installations:
+    - home: "/proj/ciexadm200/tools/groovy/groovy-2.2.2"
+      name: "Groovy 2.2.2"
+  jdk:
+    installations:
+    - home: "/app/vbuild/SLED11-x86_64/jdk/1.8.0_172"
+      name: "JDK 1.8.0_172"
+  maven:
+    installations:
+    - home: "/app/vbuild/tools/maven/3.5.3/"
+      name: "Maven 3.5.3"
+    - home: "/app/vbuild/tools/maven/3.6.3/"
+      name: "Maven 3.6.3"
+  pipelineMaven:
+    triggerDownstreamUponResultAborted: false
+    triggerDownstreamUponResultFailure: false
+    triggerDownstreamUponResultNotBuilt: false
+    triggerDownstreamUponResultSuccess: true
+    triggerDownstreamUponResultUnstable: false

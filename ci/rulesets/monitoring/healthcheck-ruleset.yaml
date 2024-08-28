@@ -1,0 +1,34 @@
+modelVersion: 2.0
+docker-images:
+  - adp-release-auto: armdocker.rnd.ericsson.se/proj-adp-cicd-drop/bob-adp-release-auto:${env.RELEASE_AUTO_TAG}
+
+env:
+  # Default docker image tags
+  - RELEASE_AUTO_TAG (default=latest)
+
+  # Credentials
+  - ERIDOC_USERNAME
+  - ERIDOC_PASSWORD
+
+rules:
+
+  eridoc-upload:
+    # Convert .md files to pdf
+    - task: doc-to-pdf
+      docker-image: adp-release-auto
+      cmd: doc-handler generate
+           --config ci/eridoc/config/docs_pdf_config.yaml
+           --output ci/eridocOutput
+           --stylesheet ci/eridoc/doc/stylesheet.css
+           --format pdf
+    # EriDoc upload dryrun to check the eridoc_config.yaml file config
+    - task: eridoc-upload-dryrun
+      docker-image: adp-release-auto
+      docker-flags:
+        - --env ERIDOC_USERNAME
+        - --env ERIDOC_PASSWORD
+      cmd: eridoc upload
+           --config ci/eridoc/config/eridoc_config.yaml
+           --debug
+           --no-validate-certificates
+           --dry-run

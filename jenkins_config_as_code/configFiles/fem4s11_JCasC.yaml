@@ -1,0 +1,493 @@
+jenkins:
+  agentProtocols:
+  - "JNLP4-connect"
+  - "Ping"
+  authorizationStrategy:
+    globalMatrix:
+      permissions:
+      - "Job/Build:authenticated"
+      - "Job/Cancel:authenticated"
+      - "Job/Discover:anonymous"
+      - "Job/Read:authenticated"
+      - "Job/ExtendedRead:authenticated"
+      - "Job/Workspace:authenticated"
+      - "Lockable Resources/View:authenticated"
+      - "Overall/Administer:EIS_GLOBAL_EIFFEL_OPS"
+      - "Overall/Administer:idm-3f2g4f4fc469"
+      - "Overall/Read:authenticated"
+  clouds:
+  - kubernetes:
+      connectTimeout: 5
+      containerCapStr: "10"
+      credentialsId: ""
+      jenkinsTunnel: "fem4s11-eiffel216.eiffel.gic.ericsson.se:50000"
+      jenkinsUrl: "https://fem4s11-eiffel216.eiffel.gic.ericsson.se:8443/jenkins/"
+      maxRequestsPerHostStr: "32"
+      name: "kubernetes"
+      namespace: "cdd-app"
+      podLabels:
+      - key: "cdd-app/kubernetes"
+        value: "true"
+      readTimeout: 15
+      serverUrl: "https://frappuccino.rnd.gic.ericsson.se/k8s/clusters/c-8m4h5"
+      skipTlsVerify: true
+      templates:
+      - containers:
+        - args: "^${computer.jnlpmac} ^${computer.name}"
+          command: "sleep"
+          envVars:
+          - envVar:
+              key: "JENKINS_URL"
+              value: "https://fem4s11-eiffel216.eiffel.gic.ericsson.se:8443/jenkins/"
+          image: "jenkins/inbound-agent:4.6-1"
+          livenessProbe:
+            failureThreshold: 0
+            initialDelaySeconds: 0
+            periodSeconds: 0
+            successThreshold: 0
+            timeoutSeconds: 0
+          name: "jnlp"
+          resourceLimitCpu: "512m"
+          resourceLimitMemory: "512Mi"
+          resourceRequestCpu: "512m"
+          resourceRequestMemory: "512Mi"
+          runAsGroup: "0"
+          runAsUser: "0"
+          workingDir: "/home/jenkins/agent"
+        hostNetwork: false
+        label: "kubernetes"
+        name: "default"
+        nodeUsageMode: NORMAL
+        podRetention: "never"
+        serviceAccount: "default"
+        showRawYaml: false
+        yamlMergeStrategy: "override"
+  crumbIssuer:
+    strict:
+      checkSessionMatch: false
+  disableRememberMe: false
+  globalNodeProperties:
+  - envVars:
+      env:
+      - key: "GERRIT_CENTRAL"
+        value: "ssh://gerrit.ericsson.se:29418"
+      - key: "GERRIT_MIRROR"
+        value: "ssh://gerritmirror.seli.gic.ericsson.se:29418"
+      - key: "GIT_HOME"
+        value: "/proj/ossmsci/tools/git/2.30.0/bin/git"
+      - key: "K8S_TEST"
+        value: "true"
+      - key: "M2_HOME"
+        value: "/proj/ossmsci/tools/maven/3.5.3"
+      - key: "SQ_ENABLED"
+        value: "true"
+      - key: "SQ_SERVER"
+        value: "sonarqube enterprise 79"
+  labelAtoms:
+  - name: "GridEngine"
+  - name: "RHEL7_GE_Docker_1"
+  - name: "master"
+  markupFormatter:
+    rawHtml:
+      disableSyntaxHighlighting: false
+  mode: NORMAL
+  myViewsTabBar: "standard"
+  nodes:
+  - permanent:
+      labelString: "GridEngine"
+      launcher:
+        command:
+          command: "/proj/ossmsci/GEagents/e2cgejenkins-master.sh --fetch_slave_jar_using_ssl\
+            \ -q ossmsci.q -l h=seliius26247.seli.gic.ericsson.se"
+      name: "RHEL7_GE_Docker_1"
+      nodeDescription: "Docker Agent - seliius26247.seli.gic.ericsson.se"
+      nodeProperties:
+      - envVars:
+          env:
+          - key: "DOCKER_CERT_PATH"
+            value: "/home/ossadmin/.twic/certs/TSA_jenkins_cert/"
+          - key: "DOCKER_HOST"
+            value: "tcp://seliius26247.seli.gic.ericsson.se:2376"
+          - key: "DOCKER_TLS_VERIFY"
+            value: "1"
+      numExecutors: 2
+      remoteFS: "/proj/eiffel216_config_fem4s11/agents/RHEL7_GE_Docker_1"
+      retentionStrategy: "always"
+  numExecutors: 1
+  primaryView:
+    list:
+      columns:
+      - "status"
+      - "weather"
+      - "jobName"
+      - "lastSuccess"
+      - "lastFailure"
+      - "lastDuration"
+      name: "All"
+  projectNamingStrategy: "standard"
+  quietPeriod: 5
+  remotingSecurity:
+    enabled: false
+  scmCheckoutRetryCount: 0
+  slaveAgentPort: 0
+  systemMessage: '<h1 style=\"color:#296487\">fem4s11-eiffel216 for IDUN, Managed by Team Hummingbirds</h1>\r\n\r\n<ul>\r\n  \
+    \<li>Hummingbirds <a href=\"https://eteamspace.internal.ericsson.com/x/dhRke\">Confluence</a></li>\r\n  \
+    \<li><a href="https://eteamspace.internal.ericsson.com/x/fhRke">WoW for Support / Feature requests on Hummingbirds</a></li>\r\n</ul>'
+  updateCenter:
+    sites:
+    - id: "default"
+      url: "https://updates.jenkins-ci.org/update-center.json"
+  views:
+  - list:
+      columns:
+      - "status"
+      - "weather"
+      - "jobName"
+      - "lastSuccess"
+      - "lastFailure"
+      - "lastDuration"
+      includeRegex: "^(Admin.*)"
+      name: "Admin Jobs"
+  - all:
+      name: "All"
+  viewsTabBar: "countJobs"
+security:
+  anonymizeSupportBundle:
+    enabled: false
+  apiToken:
+    creationOfLegacyTokenEnabled: false
+    tokenGenerationOnCreationEnabled: false
+    usageStatisticsEnabled: true
+  envInject:
+    enableLoadingFromMaster: false
+    enablePermissions: false
+    hideInjectedVars: false
+  globalJobDslSecurityConfiguration:
+    useScriptSecurity: false
+  sSHD:
+    port: 53801
+  scriptApproval:
+    approvedSignatures:
+    - "field net.bull.javamelody.internal.model.JavaInformations os"
+    - "field net.bull.javamelody.internal.model.JavaInformations pid"
+    - "method com.sun.management.OperatingSystemMXBean getTotalPhysicalMemorySize"
+    - "method com.sun.management.OperatingSystemMXBean getTotalSwapSpaceSize"
+    - "method hudson.model.Item getFullName"
+    - "method hudson.model.ItemGroup getAllItems java.lang.Class"
+    - "method hudson.model.Job isBuildable"
+    - "method hudson.model.ViewGroup getView java.lang.String"
+    - "method java.net.HttpURLConnection getResponseCode"
+    - "method java.net.HttpURLConnection setRequestMethod java.lang.String"
+    - "method java.net.URL openConnection"
+    - "method java.net.URLConnection getInputStream"
+    - "method jenkins.model.Jenkins getInstance"
+    - "method jenkins.model.ParameterizedJobMixIn$ParameterizedJob isDisabled"
+    - "method net.bull.javamelody.internal.model.JavaInformations getActiveThreadCount"
+    - "method net.bull.javamelody.internal.model.JavaInformations getAvailableProcessors"
+    - "method net.bull.javamelody.internal.model.JavaInformations getContextPath"
+    - "method net.bull.javamelody.internal.model.JavaInformations getHost"
+    - "method net.bull.javamelody.internal.model.JavaInformations getJavaVersion"
+    - "method net.bull.javamelody.internal.model.JavaInformations getJvmVersion"
+    - "method net.bull.javamelody.internal.model.JavaInformations getMemoryInformations"
+    - "method net.bull.javamelody.internal.model.JavaInformations getServerInfo"
+    - "method net.bull.javamelody.internal.model.JavaInformations getSessionCount"
+    - "method net.bull.javamelody.internal.model.JavaInformations getStartDate"
+    - "method net.bull.javamelody.internal.model.JavaInformations getSystemCpuLoad"
+    - "method net.bull.javamelody.internal.model.JavaInformations getSystemLoadAverage"
+    - "method net.bull.javamelody.internal.model.JavaInformations getThreadCount"
+    - "method net.bull.javamelody.internal.model.JavaInformations getThreadInformationsList"
+    - "method net.bull.javamelody.internal.model.MemoryInformations getMaxMemory"
+    - "method net.bull.javamelody.internal.model.MemoryInformations getMaxPermGen"
+    - "method net.bull.javamelody.internal.model.MemoryInformations getUsedMemory"
+    - "method net.bull.javamelody.internal.model.MemoryInformations getUsedNonHeapMemory"
+    - "method net.bull.javamelody.internal.model.MemoryInformations getUsedPermGen"
+    - "method net.bull.javamelody.internal.model.MemoryInformations getUsedPhysicalMemorySize"
+    - "method net.bull.javamelody.internal.model.MemoryInformations getUsedSwapSpaceSize"
+    - "method net.bull.javamelody.internal.model.ThreadInformations isDeadlocked"
+    - "new java.util.ArrayList"
+    - "new net.bull.javamelody.internal.model.JavaInformations javax.servlet.ServletContext\
+      \ boolean"
+    - "new net.bull.javamelody.internal.model.MemoryInformations"
+    - "staticMethod hudson.model.Hudson getInstance"
+    - "staticMethod java.lang.Double parseDouble java.lang.String"
+    - "staticMethod java.lang.management.ManagementFactory getOperatingSystemMXBean"
+    - "staticMethod jenkins.model.Jenkins getInstance"
+    - "staticMethod net.bull.javamelody.internal.common.Parameters getServletContext"
+    - "staticMethod org.codehaus.groovy.runtime.DefaultGroovyMethods getText java.io.InputStream"
+unclassified:
+  badgePlugin:
+    disableFormatHTML: false
+  bitbucketEndpointConfiguration:
+    endpoints:
+    - bitbucketCloudEndpoint:
+        enableCache: false
+        manageHooks: false
+        repositoriesCacheDuration: 0
+        teamCacheDuration: 0
+  buildDiscarders:
+    configuredBuildDiscarders:
+    - "jobBuildDiscarder"
+  defaultFolderConfiguration:
+    healthMetrics:
+    - worstChildHealthMetric:
+        recursive: true
+  fingerprints:
+    fingerprintCleanupDisabled: false
+    storage: "file"
+  gerrit-trigger:
+    servers:
+    - config:
+        buildCurrentPatchesOnly:
+          abortManualPatchsets: false
+          abortNewPatchsets: false
+          abortSameTopic: false
+          enabled: false
+        categories:
+        - verdictDescription: "Code Review"
+          verdictValue: "Code-Review"
+        - verdictDescription: "Verified"
+          verdictValue: "Verified"
+        gerritFrontEndUrl: "https://gerrit.ericsson.se/"
+        gerritHostName: "gerrit.ericsson.se"
+        gerritHttpPassword: ""
+        gerritHttpUserName: "ossadmin"
+        gerritUserName: "ossadmin"
+        replicationConfig:
+          enableReplication: true
+          replicas:
+          - host: "gerritmirror.seli.gic.ericsson.se"
+            id: "a389971c-305c-4270-a737-78dfa5c951f3"
+            name: "Linköping HUB"
+            timeoutInSeconds: 300
+        restCodeReview: true
+        restVerified: true
+        useRestApi: true
+      name: "Gerrit_Central"
+      noConnectionOnStartup: false
+  gitHubConfiguration:
+    apiRateLimitChecker: ThrottleForNormalize
+  gitHubPluginConfig:
+    hookUrl: "https://fem4s11-eiffel216.eiffel.gic.ericsson.se:8443/jenkins/github-webhook/"
+  gitSCM:
+    addGitTagAction: false
+    allowSecondFetch: false
+    createAccountBasedOnEmail: false
+    disableGitToolChooser: false
+    hideCredentials: false
+    showEntireCommitSummaryInChanges: false
+    useExistingAccountWithSameEmail: false
+  globalConfigFiles:
+    configs:
+    - custom:
+        comment: "KaaS cluster (hahn186)"
+        content: |-
+          apiVersion: v1
+          kind: Config
+          clusters:
+          - name: "hahn186"
+            cluster:
+              server: "https://frappuccino.rnd.gic.ericsson.se/k8s/clusters/c-8m4h5"
+
+          users:
+          - name: "hahn186"
+            user:
+              token: "kubeconfig-u-lewztb6tti:dqlc85l5zqd4lsrtk494lrncspmxt97wb8s45hmvb7gvn2vk2sf96n"
+
+          contexts:
+          - name: "hahn186"
+            context:
+              user: "hahn186"
+              cluster: "hahn186"
+
+          current-context: "hahn186"
+        id: "hahn186"
+        name: "config"
+        providerId: "org.jenkinsci.plugins.configfiles.custom.CustomConfig"
+    - mavenSettings:
+        comment: "Microservice Chassis Settings XML with Access to Artifactory, Nexus004 and Nexus052\
+          \ Repos"
+        content: |-
+          <?xml version="1.0" encoding="UTF-8"?>
+          <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+           ~ COPYRIGHT Ericsson 2020
+           ~
+           ~
+           ~
+           ~ The copyright to the computer program(s) herein is the property of
+           ~
+           ~ Ericsson Inc. The programs may be used and/or copied only with written
+           ~
+           ~ permission from Ericsson Inc. or in accordance with the terms and
+           ~
+           ~ conditions stipulated in the agreement/contract under which the
+           ~
+           ~ program(s) have been supplied.
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+          <settings xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.1.0 http://maven.apache.org/xsd/settings-1.1.0.xsd" xmlns="http://maven.apache.org/SETTINGS/1.1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+              <pluginGroups>
+                  <pluginGroup>org.sonarsource.scanner.maven</pluginGroup>
+              </pluginGroups>
+              <mirrors>
+                  <mirror>
+                      <id>nexus</id>
+                      <mirrorOf>external:*,central</mirrorOf>
+                      <url>https://arm1s11-eiffel052.eiffel.gic.ericsson.se:8443/nexus/content/groups/eo-repositories</url>
+                  </mirror>
+                  <mirror>
+                      <id>nexus-arm1s11-eiffel004</id>
+                      <mirrorOf>central</mirrorOf>
+                      <url>https://arm1s11-eiffel004.eiffel.gic.ericsson.se:8443/nexus/content/groups/public</url>
+                  </mirror>
+              </mirrors>
+               <profiles>
+                  <profile>
+                   <repositories>
+                     <repository>
+                       <snapshots />
+                       <id>snapshot</id>
+                       <name>proj-eric-oss-dev-local</name>
+                       <url>https://arm.seli.gic.ericsson.se/artifactory/proj-eric-oss-dev-local</url>
+                     </repository>
+                     <repository>
+                       <snapshots>
+                         <enabled>false</enabled>
+                       </snapshots>
+                       <id>staging</id>
+                       <name>proj-eric-oss-staging-local</name>
+                       <url>https://arm.seli.gic.ericsson.se/artifactory/proj-eric-oss-staging-local</url>
+                     </repository>
+                     <repository>
+                       <snapshots>
+                         <enabled>false</enabled>
+                       </snapshots>
+                       <id>release</id>
+                       <name>proj-eric-oss-release-local</name>
+                       <url>https://arm.seli.gic.ericsson.se/artifactory/proj-eric-oss-release-local</url>
+                     </repository>
+                   </repositories>
+                   <id>artifactory</id>
+                  </profile>
+                  <profile>
+                      <id>default-repo</id>
+                      <repositories>
+                          <repository>
+                              <id>eiffel052Nexus</id>
+                              <name>eo-repositories</name>
+                              <url>arm1s11-eiffel052.eiffel.gic.ericsson.se:8443/nexus/content/groups/eo-repositories</url>
+                          </repository>
+                          <repository>
+                              <id>central</id>
+                              <name>maven-central</name>
+                              <url>https://central</url>
+                          </repository>
+                      </repositories>
+                      <pluginRepositories>
+                          <pluginRepository>
+                              <snapshots>
+                                  <enabled>false</enabled>
+                              </snapshots>
+                              <id>jcat-arm-release</id>
+                              <name>proj-jcat-release</name>
+                              <url>https://arm.rnd.ki.sw.ericsson.se/artifactory/proj-jcat-release</url>
+                          </pluginRepository>
+                          <pluginRepository>
+                              <snapshots />
+                              <id>jcat-arm-snapshot</id>
+                              <name>proj-jcat-dev</name>
+                              <url>https://arm.rnd.ki.sw.ericsson.se/artifactory/proj-jcat-release</url>
+                          </pluginRepository>
+                      </pluginRepositories>
+                  </profile>
+              </profiles>
+              <activeProfiles>
+                  <activeProfile>default-repo</activeProfile>
+              </activeProfiles>
+          </settings>
+        id: "maven.settings.oss"
+        isReplaceAll: true
+        name: "settings.xml"
+        providerId: "org.jenkinsci.plugins.configfiles.maven.MavenSettingsConfig"
+        serverCredentialMappings:
+        - credentialsId: "SELI_ARTIFACTORY"
+          serverId: "snapshot"
+        - credentialsId: "SELI_ARTIFACTORY"
+          serverId: "staging"
+        - credentialsId: "SELI_ARTIFACTORY"
+          serverId: "release"
+  groovy:
+    installations:
+    - home: "/proj/ciexadm200/tools/groovy/groovy-2.2.2"
+      name: "Groovy 2.2.2"
+  junitTestResultStorage:
+    storage: "file"
+  location:
+    adminAddress: "address not configured yet <nobody@nowhere>"
+    url: "https://fem4s11-eiffel216.eiffel.gic.ericsson.se:8443/jenkins/"
+  lockableResourcesManager:
+    declaredResources:
+    - description: "Namespace41 as part of hahn186 KaaS cluster (CPU=6000m, Memory=12Gi)"
+      labels: "kaas"
+      name: "hahn186_namespace41"
+    - description: "Namespace42 as part of hahn186 KaaS cluster (CPU=6000m, Memory=12Gi)"
+      labels: "kaas"
+      name: "hahn186_namespace42"
+    - description: "Namespace43 as part of hahn186 KaaS cluster (CPU=6000m, Memory=12Gi)"
+      labels: "kaas"
+      name: "hahn186_namespace43"
+    - description: "Namespace44 as part of hahn186 KaaS cluster (CPU=6000m, Memory=12Gi)"
+      labels: "kaas"
+      name: "hahn186_namespace44"
+    - description: "Namespace45 as part of hahn186 KaaS cluster (CPU=6000m, Memory=12Gi)"
+      labels: "kaas"
+      name: "hahn186_namespace45"
+    - description: "Namespace46 as part of hahn186 KaaS cluster (CPU=6000m, Memory=12Gi)"
+      labels: "kaas"
+      name: "hahn186_namespace46"
+  mailer:
+    charset: "UTF-8"
+    smtpHost: "mail-vip.seli.gic.ericsson.se"
+    smtpPort: "25"
+    useSsl: false
+    useTls: false
+  mavenModuleSet:
+    localRepository: "default"
+  pollSCM:
+    pollingThreadCount: 10
+  sonarGlobalConfiguration:
+    buildWrapperEnabled: false
+    installations:
+    - credentialsId: "SQ_auth_token"
+      name: "sonarqube enterprise 79"
+      serverUrl: "https://codeanalyzer2.internal.ericsson.com"
+      triggers:
+        skipScmCause: false
+        skipUpstreamCause: false
+  timestamper:
+    allPipelines: false
+    elapsedTimeFormat: "'<b>'HH:mm:ss.S'</b> '"
+    systemTimeFormat: "'<b>'HH:mm:ss'</b> '"
+tool:
+  git:
+    installations:
+    - home: "/proj/ossmsci/tools/git/2.30.0/bin/git"
+      name: "Default"
+  groovy:
+    installations:
+    - home: "/proj/ciexadm200/tools/groovy/groovy-2.2.2"
+      name: "Groovy 2.2.2"
+  jdk:
+    installations:
+    - home: "/app/vbuild/SLED11-x86_64/jdk/1.8.0_172"
+      name: "JDK 1.8.0_172"
+  maven:
+    installations:
+    - home: "/app/vbuild/tools/maven/3.5.3/"
+      name: "Maven 3.5.3"
+    - home: "/app/vbuild/tools/maven/3.6.3/"
+      name: "Maven 3.6.3"
+  pipelineMaven:
+    triggerDownstreamUponResultAborted: false
+    triggerDownstreamUponResultFailure: false
+    triggerDownstreamUponResultNotBuilt: false
+    triggerDownstreamUponResultSuccess: true
+    triggerDownstreamUponResultUnstable: false
